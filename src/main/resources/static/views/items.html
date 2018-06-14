@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>ADD ITEM</title>
+
+<link href="//netdna.bootstrapcdn.com/bootstrap/3.1.0/css/bootstrap.min.css" rel="stylesheet" id="bootstrap-css">
+<script src="//netdna.bootstrapcdn.com/bootstrap/3.1.0/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+<script src="js/lib/angular.min.js"></script>
+<script src="js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+<script src="js/app/app.js"></script>
+<script src="js/app/UserController.js"></script>
+<script src="js/app/UserService.js"></script>
+<script src="js/app/ItemController.js"></script>
+<script src="js/app/ItemService.js"></script>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<link rel="stylesheet" href="css/lib/bootstrap.min.css" />
+<link rel="stylesheet" href="css/app/app.css" />
+
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+	$(function() {
+		$("#header").load("header");
+		// $("#footer").load("footer.html"); 
+	});
+</script>
+</head>
+ 
+
+<body ng-app="demo">
+<div id="header"></div>
+<!--Remaining section-->
+	<hr />
+<div ng-app="MyApp" ng-controller="ItemController">
+<!-- <div id="main"> -->
+	<div class="container" ng-controller="ItemController">
+	<div align="right" style="width: 76%; height: auto ">
+	<button ng-click="saveItem()" class="btn btn-sm btn-info" >Save</button>
+	<a href="itemList" class="btn btn-sm btn-info" ng-click="listItem()">Go To Stock</a>
+	</div>
+	<br><br>
+	
+		<div class="row">
+		<h1 style=" display: block;
+    font-size: 3em;
+    margin-top: 0em;
+    margin-bottom: 0em;
+    margin-left: 0em;
+    margin-right: 0em;
+    font-weight: bold;
+    background-color:ORANGE;
+    color:GREEN;">** ITEM ENTRY **</h1>
+    <!-- <div ng-app="MyApp" ng-controller="ItemController"> -->
+           <div class="form-group">
+            <label >Item Name</label>
+			<input type="text" id ="itemName" ng-model="itemDto.itemName" class="form-control" placeholder="Enter Item Name" height="50" width=""/>
+			</div>
+			<div class="form-group col-md-4">
+			<label>Length</label> 
+			<input type="text" id ="length" ng-model="itemDto.length" class="form-control" placeholder="Enter Item length" height="50" width="50"/>
+			</div>
+			<div class="form-group col-md-4">
+			<label>Width</label>
+			<input type="text" id ="width" ng-model="itemDto.width" class="form-control" placeholder="Enter Item width" height="50" width="50"/>
+			   
+			<!-- <select id ="option" ng-model="itemDto.option" class="form-control" >
+				<option selected="selected">foot</option>
+	  			<option value="piece" >inch</option>
+			</select> -->
+			</div>
+			<div class="form-group col-md-4">
+			<label>Sq. Ft.</label> 
+			<input type="text" id ="squareFt" ng-model="itemDto.squareFeet" class="form-control" placeholder="Enter Item Square Feet" height="50" width="50" ng-click="calculateSqFt(itemDto.length, itemDto.width)" /> 
+			</div>
+			<div class="form-group col-md-4">
+			<label>Rate</label>
+			<input type="text" id ="rate" ng-model="itemDto.rate" class="form-control" placeholder="Enter Item rate" height="50" width="50"/> 
+			</div>
+			<div class="form-group col-md-4">
+			<label>Per</label> 
+			<select id ="per" ng-model="itemDto.per" class="form-control" >
+  				<option value="piece" >Piece</option>
+ 				<option value="foot" >Foot</option>
+			</select>
+			</div>
+			<div class="form-group col-md-4">
+			<label>Quantity</label>
+			<input type="text" id ="stock" ng-model="itemDto.stock" class="form-control" placeholder="Stocks" height="50" width="50" />
+			</div>
+
+             <div class="form-group col-md-6">
+			<label>Breakage Charges</label>
+			<input type="text" id ="brokerCharges" ng-model="itemDto.brokerCharges"  class="form-control" placeholder="Enter broker charges" height="50" width="50" /> 
+			 </div>
+			 <div class="form-group col-md-6">
+			<label>Rent Per Day</label>
+			<input type="text" id ="rentPerDay" ng-model="itemDto.rentPerDay" class="form-control"  placeholder="Enter rent per day"   ng-click="calculateRentPerDay(itemDto.rate)"/>
+    		  </div>
+    		<br>
+    		<button style="position: static;" ng-click="Add()" class="btn btn-sm btn-info"> + ADD ITEM</button>
+    		<br><bR>
+        	<table class="table">
+            <tr>
+                <th width="162">Item Name</th>
+                <th width="162">Square Feet</th>
+                <th width="162">Rate</th>
+                <th width="162">Breakage Charges</th>
+                <th width="162">Stock[Pcs]</th>
+                <th width="70">Action</th>
+            </tr>
+            <tbody ng-repeat="m in Items">
+                <tr>
+                    <td>{{m.itemName}}</td>
+                    <td>{{m.squareFeet}}</td>
+                    <td>{{m.rate}}</td>
+                    <td>{{m.brokerCharges}}</td>
+                    <td>{{m.stock}}</td>
+                    <td><input type="button" ng-click="Remove($index)" value="Remove" /></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                    <!-- <td><input type="text" ng-model="Name" /></td>
+                    <td><input type="text" ng-model="Country" /></td>
+                    <td><input type="button" ng-click="Add()" value="Add" /></td>  -->
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+		 
+		</div>
+	<!-- </div> -->
+</div>
+<div id="footer"></div>
+</body>
+<script src="js/lib/angular.min.js"></script>
+<script src="js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+<script src="js/app/app.js"></script>
+<script src="js/app/UserController.js"></script>
+<script src="js/app/UserService.js"></script>
+<script src="js/app/ItemController.js"></script>
+<script src="js/app/ItemService.js"></script>
+<link rel="stylesheet" href="css/lib/bootstrap.min.css" />
+<link rel="stylesheet" href="css/app/app.css" />
+</html>

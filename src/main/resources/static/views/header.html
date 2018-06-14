@@ -1,0 +1,320 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet"
+	href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+<link rel="stylesheet" href="css/app/w3.css" />
+
+<style type="text/css">
+ul {
+	list-style: none;
+	padding: 0px;
+	margin: 0px;
+}
+
+ul li {
+	display: block;
+	position: relative;
+	float: left;
+	border: 1px solid #000
+}
+
+li ul {
+	display: none;
+}
+
+ul li a {
+	display: block;
+	background: #000;
+	padding: 5px 10px 5px 10px;
+	text-decoration: none;
+	white-space: nowrap;
+	color: #fff;
+}
+
+ul li a:hover {
+	background: #f00;
+}
+
+li:hover ul {
+	display: block;
+	position: absolute;
+}
+
+li:hover li {
+	float: none;
+}
+
+li:hover a {
+	background: #f00;
+}
+
+li:hover li a:hover {
+	background: #000;
+}
+
+#drop-nav li ul li {
+	border-top: 0px;
+}
+</style>
+
+<style>
+/* right part content */
+body {
+	font-family: "Lato", sans-serif;
+}
+
+/* Fixed sidenav, full height */
+.sidenav {
+	height: 100%;
+	width: 240px;
+	position: fixed;
+	z-index: 1;
+	top: 0;
+	right: 0;
+	background-color: black;
+	overflow-x: hidden;
+	padding-top: 20px;
+}
+
+/* Style the sidenav links and the dropdown button */
+.sidenav a, .dropdown-btn {
+	padding: 6px 8px 6px 16px;
+	text-decoration: none;
+	font-size: 20px;
+	color: #818181;
+	display: block;
+	border: none;
+	background: none;
+	width: 100%;
+	text-align: left;
+	cursor: pointer;
+	outline: none;
+}
+
+/* On mouse-over */
+.sidenav a:hover, .dropdown-btn:hover {
+	color: #f1f1f1;
+}
+
+/* Main content */
+.main {
+	margin-left: 200px; /* Same as the width of the sidenav */
+	font-size: 20px; /* Increased text to enable scrolling */
+	padding: 0px 10px;
+}
+
+/* Add an active class to the active dropdown button */
+.active {
+	background-color: green;
+	color: white;
+}
+
+/* Dropdown container (hidden by default). Optional: add a lighter background color and some left padding to change the design of the dropdown content */
+.dropdown-container {
+	display: none;
+	background-color: #262626;
+	padding-left: 8px;
+}
+
+/* Optional: Style the caret down icon */
+.fa-caret-down {
+	float: right;
+	padding-right: 8px;
+}
+
+/* Some media queries for responsiveness */
+@media screen and (max-height: 450px) {
+	.sidenav {
+		padding-top: 15px;
+	}
+	.sidenav a {
+		font-size: 18px;
+	}
+}
+/*  right part content style end */
+
+/* header content style start */
+.navbar {
+	overflow: hidden;
+	background-color: #333;
+	font-family: Arial, Helvetica, sans-serif;
+}
+
+.navbar a {
+	float: left;
+	font-size: 16px;
+	color: white;
+	text-align: center;
+	padding: 14px 16px;
+	text-decoration: none;
+}
+
+.dropdown {
+	float: left;
+	overflow: hidden;
+}
+
+.dropdown .dropbtn {
+	font-size: 16px;
+	border: none;
+	outline: none;
+	color: white;
+	padding: 14px 16px;
+	background-color: inherit;
+	font-family: inherit;
+	margin: 0;
+}
+
+.navbar a:hover, .dropdown:hover .dropbtn {
+	background-color: orange;
+}
+
+.dropdown-content {
+	display: none;
+	position: absolute;
+	background-color: #f9f9f9;
+	min-width: 160px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	z-index: 1;
+}
+
+.dropdown-content a {
+	float: none;
+	color: black;
+	padding: 12px 16px;
+	text-decoration: none;
+	display: block;
+	text-align: left;
+}
+
+.dropdown-content a:hover {
+	background-color: #ddd;
+}
+
+.dropdown:hover .dropdown-content {
+	display: block;
+}
+
+/*  header contenet style end */
+</style>
+</head>
+<body>
+	<!-- right part bode content start -->
+	<div class="sidenav">
+		<a href="items">ITEM</a> <a href="#services">AGREEMENT</a> 
+		<a href="#clients">ISSUED</a> <a href="#contact">RECEIVED</a>
+		<button class="dropdown-btn"> UTILITIES <i class="fa fa-caret-down"></i>
+		</button>
+		<div class="dropdown-container">
+			<a href="#">BILL</a> <a href="#">TRANSACTION</a> <a href="#">Link</a>
+		</div>
+		<a href="#clients">ISSUED REGISTER</a> <a href="#contact">RECEIVED
+			REGISTER</a> <a href="#clients">BILL</a> <a href="#contact">BILL
+			REGISTER</a> <a href="#contact">CONTACTS</a>
+	</div>
+
+	<script>
+		/* Loop through all dropdown buttons to toggle between hiding and showing its dropdown content - This allows the user to have multiple dropdowns without any conflict */
+		var dropdown = document.getElementsByClassName("dropdown-btn");
+		var i;
+
+		for (i = 0; i < dropdown.length; i++) {
+			dropdown[i].addEventListener("click", function() {
+				this.classList.toggle("active");
+				var dropdownContent = this.nextElementSibling;
+				if (dropdownContent.style.display === "block") {
+					dropdownContent.style.display = "none";
+				} else {
+					dropdownContent.style.display = "block";
+				}
+			});
+		}
+	</script>
+
+	<!-- right part body content end -->
+
+
+
+
+
+	<!-- right part body content end -->
+
+	<div class="w3-bar w3-light-blue">
+		<a href="items" class="w3-bar-item w3-button">ITEM</a> <a
+			href="issued" class="w3-bar-item w3-button">ISSUED</a> <a
+			href="received" class="w3-bar-item w3-button">RECEIVED</a> 
+			
+			<a href="issuedRegister" class="w3-bar-item w3-button">ISSUED REGISTER</a>
+			<a href="receivedRegister" class="w3-bar-item w3-button">RECEIVED REGISTER</a>
+			<a href="stockStatus" class="w3-bar-item w3-button">STOCK STATUS</a>
+			<a href="createAccount" class="w3-bar-item w3-button">ACCOUNT</a>
+			
+			<a href="agreement" class="w3-bar-item w3-button">AGREEMENT</a>
+			
+		<div class="w3-dropdown-hover">
+			<button class="w3-button">
+				UTILITIES <i class="fa fa-caret-down"></i>
+			</button>
+			<div class="w3-dropdown-content w3-bar-block w3-card-4">
+				<a href="createSite" class="w3-bar-item w3-button">CREATE SITE</a>
+				<a href="partyWiseDetails" class="w3-bar-item w3-button">PARTY WISE DETAILS</a>
+				<a href="dailyTransaction" class="w3-bar-item w3-button">DAILY TRANSACTION</a>
+				<a href="pendencyReportRegister" class="w3-bar-item w3-button">PENDENCY REPORT REGISTER</a>
+			</div>
+		</div>
+	</div>
+
+	<!-- <div>
+		<ul id="drop-nav">
+			<li><a href="items">ITEM</a></li>
+			<li><a href="#" style="width: 100px">UTILITIES</a>
+			<ul>
+				<li><a href="#">BILL</a></li>
+				<li><a href="#">TRANSACTION</a></li>
+				<li><a href="#">ISSUED</a></li>
+				<li><a href="#">RECEIVED</a></li>
+			</ul>
+			</li>
+			<li><a href="#">LANGUAGE</a>
+				<ul>
+					<li><a href="#">Joomla</a></li>
+					<li><a href="#">Drupal</a></li>
+					<li><a href="#">WordPress</a></li>
+					<li><a href="#">Concrete 5</a></li>
+				</ul></li>
+			<li><a href="#">Contact</a>
+				<ul>
+					<li><a href="#">General Inquiries</a></li>
+					<li><a href="#">Ask me a Question</a></li>
+				</ul></li>
+				 
+		</ul>
+
+	</div>  -->
+
+
+	<!-- Header body content End-->
+
+
+	<script>
+		/* When the user clicks on the button, 
+		 toggle between hiding and showing the dropdown content */
+		function myFunction() {
+			document.getElementById("myDropdown").classList.toggle("show");
+		}
+
+		// Close the dropdown if the user clicks outside of it
+		window.onclick = function(e) {
+			if (!e.target.matches('.dropbtn')) {
+				var myDropdown = document.getElementById("myDropdown");
+				if (myDropdown.classList.contains('show')) {
+					myDropdown.classList.remove('show');
+				}
+			}
+		}
+	</script>
+</body>
+</html>

@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>CREATE ACCOUNT</title>
+<link rel="stylesheet"
+	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+<script
+	src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+<script
+	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+	$(function() {
+		$("#header").load("header");
+		// $("#footer").load("footer.html"); 
+	});
+</script>
+</head>
+<body ng-app="demo">
+	<div id="header"></div>
+	<!--Remaining section-->
+	<hr />
+	<div ng-app="MyApp" ng-controller="ItemController">
+		<a href="customerAccountList" class="btn btn-sm btn-info"
+			ng-click="customerAccountList()">Go To List</a>
+		<h1
+			style="display: block; font-size: 3em; margin-top: 0em; margin-bottom: 0em; margin-left: 0em; margin-right: 0em; font-weight: bold; background-color: orange; color: green;">**
+			CREATE ACCOUNT **</h1>
+		<form>
+			<div class="form-row">
+				<div class="form-group">
+					<label>Account NAME</label> <input type="text" id="accountName"
+						ng-model="accountDto.accountName" class="form-control"
+						placeholder="Enter Item Name" />
+				</div>
+				<div class="form-group col-md-4">
+					<label>FATHER NAME</label> <input type="text"
+						id="accountFatherName" ng-model="accountDto.accountFatherName"
+						class="form-control" placeholder="Enter Father Name" />
+				</div>
+
+				<div class="form-group col-md-4">
+					<label>Open Bal</label> <input type="text" id="openBal"
+						ng-model="accountDto.openBal" class="form-control"
+						placeholder="Enter Item length" />
+				</div>
+
+				<div class="form-group col-md-4">
+					<label>Dr/Cr</label> <input type="text" id="drCr"
+						ng-model="accountDto.drCr" class="form-control"
+						placeholder="Enter Item width" height="50" width="50" />
+				</div>
+
+				<div class="form-group col-md-4">
+					<label>Group</label> <input type="text" id="group"
+						ng-model="accountDto.group" class="form-control"
+						placeholder="Enter Item Square Feet" height="50" width="50" />
+				</div>
+
+				<div class="form-group col-md-4">
+					<label>Address </label> <input type="text" id="address"
+						ng-model="accountDto.address" class="form-control"
+						placeholder="Enter Item rate" />
+				</div>
+
+				<div class="form-group col-md-4">
+					<label>Address2</label> <input type="text" id="address2"
+						ng-model="accountDto.address2" class="form-control"
+						placeholder="Stocks" />
+				</div>
+
+				<div class="form-group col-md-4">
+					<label>city</label> <input type="text" id="city"
+						ng-model="accountDto.city" class="form-control"
+						placeholder="Stocks" />
+				</div>
+
+				<div class="form-group col-md-4">
+					<label>State</label> <input type="text" id="state"
+						ng-model="accountDto.state" class="form-control"
+						placeholder="Stocks" />
+				</div>
+
+				<div class="form-group col-md-4">
+					<label>Phone</label> <input type="text" id="phone"
+						ng-model="accountDto.phone" class="form-control"
+						placeholder="Stocks" />
+				</div>
+
+				<div class="form-group col-md-4">
+					<label>Mobile</label> <input type="text" id="mobile"
+						ng-model="accountDto.mobile" class="form-control"
+						placeholder="Stocks" />
+				</div>
+
+				<div class="form-group col-md-4">
+					<label>Service Tax No</label> <input type="text" id="serviceTaxNo"
+						ng-model="accountDto.serviceTaxNo" class="form-control"
+						placeholder="Enter serviceTaxNo" />
+				</div>
+
+				<div class="form-group col-md-4">
+					<label>GST No</label> <input type="text" id="gstNo"
+						ng-model="accountDto.gstNo" class="form-control"
+						placeholder="Enter GST No" />
+				</div>
+
+				<div class="form-group col-md-4">
+					<label>Email</label> <input type="text" id="email"
+						ng-model="accountDto.email" class="form-control"
+						placeholder="Enter email id" />
+				</div>
+
+				<div class="form-group col-md-4">
+					<label>Gurantor Name</label> <input type="text" id="guranteerName"
+						ng-model="accountDto.guranteerName" class="form-control"
+						placeholder="Enter email id" />
+				</div>
+
+				<div class="form-group col-md-4">
+					<label>Gurantor Phn</label> <input type="text" id="guranteer_Phn"
+						ng-model="accountDto.guranteerPhn" class="form-control"
+						placeholder="Enter email id" />
+				</div>
+
+				<div class="form-group">
+					<div class="form-check">
+						<input class="form-check-input" type="checkbox" id="gridCheck">
+						<label class="form-check-label" for="gridCheck">
+							Deactivate Account </label>
+					</div>
+				</div>
+
+			</div>
+
+			<br>
+			<br>
+
+			<button ng-click="createAccount(accountDto)" class="btn btn-primary">SUBMIT</button>
+
+		</form>
+
+
+	</div>
+	<div id="footer"></div>
+</body>
+<script src="js/lib/angular.min.js"></script>
+<script src="js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+<script src="js/app/app.js"></script>
+<script src="js/app/UserController.js"></script>
+<script src="js/app/UserService.js"></script>
+<script src="js/app/ItemController.js"></script>
+<script src="js/app/ItemService.js"></script>
+<link rel="stylesheet" href="css/lib/bootstrap.min.css" />
+<link rel="stylesheet" href="css/app/app.css" />
+</html>

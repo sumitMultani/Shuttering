@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Main Page</title>
+</head>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+
+<script>
+$(function(){
+  $("#header").load("header"); 
+ // $("#footer").load("footer.html"); 
+});
+</script>
+
+<body ng-app="demo">
+<div id="header"></div>
+<!--Remaining section-->
+	<hr />
+<div id="main">
+	<div class="container" ng-controller="ItemController">
+	<div align="right" style="width: 76%; height: auto ">
+	<button ng-click="saveItem()" class="btn btn-sm btn-info" >Save</button>
+	<button ng-click="updateItem()" class="btn btn-sm btn-info">Update</button>
+	<button ng-click="deleteItem()" class="btn btn-sm btn-info">Delete</button>
+	<button ng-click="listStockItem()" class="btn btn-sm btn-info" >Show Stock</button> 
+	</div>
+	<br><br>
+		<div class="row">
+		<h1 style=" display: block;
+    font-size: 3em;
+    margin-top: 0em;
+    margin-bottom: 0em;
+    margin-left: 0em;
+    margin-right: 0em;
+    font-weight: bold;
+    background-color:orange;
+    color:green;">** ITEM LIST **</h1>
+			<!-- show data in table format -->
+			<table class="table">
+				<thead>
+					<tr>
+						<!-- <th width="175">Item ID</th> -->
+						<th width="175">Item Name</th>
+						<th width="175">Rate</th>
+						<th width="175">Per</th>
+						<th width="175">Rent Per Day</th>
+						<th width="175">Stock[Pcs]</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr ng-repeat="item in items">
+						<!-- <td ng-bind="item.itemId"  width="175"></td> -->
+						<td><a ng-href="specificItem" ng-dblClick="doubleClick(item.itemName)">{{item.itemName}}</a></td>
+						<td ng-bind="item.rate" width="175"  ></td>
+						<td ng-bind="item.squareFeet" width="175"></td>
+						<td ng-bind="item.per" width="175"  ></td>
+						<td ng-bind="item.rentPerDay" width="175"  ></td>
+						<td ng-bind="item.stock" width="175"  ></td>
+						<!-- <td ng-bind="item.itemName" width="175" ng-dblClick="doubleClick(item.itemName)" ></td>
+						<td ng-bind="item.rate" width="175" ng-dblClick="doubleClick(item.itemName)"></td>
+						<td ng-bind="item.squareFeet" width="175"></td>
+						<td ng-bind="item.per" width="175" ng-dblClick="doubleClick(item.itemName)"></td>
+						<td ng-bind="item.rentPerDay" width="175" ng-dblClick="doubleClick(item.itemName)"></td>
+						<td ng-bind="item.stock" width="175" ng-dblClick="doubleClick(item.itemName)"></td> -->
+						 
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+</div>
+<div id="footer"></div>
+</body>
+<script src="js/lib/angular.min.js"></script>
+<script src="js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+<script src="js/app/app.js"></script>
+<script src="js/app/UserController.js"></script>
+<script src="js/app/UserService.js"></script>
+<script src="js/app/ItemController.js"></script>
+<script src="js/app/ItemService.js"></script>
+<link rel="stylesheet" href="css/lib/bootstrap.min.css" />
+<link rel="stylesheet" href="css/app/app.css" />
+</html>

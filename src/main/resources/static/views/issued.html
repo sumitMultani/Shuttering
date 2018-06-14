@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Main Page</title>
+ 
+</head>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+$(function(){
+  $("#header").load("header"); 
+ // $("#footer").load("footer.html"); 
+});
+</script>
+
+<body ng-app="demo">
+<div id="header"></div>
+<!--Remaining section-->
+	<hr />
+<div ng-app="MyApp" ng-controller="ItemController">
+
+      
+<div id="main">
+	<div class="container" ng-controller="ItemController">
+	<div align="right" style="width: 76%; height: auto ">
+	<button ng-click="saveIssuedItem()" class="btn btn-sm btn-info" >Save</button>
+	<a href="itemList" class="btn btn-sm btn-info" ng-click="print()">Print</a>
+	</div>
+	<br><br>
+<div class="row">
+<h1 style=" display: block;
+    font-size: 3em;
+    margin-top: 0em;
+    margin-bottom: 0em;
+    margin-left: 0.7em;
+    margin-right: 0em;
+    font-weight: bold;
+    background-color:orange;
+    color:green;">** ITEM ISSUED **</h1>
+    	<!-- <div ng-app="MyApp" ng-controller="ItemController"> -->
+<div class="container">
+  <form class="form-group">
+    <div class="form-group col-xs-3" >
+      <label for="usr">Date:</label>
+      <input type="date" id ="issuedDate" ng-model="itemIssuedDto.issuedDate"  class="form-control input-sm"  placeholder="Select Date" height="50" width="50"/>
+    </div>
+    <div class="form-group col-xs-3">
+   			<label>Transaction type</label> 
+			<select id ="transactionType" ng-model="itemIssuedDto.transactionType" class="form-control input-sm">
+  				<option value="issued" >Issued</option>
+ 				<option value="received" >Received</option>
+			</select>
+    </div>
+    <div class="form-group col-xs-3">
+      <label>Challan No</label> 
+	  <input type="text" id ="challanNo" ng-model="itemIssuedDto.challanNo" class="form-control input-sm" placeholder="Enter Challan No" height="50" width="50"/>
+    </div>
+    
+     <div class="form-group col-xs-3">
+     <label >Party Name</label>
+    		<select ng-model="itemIssuedDto.partyName"  ng-options="account for account in accountNames" class="form-control input-sm" ng-click="getAccountNames()" >
+    		<option value="">Select Account</option>
+    		<option value="itemIssuedDto.partyName">{{account}}</option>
+			</select>
+     </div>
+     <div class="form-group col-xs-3">
+     <label >Father Name</label>
+    		<select ng-model="itemIssuedDto.fatherName"  ng-options="accountFatherName for accountFatherName in accountFatherNames"  class="form-control input-sm" ng-click="getAccountFatherNames()" >
+    		<option value="">Select Account</option>
+    		<option value="itemIssuedDto.fatherName">{{accountFatherName}}</option>
+			</select>
+     </div>
+     <div class="form-group col-xs-3">
+     <label>Item Name</label> 
+			<select ng-model="itemIssuedDto.itemName"  ng-options="item for item in itemNames" ng-click="getItemNames()"  class="form-control input-sm">
+    		<option value="">Select Item</option>
+    		<option value="itemIssuedDto.itemName">{{item}}</option>
+			</select>
+     </div>
+      <div class="form-group col-xs-3">
+      <label>Size</label> 
+			<select ng-model="itemIssuedDto.size"  ng-options="item for item in itemSizes" ng-click="getItemSizes()"  class="form-control input-sm">
+    		<option value="">Select Size</option>
+    		<option value="itemIssuedDto.size">{{item}}</option>
+			</select> 
+     </div>
+      <div class="form-group col-xs-3">
+      <label>Quantity</label>
+			<input type="text" id ="quantity" ng-model="itemIssuedDto.quantity"   placeholder="Enter Item Quantity"  class="form-control input-sm"/>
+			
+     </div>
+      <div class="form-group col-xs-3">
+      <label>Excess Qty</label> 
+			<input type="text"  class="form-control input-sm" id ="excessQuantity" ng-model="itemIssuedDto.excessQuantity"   ng-click="getItemExcessQuantity(itemIssuedDto.itemName)" placeholder="Enter Item Excess Quantity" height="50" width="50" ng-click="calculateSqFt(itemDto.length, itemDto.width)" /> 
+			
+     </div>
+     <div class="form-group col-xs-3">
+     <label>Breakage</label>
+			<input type="text" id ="breakage"  class="form-control input-sm" ng-model="itemIssuedDto.breakage"  placeholder="Enter Breakage " height="50" width="50"/> 
+			
+     </div>
+     <div class="form-group col-xs-3">
+     <label>Shortage</label>
+			<input type="text" id ="shortage" ng-model="itemIssuedDto.shortage"  class="form-control input-sm" placeholder="Enter Shortage" height="50" width="50" />
+    		
+     </div>
+  </form>
+</div>
+    		<br>
+    		<button style="position: static;" ng-click="AddIssuedItem()" class="btn btn-sm btn-info"> + ADD ITEM</button>
+    		<!-- <button style="position: static;" ng-click="addIssuedItem(itemIssuedDto)" class="btn btn-sm btn-info">Add Item</button> -->
+    		<br><br>
+        	<table class="table">
+            <tr>
+                <th width="135">Party Name</th>
+                <th width="135">Father Name</th>
+                <th width="135">Item Name</th>
+                <th width="135">Size</th>
+                <th width="135">Quantity</th>
+                <th width="135">Excess Quantity</th>
+                <th width="135">Breakage</th>
+                <th width="135">Shortage</th>
+                <th width="70">Action</th>
+            </tr>
+            <tbody ng-repeat="itemIssued in IssuedItems">
+                <tr>
+                    <td>{{itemIssued.partyName}}</td>
+                    <td>{{itemIssued.fatherName}}</td>
+                    <td>{{itemIssued.itemName}}</td>
+                    <td>{{itemIssued.size}}</td>
+                    <td>{{itemIssued.quantity}}</td>
+                    <td>{{itemIssued.excessQuantity}}</td>
+                    <td>{{itemIssued.breakage}}</td>
+                    <td>{{itemIssued.shortage}}</td>
+                    <td><input type="button" ng-click="Remove($index)" value="Remove" /></td>
+                </tr>
+            </tbody>
+            <tfoot>
+                <tr>
+                </tr>
+            </tfoot>
+        </table>
+    </div>
+			 
+		</div>
+	</div>
+</div>
+<div id="footer"></div>
+</body>
+<script src="js/lib/angular.min.js"></script>
+<script src="js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+<script src="js/app/app.js"></script>
+<script src="js/app/UserController.js"></script>
+<script src="js/app/UserService.js"></script>
+<script src="js/app/ItemController.js"></script>
+<script src="js/app/ItemService.js"></script>
+<link rel="stylesheet" href="css/lib/bootstrap.min.css" />
+<link rel="stylesheet" href="css/app/app.css" />
+</html>

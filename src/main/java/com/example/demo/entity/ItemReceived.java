@@ -55,6 +55,12 @@ public class ItemReceived implements Serializable {
 
 	@Column(name = "square_feet")
 	private String squareFeet;
+	
+	@Column(name = "site")
+	private String site;
+	
+	@Column(name = "mobile")
+	private String mobile;
 
 	public ItemReceived() {
 		// 0 - param constructor.
@@ -64,7 +70,7 @@ public class ItemReceived implements Serializable {
 			String transactionType, String challanNo, String partyName,
 			String fatherName, String itemName, String size, Integer quantity,
 			Integer excessQuantity, Integer breakage, Integer shortage,
-			String squareFeet) {
+			String squareFeet, String site, String mobile) {
 		this.receivedId = receivedId;
 		this.receivedDate = receivedDate;
 		this.transactionType = transactionType;
@@ -78,6 +84,8 @@ public class ItemReceived implements Serializable {
 		this.breakage = breakage;
 		this.shortage = shortage;
 		this.squareFeet = squareFeet;
+		this.site = site;
+		this.mobile = mobile;
 	}
 
 	public Long getReceivedId() {
@@ -183,6 +191,22 @@ public class ItemReceived implements Serializable {
 	public void setSquareFeet(String squareFeet) {
 		this.squareFeet = squareFeet;
 	}
+	
+	public String getSite() {
+		return site;
+	}
+
+	public void setSite(String site) {
+		this.site = site;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 
 	@Override
 	public String toString() {
@@ -193,7 +217,8 @@ public class ItemReceived implements Serializable {
 				+ ", size=" + size + ", quantity=" + quantity
 				+ ", excessQuantity=" + excessQuantity + ", breakage="
 				+ breakage + ", shortage=" + shortage + ", squareFeet="
-				+ squareFeet + "]";
+				+ squareFeet + ", site=" + site + ", mobile=" + mobile + "]";
 	}
 
+	 
 }

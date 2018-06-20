@@ -76,8 +76,11 @@ public class ItemServiceimpl implements ItemService {
 							.getOne(itemId));
 			if (entityDto != null)
 				itemDto.setItemId(entityDto.getItemId());
-			if (issuedQuantity != null)
+			if (issuedQuantity != null) {
 				itemDto.setIssued(issuedQuantity);
+				if(entityDto != null && entityDto.getIssued() != null)
+					itemDto.setIssued(entityDto.getIssued() + issuedQuantity);
+			}
 			 
 			if(receivedQuantity != null) {
 			if(entityDto.getReceived() != null)
@@ -85,26 +88,36 @@ public class ItemServiceimpl implements ItemService {
 			else
 				itemDto.setReceived(0 + receivedQuantity);
 		    }
-			if(entityDto.getIssued() != null ) {
-				itemDto.setIssued(entityDto.getIssued());
-				itemDto.setBrokerCharges(entityDto.getBrokerCharges());
-			}
+			//if(entityDto.getIssued() != null ) {
+			//	itemDto.setIssued(entityDto.getIssued());
+			//	itemDto.setBrokerCharges(entityDto.getBrokerCharges());
+			//}
 			if(entityDto!= null) {
-				Integer brokerCharges = entityDto.getBrokerCharges();
+				if(itemDto.getBreakage() != null)
+					itemDto.setStock(itemDto.getStock() - itemDto.getBreakage());
+				if(itemDto.getShortage() != null)
+					itemDto.setStock(itemDto.getStock() - itemDto.getShortage());
+				
+				Integer breakage = entityDto.getBreakage();
 				Integer shortage = entityDto.getShortage();
-				if(brokerCharges != null ){
-					itemDto.setBrokerCharges(brokerCharges+itemDto.getBrokerCharges());
+				if(breakage != null  ){
+					itemDto.setBreakage(breakage + itemDto.getBreakage());
 				}else
-					itemDto.setBrokerCharges(itemDto.getBrokerCharges());
+					itemDto.setBreakage(itemDto.getBreakage());
 				if(shortage != null){
 					itemDto.setShortage(shortage + itemDto.getShortage());
 				}else
 					itemDto.setShortage(itemDto.getShortage());
+				
+				//itemDto.setStock(entityDto.getStock());
+				
 			}
+			
 			item = ItemConverter.dtoToItemStatusEntity(itemDto);
 			session.update(item);
 			tx.commit();
 		} catch (Exception e) {
+			e.printStackTrace();
 			tx.rollback();
 		}
 		return item;

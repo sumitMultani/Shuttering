@@ -55,6 +55,12 @@ public class ItemIssued implements Serializable {
 
 	@Column(name = "square_feet")
 	private String squareFeet;
+	
+	@Column(name = "site")
+	private String site;
+	
+	@Column(name = "mobile")
+	private String mobile;
 
 	public ItemIssued() {
 		// 0 - param constructor.
@@ -64,7 +70,7 @@ public class ItemIssued implements Serializable {
 			String challanNo, String partyName, String fatherName,
 			String itemName, String size, Integer quantity,
 			Integer excessQuantity, String breakage, String shortage,
-			String squareFeet) {
+			String squareFeet, String site, String mobile) {
 		this.issueId = issueId;
 		this.issuedDate = issuedDate;
 		this.transactionType = transactionType;
@@ -78,6 +84,8 @@ public class ItemIssued implements Serializable {
 		this.breakage = breakage;
 		this.shortage = shortage;
 		this.squareFeet = squareFeet;
+		this.site = site;
+		this.mobile = mobile;
 	}
 
 	public Long getIssueId() {
@@ -184,6 +192,22 @@ public class ItemIssued implements Serializable {
 		this.squareFeet = squareFeet;
 	}
 
+	public String getSite() {
+		return site;
+	}
+
+	public void setSite(String site) {
+		this.site = site;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
+
 	@Override
 	public String toString() {
 		return "ItemIssued [issueId=" + issueId + ", issuedDate=" + issuedDate
@@ -192,7 +216,9 @@ public class ItemIssued implements Serializable {
 				+ fatherName + ", itemName=" + itemName + ", size=" + size
 				+ ", quantity=" + quantity + ", excessQuantity="
 				+ excessQuantity + ", breakage=" + breakage + ", shortage="
-				+ shortage + ", squareFeet=" + squareFeet + "]";
+				+ shortage + ", squareFeet=" + squareFeet + ", site=" + site
+				+ ", mobile=" + mobile + "]";
 	}
 
+	 
 }

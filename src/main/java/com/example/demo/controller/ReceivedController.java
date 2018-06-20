@@ -28,4 +28,10 @@ public class ReceivedController {
 	public List<ItemReceived> getReceivedItem() {
 		return receivedService.getReceivedRegister();
 	}
+	
+//	@RequestMapping(value = "/register", method = RequestMethod.GET)
+//	public List<ItemReceived> getReceivedItem() {
+//		return receivedService.getReceivedRegister();
+//	}
+	
 }

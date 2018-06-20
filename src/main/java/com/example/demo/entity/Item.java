@@ -64,6 +64,9 @@ public class Item implements Serializable {
 	
 	@Column(name = "size")
 	private String size;
+	
+	@Column(name = "breakage")
+	private Integer breakage;
 
 	public Long getItemId() {
 		return itemId;
@@ -177,6 +180,22 @@ public class Item implements Serializable {
 		this.shortage = shortage;
 	}
 
+	public String getSize() {
+		return size;
+	}
+
+	public void setSize(String size) {
+		this.size = size;
+	}
+
+	public Integer getBreakage() {
+		return breakage;
+	}
+
+	public void setBreakage(Integer breakage) {
+		this.breakage = breakage;
+	}
+
 	public Item() {
 		// 0-param constructor
 	}
@@ -184,7 +203,7 @@ public class Item implements Serializable {
 	public Item(Long itemId, String itemName, Integer length, Integer width,
 			String squareFeet, Integer rate, String per, Integer stock,
 			Integer rentPerDay, Integer brokerCharges, Integer received,
-			Integer issued, Integer purchaed, Integer shortage) {
+			Integer issued, Integer purchaed, Integer shortage, Integer breakage) {
 		this.itemId = itemId;
 		this.itemName = itemName;
 		this.length = length;
@@ -199,6 +218,7 @@ public class Item implements Serializable {
 		this.issued = issued;
 		this.purchaed = purchaed;
 		this.shortage = shortage;
+		this.breakage = breakage;
 		 
 	}
 
@@ -209,7 +229,10 @@ public class Item implements Serializable {
 				+ squareFeet + ", rate=" + rate + ", per=" + per + ", stock="
 				+ stock + ", rentPerDay=" + rentPerDay + ", brokerCharges="
 				+ brokerCharges + ", received=" + received + ", issued="
-				+ issued + ", purchaed=" + purchaed + ", shortage=" + shortage +"]";
+				+ issued + ", purchaed=" + purchaed + ", shortage=" + shortage
+				+ ", size=" + size + ", breakage=" + breakage + "]";
 	}
+
+	 
 
 }

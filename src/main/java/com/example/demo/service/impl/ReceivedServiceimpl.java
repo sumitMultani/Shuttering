@@ -19,6 +19,7 @@ import com.example.demo.dto.ItemReceivedDto;
 import com.example.demo.entity.ItemStatus;
 import com.example.demo.entity.ItemIssued;
 import com.example.demo.entity.ItemReceived;
+import com.example.demo.repository.IssuedRepository;
 import com.example.demo.repository.ReceivedRepository;
 import com.example.demo.service.ItemService;
 import com.example.demo.service.ReceivedService;
@@ -31,6 +32,9 @@ public class ReceivedServiceimpl implements ReceivedService {
 
 	@Autowired
 	private ReceivedRepository receivedRepositry;
+	
+	@Autowired
+	private IssuedRepository issuedRepositry;
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -66,9 +70,21 @@ public class ReceivedServiceimpl implements ReceivedService {
 				for (ItemReceivedDto itemReceivedDto : itemReceivedDtos) {
 					receivedDto = itemReceivedDto;
 					// save items to received item
-					ItemReceived item = receivedRepositry.save(ItemReceivedConverter.dtoToEntity(itemReceivedDto));
-					receivedItem.put(itemReceivedDto.getItemName(), itemReceivedDto.getQuantity());
-					receivedItems.add(item);
+					Integer totalIssuedQuantity = 0;
+					Integer totalReceivedQuantity = 0;
+					List<ItemIssued> itemIssueds = issuedRepositry.findByItemNameAndPartyNameAndFatherName(itemReceivedDto.getItemName(),itemReceivedDto.getPartyName(), itemReceivedDto.getFatherName());
+					for(ItemIssued itemIssued : itemIssueds)
+						totalIssuedQuantity = totalIssuedQuantity + itemIssued.getQuantity();
+					
+					List<ItemReceived> itemReceiveds = receivedRepositry.findByItemNameAndPartyNameAndFatherName(itemReceivedDto.getItemName(),itemReceivedDto.getPartyName(), itemReceivedDto.getFatherName());
+					for(ItemReceived itemReceived : itemReceiveds)
+						totalReceivedQuantity = totalReceivedQuantity + itemReceived.getQuantity();
+					
+					if(totalIssuedQuantity - totalReceivedQuantity >= itemReceivedDto.getQuantity()){
+						ItemReceived item = receivedRepositry.save(ItemReceivedConverter.dtoToEntity(itemReceivedDto));
+						receivedItem.put(itemReceivedDto.getItemName(), itemReceivedDto.getQuantity());
+						receivedItems.add(item);
+					}
 				}
 			// update stock item data
 			for (Map.Entry<String, Integer> entry : receivedItem.entrySet())
@@ -81,7 +97,7 @@ public class ReceivedServiceimpl implements ReceivedService {
 			    Integer newStock = Item.getStock()+ entry.getValue();
 			    Item.setStock(newStock);
 			    if(receivedDto != null){
-			    	Item.setBrokerCharges(receivedDto.getBreakage());
+			    	Item.setBreakage(receivedDto.getBreakage());
 			    	Item.setShortage(receivedDto.getShortage());
 			    }
 			    ItemDto itemDto = ItemConverter.itemStatusEntityToDto(Item);
@@ -92,7 +108,8 @@ public class ReceivedServiceimpl implements ReceivedService {
 			
 		// update stock status for Received items.
 		//stock_status	
-			
+			if(receivedItems == null || receivedItems.isEmpty())
+				throw new RuntimeException("Invalid Request Data not Accepted. Please Check PartyName or Item Quantity.");
 		return receivedItems;
 	}
 

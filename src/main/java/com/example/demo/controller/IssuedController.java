@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -28,5 +29,26 @@ public class IssuedController {
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
 	public List<ItemIssued> getIssuedItem() {
 		return issuedService.getIssuedRegister();
+	}
+	
+	@RequestMapping(value = "/filter/{startDate}/{endDate}", method = RequestMethod.GET )
+	public List<ItemIssuedDto> getIssuedFilterByDate(@PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate) {
+		System.out.println("jkjkjkj");
+		return issuedService.getIssuedFilterByDate(startDate, endDate);
+	}
+	
+	@RequestMapping(value = "/partynames", method = RequestMethod.GET)
+	public List<String> getPartyNames() {
+		return issuedService.getPartyNames();
+	}
+	
+	@RequestMapping(value = "/fathernames", method = RequestMethod.GET)
+	public List<String> getFatherNames(String partyName) {
+		return issuedService.getFatherNames(partyName);
+	}
+	
+	@RequestMapping(value = "/sites", method = RequestMethod.GET)
+	public List<String> getSites(String partyName, String fatherName) {
+		return issuedService.getSites(partyName, fatherName);
 	}
 }

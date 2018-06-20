@@ -20,6 +20,8 @@ public class ItemReceivedDto implements Serializable {
 	private Integer breakage;
 	private Integer shortage;
 	private String squareFeet;
+	private String site;
+	private String mobile;
 
 	public ItemReceivedDto() {
 		// 0 - param constructor.
@@ -29,7 +31,7 @@ public class ItemReceivedDto implements Serializable {
 			String transactionType, String challanNo, String partyName,
 			String fatherName, String itemName, String size, Integer quantity,
 			Integer excessQuantity, Integer breakage, Integer shortage,
-			String squareFeet) {
+			String squareFeet, String site, String mobile) {
 		this.receivedId = receivedId;
 		this.receivedDate = receivedDate;
 		this.transactionType = transactionType;
@@ -43,6 +45,8 @@ public class ItemReceivedDto implements Serializable {
 		this.breakage = breakage;
 		this.shortage = shortage;
 		this.squareFeet = squareFeet;
+		this.site = site;
+		this.mobile = mobile;
 	}
 
 	public Long getReceivedId() {
@@ -148,17 +152,34 @@ public class ItemReceivedDto implements Serializable {
 	public void setSquareFeet(String squareFeet) {
 		this.squareFeet = squareFeet;
 	}
+	
+	public String getSite() {
+		return site;
+	}
+
+	public void setSite(String site) {
+		this.site = site;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 
 	@Override
 	public String toString() {
-		return "ItemReceived [receivedId=" + receivedId + ", receivedDate="
+		return "ItemReceivedDto [receivedId=" + receivedId + ", receivedDate="
 				+ receivedDate + ", transactionType=" + transactionType
 				+ ", challanNo=" + challanNo + ", partyName=" + partyName
 				+ ", fatherName=" + fatherName + ", itemName=" + itemName
 				+ ", size=" + size + ", quantity=" + quantity
 				+ ", excessQuantity=" + excessQuantity + ", breakage="
 				+ breakage + ", shortage=" + shortage + ", squareFeet="
-				+ squareFeet + "]";
+				+ squareFeet + ", site=" + site + ", mobile=" + mobile + "]";
 	}
 
+	 
 }

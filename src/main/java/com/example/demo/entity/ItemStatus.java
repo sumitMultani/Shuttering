@@ -46,9 +46,6 @@ public class ItemStatus implements Serializable {
 
 	@Column(name = "rent_per_day")
 	private Integer rentPerDay;
-
-	@Column(name = "broker_charges")
-	private Integer brokerCharges;
 	
 	@Column(name = "received")
 	private Integer received;
@@ -62,6 +59,8 @@ public class ItemStatus implements Serializable {
 	@Column(name = "shortage")
 	private Integer shortage;
 	
+	@Column(name = "breakage")
+	private Integer breakage;
 	 
 
 	public Long getItemId() {
@@ -135,14 +134,6 @@ public class ItemStatus implements Serializable {
 	public void setRentPerDay(Integer rentPerDay) {
 		this.rentPerDay = rentPerDay;
 	}
-
-	public Integer getBrokerCharges() {
-		return brokerCharges;
-	}
-
-	public void setBrokerCharges(Integer brokerCharges) {
-		this.brokerCharges = brokerCharges;
-	}
 	
 	public Integer getReceived() {
 		return received;
@@ -176,7 +167,14 @@ public class ItemStatus implements Serializable {
 		this.shortage = shortage;
 	}
  
+	public Integer getBreakage() {
+		return breakage;
+	}
 
+	public void setBreakage(Integer breakage) {
+		this.breakage = breakage;
+	}
+	
 	public ItemStatus() {
 		// 0-param constructor
 	}
@@ -184,7 +182,7 @@ public class ItemStatus implements Serializable {
 	public ItemStatus(Long itemId, String itemName, Integer length, Integer width,
 			String size, Integer rate, String per, Integer stock,
 			Integer rentPerDay, Integer brokerCharges, 
-			Integer received, Integer issued, Integer purchased, Integer shortage ) {
+			Integer received, Integer issued, Integer purchased, Integer shortage, Integer breakage ) {
 		this.itemId = itemId;
 		this.itemName = itemName;
 		this.length = length;
@@ -194,23 +192,24 @@ public class ItemStatus implements Serializable {
 		this.per = per;
 		this.stock = stock;
 		this.rentPerDay = rentPerDay;
-		this.brokerCharges = brokerCharges;
 		this.received = received;
 		this.issued = issued;
 		this.purchased = purchased;
 		this.shortage = shortage;
+		this.breakage = breakage;
 	}
 
 	@Override
 	public String toString() {
 		return "ItemStatus [itemId=" + itemId + ", itemName=" + itemName
-				+ ", length=" + length + ", width=" + width + ", size="
-				+ size + ", rate=" + rate + ", per=" + per + ", stock="
-				+ stock + ", rentPerDay=" + rentPerDay + ", brokerCharges="
-				+ brokerCharges + ", received=" + received + ", issued="
+				+ ", length=" + length + ", width=" + width + ", size=" + size
+				+ ", rate=" + rate + ", per=" + per + ", stock=" + stock
+				+ ", rentPerDay=" + rentPerDay + " , received=" + received + ", issued="
 				+ issued + ", purchased=" + purchased + ", shortage="
-				+ shortage + "]";
+				+ shortage + ", breakage=" + breakage + "]";
 	}
+
+	 
 
 	 
 }

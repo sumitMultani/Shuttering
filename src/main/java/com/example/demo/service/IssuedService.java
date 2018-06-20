@@ -14,6 +14,14 @@ public interface IssuedService {
 
 	List<ItemIssued> getIssuedRegister();
 
+	List<ItemIssuedDto> getIssuedFilterByDate(String startDate, String endDate);
+
+	List<String> getPartyNames();
+
+	List<String> getFatherNames(String partyName);
+
+	List<String> getSites(String partyName, String fatherName);
+
 	 
     
 }

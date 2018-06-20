@@ -21,6 +21,7 @@ public class ItemDto {
 	private Integer issued;
 	private Integer purchased;
 	private Integer shortage;
+	private Integer breakage;
 	 
 
 	public ItemDto() {
@@ -30,7 +31,7 @@ public class ItemDto {
 	public ItemDto(Long itemId, String itemName, Integer length, Integer width,
 			String size, Integer rate, String per, Integer stock,
 			Integer rentPerDay, Integer brokerCharges, Integer received,
-			Integer issued, Integer purchaed, Integer shortage) {
+			Integer issued, Integer purchaed, Integer shortage, Integer breakage) {
 		this.itemId = itemId;
 		this.itemName = itemName;
 		this.length = length;
@@ -45,6 +46,7 @@ public class ItemDto {
 		this.issued = issued;
 		this.purchased = purchaed;
 		this.shortage = shortage;
+		this.breakage = breakage;
 		 
 	}
 
@@ -168,6 +170,14 @@ public class ItemDto {
 		this.size = size;
 	}
 
+	public Integer getBreakage() {
+		return breakage;
+	}
+
+	public void setBreakage(Integer breakage) {
+		this.breakage = breakage;
+	}
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -193,5 +203,17 @@ public class ItemDto {
 			return false;
 		return true;
 	}
+
+	@Override
+	public String toString() {
+		return "ItemDto [itemId=" + itemId + ", itemName=" + itemName
+				+ ", length=" + length + ", width=" + width + ", squareFeet="
+				+ squareFeet + ", size=" + size + ", rate=" + rate + ", per="
+				+ per + ", stock=" + stock + ", rentPerDay=" + rentPerDay
+				+ ", brokerCharges=" + brokerCharges + ", received=" + received
+				+ ", issued=" + issued + ", purchased=" + purchased
+				+ ", shortage=" + shortage + ", breakage=" + breakage + "]";
+	}
+	
 	
 }

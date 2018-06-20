@@ -12,11 +12,12 @@ import org.springframework.stereotype.Service;
 import com.example.demo.converter.ItemIssuedConverter;
 import com.example.demo.dto.ItemDto;
 import com.example.demo.dto.ItemIssuedDto;
-import com.example.demo.entity.ItemStatus;
 import com.example.demo.entity.ItemIssued;
+import com.example.demo.entity.ItemStatus;
 import com.example.demo.repository.IssuedRepository;
 import com.example.demo.service.IssuedService;
 import com.example.demo.service.ItemService;
+import com.example.demo.utils.Util;
 
 /**
  * Created by sumit
@@ -26,6 +27,9 @@ public class IssuedServiceimpl implements IssuedService {
 
 	@Autowired
 	private IssuedRepository itemIssuedRepository;
+	
+	@Autowired
+	private ItemIssuedConverter itemIssuedConverter;
 
 	@Autowired
 	private SessionFactory sessionFactory;
@@ -51,7 +55,7 @@ public class IssuedServiceimpl implements IssuedService {
 										.getQuantity()) {
 							// save data into issued Register.
 							ItemIssued itemIssued = itemIssuedRepository
-									.save(ItemIssuedConverter
+									.save(itemIssuedConverter
 											.dtoToEntity(itemIssuedDto));
 
 							// save and update data in stock Status.
@@ -63,12 +67,14 @@ public class IssuedServiceimpl implements IssuedService {
 									itemIssuedDto.getQuantity());
 							System.out.println("updated Item : " + updateItem);
 							items.add(itemIssued);
-						}
+						} 
 					});
 
 				}
 			});
 		}
+		if(items == null || items.isEmpty())
+			throw new RuntimeException("Stock not available");
 		return items;
 	}
 
@@ -78,5 +84,57 @@ public class IssuedServiceimpl implements IssuedService {
 		Criteria issuedCriteria = session.createCriteria(ItemIssued.class);
 		return issuedCriteria.list();
 	}
+
+	@Override
+	public List<ItemIssuedDto> getIssuedFilterByDate(String startDate, String endDate) {
+		
+		List<ItemIssuedDto> all = new ArrayList<ItemIssuedDto>();
+		startDate = Util.dateConverter(startDate);
+		List<ItemIssued> startDateData = itemIssuedRepository.findByIssuedDate(startDate);
+		startDateData.forEach(date -> {
+				ItemIssuedDto itemIssued = itemIssuedConverter.entityToDto(date);
+				all.add(itemIssued);
+			});
+		
+		endDate = Util.dateConverter(endDate);
+		List<ItemIssued> endDateData = itemIssuedRepository.findByIssuedDate(endDate);
+		endDateData.forEach(date -> {
+			ItemIssuedDto itemIssued = itemIssuedConverter.entityToDto(date);
+			all.add(itemIssued);
+		});
+		return all;
+	}
+
+	@Override
+	public List<String> getPartyNames() {
+		List<String> names = new ArrayList<String>();
+		List<ItemIssued> itemIssueds = itemIssuedRepository.findAll();
+		itemIssueds.forEach(itemIssued -> {
+			names.add(itemIssued.getPartyName());
+		});
+		return names;
+	}
+
+	@Override
+	public List<String> getFatherNames(String partyName) {
+		List<String> fatherNames = new ArrayList<String>();
+		List<ItemIssued> itemIssueds = itemIssuedRepository.findByPartyName(partyName);
+		itemIssueds.forEach(itemIssued -> {
+			fatherNames.add(itemIssued.getFatherName());
+		});
+		return fatherNames;
+	}
+
+	@Override
+	public List<String> getSites(String partyName, String fatherName) {
+		List<String> sites = new ArrayList<String>();
+		List<ItemIssued> itemIssueds = itemIssuedRepository.findByPartyNameAndFatherName(partyName, fatherName);
+		itemIssueds.forEach(itemIssued -> {
+			sites.add(itemIssued.getSite());
+		});
+		return sites;
+	}
+
+	 
 
 }

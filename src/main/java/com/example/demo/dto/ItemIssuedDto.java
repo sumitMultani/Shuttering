@@ -18,6 +18,8 @@ public class ItemIssuedDto implements Serializable {
 	private Integer excessQuantity;
 	private String breakage;
 	private String shortage;
+	private String site;
+	private String mobile;
 	//private String squareFeet;
 
 	public ItemIssuedDto() {
@@ -28,7 +30,7 @@ public class ItemIssuedDto implements Serializable {
 			String transactionType, String challanNo, String partyName,
 			String fatherName, String itemName, String size, Integer quantity,
 			Integer excessQuantity, String breakage, String shortage,
-			String squareFeet) {
+			String squareFeet, String site, String mobile) {
 		this.issueId = issueId;
 		this.issuedDate = issuedDate;
 		this.transactionType = transactionType;
@@ -41,6 +43,8 @@ public class ItemIssuedDto implements Serializable {
 		this.excessQuantity = excessQuantity;
 		this.breakage = breakage;
 		this.shortage = shortage;
+		this.site = site;
+		this.mobile = mobile;
 		//this.squareFeet = squareFeet;
 	}
 
@@ -147,6 +151,21 @@ public class ItemIssuedDto implements Serializable {
 //	public void setSquareFeet(String squareFeet) {
 //		this.squareFeet = squareFeet;
 //	}
+	public String getSite() {
+		return site;
+	}
+
+	public void setSite(String site) {
+		this.site = site;
+	}
+
+	public String getMobile() {
+		return mobile;
+	}
+
+	public void setMobile(String mobile) {
+		this.mobile = mobile;
+	}
 
 	@Override
 	public String toString() {
@@ -156,7 +175,8 @@ public class ItemIssuedDto implements Serializable {
 				+ ", fatherName=" + fatherName + ", itemName=" + itemName
 				+ ", size=" + size + ", quantity=" + quantity
 				+ ", excessQuantity=" + excessQuantity + ", breakage="
-				+ breakage + ", shortage=" + shortage +  "]";
+				+ breakage + ", shortage=" + shortage + ", site=" + site
+				+ ", mobile=" + mobile + "]";
 	}
 
 }

@@ -25,7 +25,7 @@ public class Agreement implements Serializable {
 	private Long id;
 
 	@Column(name = "createdOn")
-	private Date date;
+	private String date;
 
 	@Column(name = "agreement_no")
 	private Long aggrementNo;
@@ -60,7 +60,7 @@ public class Agreement implements Serializable {
 	@Column(name = "damage_charges_per_pc")
 	private Double damageChargesPerPc;
 
-	public Agreement(Long id, Date date, Long aggrementNo, String partyName,
+	public Agreement(Long id, String date, Long aggrementNo, String partyName,
 			String siteName, String itemName, Integer length, Double rate,
 			String per, Double rentPerDay, String itemNameBreakage,
 			String itemSizeBreakage, Double damageChargesPerPc) {
@@ -91,11 +91,11 @@ public class Agreement implements Serializable {
 		this.id = id;
 	}
 
-	public Date getDate() {
+	public String getDate() {
 		return date;
 	}
 
-	public void setDate(Date date) {
+	public void setDate(String date) {
 		this.date = date;
 	}
 

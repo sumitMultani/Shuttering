@@ -16,8 +16,6 @@ public class ItemIssuedDto implements Serializable {
 	private String size;
 	private Integer quantity;
 	private Integer excessQuantity;
-	private String breakage;
-	private String shortage;
 	private String site;
 	private String mobile;
 	//private String squareFeet;
@@ -29,7 +27,7 @@ public class ItemIssuedDto implements Serializable {
 	public ItemIssuedDto(Long issueId, String issuedDate,
 			String transactionType, String challanNo, String partyName,
 			String fatherName, String itemName, String size, Integer quantity,
-			Integer excessQuantity, String breakage, String shortage,
+			Integer excessQuantity, 
 			String squareFeet, String site, String mobile) {
 		this.issueId = issueId;
 		this.issuedDate = issuedDate;
@@ -41,8 +39,6 @@ public class ItemIssuedDto implements Serializable {
 		this.size = size;
 		this.quantity = quantity;
 		this.excessQuantity = excessQuantity;
-		this.breakage = breakage;
-		this.shortage = shortage;
 		this.site = site;
 		this.mobile = mobile;
 		//this.squareFeet = squareFeet;
@@ -128,29 +124,8 @@ public class ItemIssuedDto implements Serializable {
 		this.excessQuantity = excessQuantity;
 	}
 
-	public String getBreakage() {
-		return breakage;
-	}
-
-	public void setBreakage(String breakage) {
-		this.breakage = breakage;
-	}
-
-	public String getShortage() {
-		return shortage;
-	}
-
-	public void setShortage(String shortage) {
-		this.shortage = shortage;
-	}
-
-//	public String getSquareFeet() {
-//		return squareFeet;
-//	}
-//
-//	public void setSquareFeet(String squareFeet) {
-//		this.squareFeet = squareFeet;
-//	}
+	 
+ 
 	public String getSite() {
 		return site;
 	}
@@ -174,8 +149,7 @@ public class ItemIssuedDto implements Serializable {
 				+ ", challanNo=" + challanNo + ", partyName=" + partyName
 				+ ", fatherName=" + fatherName + ", itemName=" + itemName
 				+ ", size=" + size + ", quantity=" + quantity
-				+ ", excessQuantity=" + excessQuantity + ", breakage="
-				+ breakage + ", shortage=" + shortage + ", site=" + site
+				+ ", excessQuantity=" + excessQuantity + ", site=" + site
 				+ ", mobile=" + mobile + "]";
 	}
 

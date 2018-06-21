@@ -37,6 +37,9 @@ public class IssuedServiceimpl implements IssuedService {
 	@Autowired
 	private ItemService itemService;
 
+	@Autowired
+	private Util util;
+	
 	@Override
 	public List<ItemIssued> saveItem(List<ItemIssuedDto> itemIssuedDtos) {
 
@@ -89,14 +92,14 @@ public class IssuedServiceimpl implements IssuedService {
 	public List<ItemIssuedDto> getIssuedFilterByDate(String startDate, String endDate) {
 		
 		List<ItemIssuedDto> all = new ArrayList<ItemIssuedDto>();
-		startDate = Util.dateConverter(startDate);
+		startDate = util.dateConverter(startDate);
 		List<ItemIssued> startDateData = itemIssuedRepository.findByIssuedDate(startDate);
 		startDateData.forEach(date -> {
 				ItemIssuedDto itemIssued = itemIssuedConverter.entityToDto(date);
 				all.add(itemIssued);
 			});
 		
-		endDate = Util.dateConverter(endDate);
+		endDate = util.dateConverter(endDate);
 		List<ItemIssued> endDateData = itemIssuedRepository.findByIssuedDate(endDate);
 		endDateData.forEach(date -> {
 			ItemIssuedDto itemIssued = itemIssuedConverter.entityToDto(date);

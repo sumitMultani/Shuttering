@@ -41,6 +41,9 @@ public class ReceivedServiceimpl implements ReceivedService {
 
 	@Autowired
 	private ItemService itemService;
+	
+	@Autowired
+	private ItemReceivedConverter itemReceivedConverter;
 
 	@Override
 	public List<ItemReceived> saveReceivedItem(List<ItemReceivedDto> itemReceivedDtos) {
@@ -81,7 +84,7 @@ public class ReceivedServiceimpl implements ReceivedService {
 						totalReceivedQuantity = totalReceivedQuantity + itemReceived.getQuantity();
 					
 					if(totalIssuedQuantity - totalReceivedQuantity >= itemReceivedDto.getQuantity()){
-						ItemReceived item = receivedRepositry.save(ItemReceivedConverter.dtoToEntity(itemReceivedDto));
+						ItemReceived item = receivedRepositry.save(itemReceivedConverter.dtoToEntity(itemReceivedDto));
 						receivedItem.put(itemReceivedDto.getItemName(), itemReceivedDto.getQuantity());
 						receivedItems.add(item);
 					}

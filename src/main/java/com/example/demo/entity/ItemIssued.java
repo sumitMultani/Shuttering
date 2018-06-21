@@ -47,12 +47,6 @@ public class ItemIssued implements Serializable {
 	@Column(name = "excess_quantity")
 	private Integer excessQuantity;
 
-	@Column(name = "breakage")
-	private String breakage;
-
-	@Column(name = "shortage")
-	private String shortage;
-
 	@Column(name = "square_feet")
 	private String squareFeet;
 	
@@ -69,7 +63,7 @@ public class ItemIssued implements Serializable {
 	public ItemIssued(Long issueId, String issuedDate, String transactionType,
 			String challanNo, String partyName, String fatherName,
 			String itemName, String size, Integer quantity,
-			Integer excessQuantity, String breakage, String shortage,
+			Integer excessQuantity, 
 			String squareFeet, String site, String mobile) {
 		this.issueId = issueId;
 		this.issuedDate = issuedDate;
@@ -81,8 +75,6 @@ public class ItemIssued implements Serializable {
 		this.size = size;
 		this.quantity = quantity;
 		this.excessQuantity = excessQuantity;
-		this.breakage = breakage;
-		this.shortage = shortage;
 		this.squareFeet = squareFeet;
 		this.site = site;
 		this.mobile = mobile;
@@ -168,21 +160,7 @@ public class ItemIssued implements Serializable {
 		this.excessQuantity = excessQuantity;
 	}
 
-	public String getBreakage() {
-		return breakage;
-	}
-
-	public void setBreakage(String breakage) {
-		this.breakage = breakage;
-	}
-
-	public String getShortage() {
-		return shortage;
-	}
-
-	public void setShortage(String shortage) {
-		this.shortage = shortage;
-	}
+	 
 
 	public String getSquareFeet() {
 		return squareFeet;
@@ -215,10 +193,8 @@ public class ItemIssued implements Serializable {
 				+ challanNo + ", partyName=" + partyName + ", fatherName="
 				+ fatherName + ", itemName=" + itemName + ", size=" + size
 				+ ", quantity=" + quantity + ", excessQuantity="
-				+ excessQuantity + ", breakage=" + breakage + ", shortage="
-				+ shortage + ", squareFeet=" + squareFeet + ", site=" + site
-				+ ", mobile=" + mobile + "]";
+				+ excessQuantity + ", squareFeet=" + squareFeet + ", site="
+				+ site + ", mobile=" + mobile + "]";
 	}
-
 	 
 }

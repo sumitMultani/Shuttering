@@ -33,7 +33,6 @@ public class IssuedController {
 	
 	@RequestMapping(value = "/filter/{startDate}/{endDate}", method = RequestMethod.GET )
 	public List<ItemIssuedDto> getIssuedFilterByDate(@PathVariable("startDate") String startDate, @PathVariable("endDate") String endDate) {
-		System.out.println("jkjkjkj");
 		return issuedService.getIssuedFilterByDate(startDate, endDate);
 	}
 	
@@ -51,4 +50,5 @@ public class IssuedController {
 	public List<String> getSites(String partyName, String fatherName) {
 		return issuedService.getSites(partyName, fatherName);
 	}
+	
 }

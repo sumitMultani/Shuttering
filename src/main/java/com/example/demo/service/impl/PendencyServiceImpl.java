@@ -64,14 +64,17 @@ public class PendencyServiceImpl implements PendencyService{
 			PendencyReportDto pendencyReport = new PendencyReportDto();
 			
 			//get issued Quantity
-			List<ItemIssued> itemIssuedList = issuedRepository.findByItemNameAndPartyNameAndFatherName(issuedDetail.getItemName(), issuedDetail.getPartyName(), issuedDetail.getFatherName());
+			List<ItemIssued> itemIssuedList = issuedRepository.findByItemNameAndPartyNameAndFatherNameAndSize(issuedDetail.getItemName(), issuedDetail.getPartyName(),
+												issuedDetail.getFatherName(),issuedDetail.getSize());
 			Integer totalIssuedQuantity = 0;
+			//Map<Integer, String> mpa = 
 			if(itemIssuedList != null && !itemIssuedList.isEmpty())
 				for(ItemIssued itemIssued : itemIssuedList)
 					totalIssuedQuantity = totalIssuedQuantity + itemIssued.getQuantity();
 			
 			// get received quantity
-			List<ItemReceived> itemReceivedList = receivedRepository.findByItemNameAndPartyNameAndFatherName(issuedDetail.getItemName(), issuedDetail.getPartyName(), issuedDetail.getFatherName());
+			List<ItemReceived> itemReceivedList = receivedRepository.findByItemNameAndPartyNameAndFatherNameAndSize(issuedDetail.getItemName(), issuedDetail.getPartyName(),
+													issuedDetail.getFatherName(), issuedDetail.getSize());
 			Integer totalReceivedQuantity = 0;
 			if(itemReceivedList != null && !itemReceivedList.isEmpty())
 				for(ItemReceived itemReceived : itemReceivedList)

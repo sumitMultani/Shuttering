@@ -23,6 +23,7 @@ import com.example.demo.repository.IssuedRepository;
 import com.example.demo.repository.ReceivedRepository;
 import com.example.demo.service.ItemService;
 import com.example.demo.service.ReceivedService;
+import com.example.demo.utils.Util;
 
 /**
  * Created by sumit
@@ -44,6 +45,9 @@ public class ReceivedServiceimpl implements ReceivedService {
 	
 	@Autowired
 	private ItemReceivedConverter itemReceivedConverter;
+	
+	@Autowired 
+	private Util util;
 
 	@Override
 	public List<ItemReceived> saveReceivedItem(List<ItemReceivedDto> itemReceivedDtos) {
@@ -123,6 +127,19 @@ public class ReceivedServiceimpl implements ReceivedService {
 		Criteria issuedCriteria = session.createCriteria(ItemReceived.class);
 		return issuedCriteria.list();
 		
+	}
+
+	@Override
+	public List<ItemReceivedDto> getReceivedFilterByDate(String startDate, String endDate) {
+		
+		startDate = util.dateConverter(startDate);
+		endDate = util.dateConverter(endDate);
+		List<ItemReceivedDto> itemReceivedDtos = new ArrayList<ItemReceivedDto>();
+		List<ItemReceived> itemReceiveds = receivedRepositry.findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqual(startDate, endDate);
+		itemReceiveds.forEach(itemReceived -> {
+			itemReceivedDtos.add(itemReceivedConverter.entityToDto(itemReceived));
+		});
+		return itemReceivedDtos;
 	}
 
 }

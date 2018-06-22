@@ -14,6 +14,8 @@ public interface ReceivedService {
 
 	List<ItemReceived> getReceivedRegister();
 
+	List<ItemReceivedDto> getReceivedFilterByDate(String startDate, String endDate);
+
 
 	 
     

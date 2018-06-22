@@ -99,9 +99,6 @@ public class IssuedDetails implements Serializable {
 		this.mobile = mobile;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#hashCode()
-	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -112,12 +109,10 @@ public class IssuedDetails implements Serializable {
 				+ ((itemName == null) ? 0 : itemName.hashCode());
 		result = prime * result
 				+ ((partyName == null) ? 0 : partyName.hashCode());
+		result = prime * result + ((size == null) ? 0 : size.hashCode());
 		return result;
 	}
 
-	/* (non-Javadoc)
-	 * @see java.lang.Object#equals(java.lang.Object)
-	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -141,6 +136,11 @@ public class IssuedDetails implements Serializable {
 			if (other.partyName != null)
 				return false;
 		} else if (!partyName.equals(other.partyName))
+			return false;
+		if (size == null) {
+			if (other.size != null)
+				return false;
+		} else if (!size.equals(other.size))
 			return false;
 		return true;
 	}

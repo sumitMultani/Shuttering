@@ -22,6 +22,8 @@ public interface IssuedService {
 
 	List<String> getSites(String partyName, String fatherName);
 
+	List<Integer> getAvailStock(String partyName, String fatherName, String itemname, String size, String site);
+
 	 
     
 }

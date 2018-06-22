@@ -12,11 +12,14 @@ import org.springframework.stereotype.Service;
 import com.example.demo.converter.ItemIssuedConverter;
 import com.example.demo.dto.ItemDto;
 import com.example.demo.dto.ItemIssuedDto;
+import com.example.demo.dto.PendencyReportDto;
 import com.example.demo.entity.ItemIssued;
 import com.example.demo.entity.ItemStatus;
 import com.example.demo.repository.IssuedRepository;
+import com.example.demo.repository.ItemStockStatusRepository;
 import com.example.demo.service.IssuedService;
 import com.example.demo.service.ItemService;
+import com.example.demo.service.PendencyService;
 import com.example.demo.utils.Util;
 
 /**
@@ -36,6 +39,12 @@ public class IssuedServiceimpl implements IssuedService {
 
 	@Autowired
 	private ItemService itemService;
+	
+	@Autowired 
+	private PendencyService pendencyService;
+	
+	@Autowired 
+	private ItemStockStatusRepository itemStockStatusRepository;
 
 	@Autowired
 	private Util util;
@@ -93,17 +102,12 @@ public class IssuedServiceimpl implements IssuedService {
 		
 		List<ItemIssuedDto> all = new ArrayList<ItemIssuedDto>();
 		startDate = util.dateConverter(startDate);
-		List<ItemIssued> startDateData = itemIssuedRepository.findByIssuedDate(startDate);
-		startDateData.forEach(date -> {
-				ItemIssuedDto itemIssued = itemIssuedConverter.entityToDto(date);
-				all.add(itemIssued);
-			});
-		
-		endDate = util.dateConverter(endDate);
-		List<ItemIssued> endDateData = itemIssuedRepository.findByIssuedDate(endDate);
-		endDateData.forEach(date -> {
-			ItemIssuedDto itemIssued = itemIssuedConverter.entityToDto(date);
-			all.add(itemIssued);
+		endDate   = util.dateConverter(endDate);
+
+		List<ItemIssued> itemIssueds = itemIssuedRepository.findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqual(startDate, endDate);
+		itemIssueds.forEach(itemIssued -> {
+			ItemIssuedDto itemIssuedDto = itemIssuedConverter.entityToDto(itemIssued);
+			all.add(itemIssuedDto);
 		});
 		return all;
 	}
@@ -111,9 +115,9 @@ public class IssuedServiceimpl implements IssuedService {
 	@Override
 	public List<String> getPartyNames() {
 		List<String> names = new ArrayList<String>();
-		List<ItemIssued> itemIssueds = itemIssuedRepository.findAll();
-		itemIssueds.forEach(itemIssued -> {
-			names.add(itemIssued.getPartyName());
+		List<PendencyReportDto> pendencyReportList = pendencyService.getPendencyReport(null, null);
+		pendencyReportList.forEach(pendencyReport -> {
+			names.add(pendencyReport.getPartyName());
 		});
 		return names;
 	}
@@ -136,6 +140,55 @@ public class IssuedServiceimpl implements IssuedService {
 			sites.add(itemIssued.getSite());
 		});
 		return sites;
+	}
+
+	@Override
+	public List<Integer> getAvailStock(String partyName, String fatherName, String itemName, String size, String site) {
+ 
+		List<Integer> stockAvail = new ArrayList<Integer>();
+		List<PendencyReportDto> pendencyReportList = null;
+		Integer stockBal = 0;
+		Integer siteBal = 0;
+		
+		if(itemName != null && size == null) {
+			List<ItemStatus> itemStatuses = itemStockStatusRepository.findByItemName(itemName);
+			for(ItemStatus itemStatus : itemStatuses) {
+				stockBal = stockBal + itemStatus.getStock();
+			}
+		}else if(itemName != null && size != null){
+			ItemStatus itemStatus = itemStockStatusRepository.findByItemNameAndSize(itemName, size);
+			stockBal = stockBal + itemStatus.getStock();
+		}
+		
+		if(partyName != null && fatherName != null && itemName != null && size == null && site == null) {
+			 pendencyReportList = pendencyService.getPendencyReport(partyName, fatherName);
+			 for(PendencyReportDto pendencyReportDto : pendencyReportList) {
+				 if(itemName.equalsIgnoreCase(pendencyReportDto.getItemName()))
+					 siteBal = siteBal + pendencyReportDto.getQuantity();
+			  }
+		}if(partyName != null && fatherName != null && itemName != null && size == null && site != null) {
+			 pendencyReportList = pendencyService.getPendencyReport(partyName, fatherName);
+			 for(PendencyReportDto pendencyReportDto : pendencyReportList) {
+				 if(itemName.equalsIgnoreCase(pendencyReportDto.getItemName())  && site.equalsIgnoreCase(pendencyReportDto.getSite()))
+					 siteBal = siteBal + pendencyReportDto.getQuantity();
+			  }
+		} else if(partyName != null && fatherName != null && itemName != null && size != null && site == null) {
+			pendencyReportList = pendencyService.getPendencyReport(partyName, fatherName);
+			 for(PendencyReportDto pendencyReportDto : pendencyReportList) {
+				 if(itemName.equalsIgnoreCase(pendencyReportDto.getItemName()) && size.equalsIgnoreCase(pendencyReportDto.getSize()))
+					 siteBal = siteBal + pendencyReportDto.getQuantity();
+			  }
+		}else if(partyName != null && fatherName != null && itemName != null && size != null && site != null) {
+			pendencyReportList = pendencyService.getPendencyReport(partyName, fatherName);
+			 for(PendencyReportDto pendencyReportDto : pendencyReportList) {
+				 if(itemName.equalsIgnoreCase(pendencyReportDto.getItemName()) && size.equalsIgnoreCase(pendencyReportDto.getSize())
+						 && site.equalsIgnoreCase(pendencyReportDto.getSite()))
+					 siteBal = siteBal + pendencyReportDto.getQuantity();
+			  }
+		}
+		stockAvail.add(stockBal);
+		stockAvail.add(siteBal);
+		return stockAvail;
 	}
 
 	 

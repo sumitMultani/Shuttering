@@ -3,6 +3,7 @@
 var module = angular.module('demo.controllers', []);
 module.controller("ItemController", [ "$scope", "ItemService",
 		function($scope, ItemService, $window) {
+	 
 			$scope.Items = [];
 			$scope.IssuedItems = [];
 			$scope.ReceivedItems = [];
@@ -40,12 +41,6 @@ module.controller("ItemController", [ "$scope", "ItemService",
 				ItemService.getSpecificData(itemName).then(function(value) {
 					$scope.items = value.data;
 				});
-//			    alert(itemName);
-//			    $scope.getItemName = itemName;
-//			    $scope.items = "http://localhost:8080/stockItem/specificItem/"+itemName;
-			     
-			   // window.open("http://localhost:8080/stockItem/specificItem/"+itemName);
-				//window.location = "http://localhost:8080/stockItem/specificItem/"+itemName;
 			};
 			
 			// Add issued Item
@@ -65,10 +60,7 @@ module.controller("ItemController", [ "$scope", "ItemService",
 				itemIssued.shortage = $scope.itemIssuedDto.shortage;
 				$scope.IssuedItems.push(itemIssued);
 				// Clear the TextBoxes.
-				//$scope.itemIssuedDto.issuedDate = "";
 				$scope.itemIssuedDto.transactionType = "";
-				//$scope.itemIssuedDto.challanNo = "";
-				//$scope.itemIssuedDto.partyName = "";
 				$scope.itemIssuedDto.itemName = "";
 				$scope.itemIssuedDto.size = "";
 				$scope.itemIssuedDto.quantity = "";
@@ -96,10 +88,7 @@ module.controller("ItemController", [ "$scope", "ItemService",
 				$scope.ReceivedItems.push(itemReceived);
 
 				// Clear the TextBoxes.
-				//$scope.itemIssuedDto.issuedDate = "";
 				$scope.itemReceivedDto.transactionType = "";
-				//$scope.itemIssuedDto.challanNo = "";
-				//$scope.itemIssuedDto.partyName = "";
 				$scope.itemReceivedDto.itemName = "";
 				$scope.itemReceivedDto.size = "";
 				$scope.itemReceivedDto.quantity = "";
@@ -109,7 +98,7 @@ module.controller("ItemController", [ "$scope", "ItemService",
 			};
 
 			
-			
+			// remove item froom list
 			$scope.Remove = function(index) {
 				// Find the record using Index from Array.
 				var name = $scope.Items[index].itemName;
@@ -169,27 +158,8 @@ module.controller("ItemController", [ "$scope", "ItemService",
 				};
 			};
 
-			// getDataBasedOnItem
-			//-----------------------------------------------
-			/*$scope.getDataBasedOnItem = function($scope.getItemName) {
-				//alert($scope.getItemName);
-				ItemService.getAllItems().then(function(value) {
-					$scope.items = value.data;
-				}, function(reason) {
-					console.log("error occured");
-				}, function(value) {
-					console.log("no callback");
-				});
-
-				$scope.itemDto = {
-					itemId : null,
-					itemName : null,
-					stock : null
-				};
-			};*/
-			
+			 
 			// total stock item list
-			//
 			$scope.listStockItem = function() {
 				ItemService.getStockItemList().then(function(value) {
 					$scope.items = value.data;
@@ -205,10 +175,7 @@ module.controller("ItemController", [ "$scope", "ItemService",
 					stock : null
 				};
 			};
-
 			
-			
-			//------------------------------------
 			//issued Register
 			$scope.issuedRegister = function() {
 				ItemService.getIssuedRegister().then(function(value) {
@@ -226,7 +193,7 @@ module.controller("ItemController", [ "$scope", "ItemService",
 				};
 			};
 			
-			//-------------
+			// get Received register data
 			$scope.receivedRegister = function() {
 				ItemService.getReceivedRegister().then(function(value) {
 					$scope.receivedRegisterItems = value.data;
@@ -242,7 +209,33 @@ module.controller("ItemController", [ "$scope", "ItemService",
 					stock : null
 				};
 			};
-			// --------------------------------------------
+			
+			// get pendency report
+			$scope.pendencyReport = function(partyName, fatherName, itemname, size, site) {
+				ItemService.getPendencyReport(partyName, fatherName, itemname, size, site).then(function(value) {
+					$scope.pendencyReportItems = value.data;
+				}, function(reason) {
+					console.log("error occured");
+				}, function(value) {
+					console.log("no callback");
+				});
+ 
+			};
+			
+			// get daily Transactions
+			$scope.dailyTransactions = function(fromDate, toDate, partyName, fatherName, itemname, size, site) {
+				fromDate = convertDate(fromDate);
+				toDate = convertDate(toDate);
+				ItemService.getDailyTransactions(fromDate, toDate, partyName, fatherName, itemname, size, site).then(function(value) {
+					$scope.dailyTransactionItems = value.data;
+				}, function(reason) {
+					console.log("error occured");
+				}, function(value) {
+					console.log("no callback");
+				});
+ 
+			};
+			
 			// get all Customer Accounts
 			$scope.getCustomerAccounts = function() {
 				ItemService.getCustomerAccounts().then(function(value) {
@@ -254,8 +247,7 @@ module.controller("ItemController", [ "$scope", "ItemService",
 				});
 			};
 
-			// --------------------------
-			//			
+			//	get Stock status
 			$scope.getStockStatusItems = function() {
 				ItemService.getStockStatusItems().then(function(value) {
 					$scope.items = value.data;
@@ -288,7 +280,7 @@ module.controller("ItemController", [ "$scope", "ItemService",
 					console.log("no callback");
 				});
 			};
-			//-------------------------------------------------
+
 			// get Item Names
 			$scope.getItemNames = function() {
 				ItemService.getItemNames().then(function(value) {
@@ -300,7 +292,6 @@ module.controller("ItemController", [ "$scope", "ItemService",
 				});
 			};
 			
-			//-------------------------------------------------
 			// get Item Sizes
 			$scope.getItemSizes = function() {
 				ItemService.getItemSizes().then(function(value) {
@@ -311,7 +302,7 @@ module.controller("ItemController", [ "$scope", "ItemService",
 					console.log("no callback");
 				});
 			};
-			// ---------------------------------------------
+
 			// save Account
 			$scope.createAccount = function(account) {
 				ItemService.createAccount(account).then(function() {
@@ -335,7 +326,7 @@ module.controller("ItemController", [ "$scope", "ItemService",
 					console.log("no callback");
 				});
 			};
-			// --------------------------------------
+
 			// save issued item data
 			$scope.addIssuedItem = function(issuedItem) {
 				ItemService.addIssuedItem(issuedItem).then(function() {
@@ -383,11 +374,6 @@ module.controller("ItemController", [ "$scope", "ItemService",
 					console.log("no callback");
 				});
 			};
-			//----------------------------------------------------
-			
-			/*$scope.items = [{name: "item #1", editing: false}, 
-			                {name: "item #2", editing: false}, 
-			                {name: "item #3", editing: false}];*/
 
 			$scope.editItem = function (item) {
 			    item.editing = true;
@@ -395,10 +381,9 @@ module.controller("ItemController", [ "$scope", "ItemService",
 
 			$scope.doneEditing = function (item) {
 			    item.editing = false;
-			    //dong some background ajax calling for persistence...
 			};
 			
-			//--------------------------------------
+			//get received item Excess Quantity
 			$scope.getReceivedItemExcessQuantity = function(itemName) {
 				ItemService.getItemExcessQuantity(itemName).then(function(value) {
 					$scope.itemReceivedDto.excessQuantity = value.data;
@@ -408,4 +393,12 @@ module.controller("ItemController", [ "$scope", "ItemService",
 					console.log("no callback");
 				});
 			};
+			
+			// conert date into yyyy-mm-d format
+			function convertDate(str) {
+			    var date = new Date(str),
+			        mnth = ("0" + (date.getMonth()+1)).slice(-2),
+			        day  = ("0" + date.getDate()).slice(-2);
+			    return [ date.getFullYear(), mnth, day ].join("-");
+			}
 		} ]);

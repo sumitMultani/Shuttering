@@ -7,7 +7,7 @@ import com.example.demo.dto.PendencyReportDto;
 
 public interface PendencyService {
 
-	List<PendencyReportDto> getPendencyReport(String partyName, String fatherName);
+	List<PendencyReportDto> getPendencyReport(String partyName, String fatherName, String itemName, String size, String site);
 
 	 
 

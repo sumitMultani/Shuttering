@@ -16,9 +16,9 @@ import com.example.demo.converter.ItemConverter;
 import com.example.demo.converter.ItemReceivedConverter;
 import com.example.demo.dto.ItemDto;
 import com.example.demo.dto.ItemReceivedDto;
-import com.example.demo.entity.ItemStatus;
 import com.example.demo.entity.ItemIssued;
 import com.example.demo.entity.ItemReceived;
+import com.example.demo.entity.ItemStatus;
 import com.example.demo.repository.IssuedRepository;
 import com.example.demo.repository.ReceivedRepository;
 import com.example.demo.service.ItemService;
@@ -120,6 +120,7 @@ public class ReceivedServiceimpl implements ReceivedService {
 		return receivedItems;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ItemReceived> getReceivedRegister() {
 		

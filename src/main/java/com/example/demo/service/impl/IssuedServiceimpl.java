@@ -90,6 +90,7 @@ public class IssuedServiceimpl implements IssuedService {
 		return items;
 	}
 
+	@SuppressWarnings("unchecked")
 	@Override
 	public List<ItemIssued> getIssuedRegister() {
 		Session session = sessionFactory.openSession();
@@ -115,7 +116,7 @@ public class IssuedServiceimpl implements IssuedService {
 	@Override
 	public List<String> getPartyNames() {
 		List<String> names = new ArrayList<String>();
-		List<PendencyReportDto> pendencyReportList = pendencyService.getPendencyReport(null, null);
+		List<PendencyReportDto> pendencyReportList = pendencyService.getPendencyReport(null, null,null, null, null);
 		pendencyReportList.forEach(pendencyReport -> {
 			names.add(pendencyReport.getPartyName());
 		});
@@ -161,28 +162,23 @@ public class IssuedServiceimpl implements IssuedService {
 		}
 		
 		if(partyName != null && fatherName != null && itemName != null && size == null && site == null) {
-			 pendencyReportList = pendencyService.getPendencyReport(partyName, fatherName);
+			 pendencyReportList = pendencyService.getPendencyReport(partyName, fatherName, itemName, size , site);
 			 for(PendencyReportDto pendencyReportDto : pendencyReportList) {
-				 if(itemName.equalsIgnoreCase(pendencyReportDto.getItemName()))
 					 siteBal = siteBal + pendencyReportDto.getQuantity();
 			  }
 		}if(partyName != null && fatherName != null && itemName != null && size == null && site != null) {
-			 pendencyReportList = pendencyService.getPendencyReport(partyName, fatherName);
+			 pendencyReportList = pendencyService.getPendencyReport(partyName, fatherName, itemName, size , site);
 			 for(PendencyReportDto pendencyReportDto : pendencyReportList) {
-				 if(itemName.equalsIgnoreCase(pendencyReportDto.getItemName())  && site.equalsIgnoreCase(pendencyReportDto.getSite()))
 					 siteBal = siteBal + pendencyReportDto.getQuantity();
 			  }
 		} else if(partyName != null && fatherName != null && itemName != null && size != null && site == null) {
-			pendencyReportList = pendencyService.getPendencyReport(partyName, fatherName);
+			pendencyReportList = pendencyService.getPendencyReport(partyName, fatherName, itemName, size , site);
 			 for(PendencyReportDto pendencyReportDto : pendencyReportList) {
-				 if(itemName.equalsIgnoreCase(pendencyReportDto.getItemName()) && size.equalsIgnoreCase(pendencyReportDto.getSize()))
 					 siteBal = siteBal + pendencyReportDto.getQuantity();
 			  }
 		}else if(partyName != null && fatherName != null && itemName != null && size != null && site != null) {
-			pendencyReportList = pendencyService.getPendencyReport(partyName, fatherName);
+			pendencyReportList = pendencyService.getPendencyReport(partyName, fatherName, itemName, size , site);
 			 for(PendencyReportDto pendencyReportDto : pendencyReportList) {
-				 if(itemName.equalsIgnoreCase(pendencyReportDto.getItemName()) && size.equalsIgnoreCase(pendencyReportDto.getSize())
-						 && site.equalsIgnoreCase(pendencyReportDto.getSite()))
 					 siteBal = siteBal + pendencyReportDto.getQuantity();
 			  }
 		}

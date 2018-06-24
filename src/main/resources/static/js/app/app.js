@@ -23,6 +23,8 @@ demoApp.constant("CONSTANTS", {
 		getReceivedRegister : "http://localhost:8080/received/register",
 		getStockItemList : "http://localhost:8080/stockItem/stocklist",
 		getSpecificData : "http://localhost:8080/stockItem/specificItem/plate",
+		getPendencyReport : "http://localhost:8080/pendency/report?partyName=pname&fatherName=fname&itemName=iname&size=isize&site=isite",
+		getdailyTransactions : "http://localhost:8080/transaction/fdate/tdate?itemName=iname&partyName=pname&fatherName=fname&size=isize&site=isite",
 });
 
 

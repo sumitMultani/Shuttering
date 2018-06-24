@@ -16,9 +16,10 @@ public class ItemIssuedDto implements Serializable {
 	private String size;
 	private Integer quantity;
 	private Integer excessQuantity;
+	private Integer squareFeet;
 	private String site;
 	private String mobile;
-	//private String squareFeet;
+	private String remarks;
 
 	public ItemIssuedDto() {
 		// 0 - param constructor.
@@ -28,7 +29,7 @@ public class ItemIssuedDto implements Serializable {
 			String transactionType, String challanNo, String partyName,
 			String fatherName, String itemName, String size, Integer quantity,
 			Integer excessQuantity, 
-			String squareFeet, String site, String mobile) {
+			Integer squareFeet, String site, String mobile, String remarks) {
 		this.issueId = issueId;
 		this.issuedDate = issuedDate;
 		this.transactionType = transactionType;
@@ -39,9 +40,10 @@ public class ItemIssuedDto implements Serializable {
 		this.size = size;
 		this.quantity = quantity;
 		this.excessQuantity = excessQuantity;
+		this.squareFeet = squareFeet;
 		this.site = site;
 		this.mobile = mobile;
-		//this.squareFeet = squareFeet;
+		this.remarks = remarks;
 	}
 
 	public Long getIssueId() {
@@ -123,8 +125,6 @@ public class ItemIssuedDto implements Serializable {
 	public void setExcessQuantity(Integer excessQuantity) {
 		this.excessQuantity = excessQuantity;
 	}
-
-	 
  
 	public String getSite() {
 		return site;
@@ -142,6 +142,22 @@ public class ItemIssuedDto implements Serializable {
 		this.mobile = mobile;
 	}
 
+	public Integer getSquareFeet() {
+		return squareFeet;
+	}
+
+	public void setSquareFeet(Integer squareFeet) {
+		this.squareFeet = squareFeet;
+	}
+
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
 	@Override
 	public String toString() {
 		return "ItemIssuedDto [issueId=" + issueId + ", issuedDate="
@@ -149,8 +165,9 @@ public class ItemIssuedDto implements Serializable {
 				+ ", challanNo=" + challanNo + ", partyName=" + partyName
 				+ ", fatherName=" + fatherName + ", itemName=" + itemName
 				+ ", size=" + size + ", quantity=" + quantity
-				+ ", excessQuantity=" + excessQuantity + ", site=" + site
-				+ ", mobile=" + mobile + "]";
+				+ ", excessQuantity=" + excessQuantity + ", squareFeet="
+				+ squareFeet + ", site=" + site + ", mobile=" + mobile
+				+ ", remarks=" + remarks + "]";
 	}
 
 }

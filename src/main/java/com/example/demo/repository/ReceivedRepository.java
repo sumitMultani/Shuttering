@@ -18,4 +18,22 @@ public interface ReceivedRepository extends JpaRepository<ItemReceived, Long>{
 	public List<ItemReceived> findByItemNameAndPartyNameAndFatherName(String itemName, String partyName, String fatherName);
 	
 	public List<ItemReceived> findByItemNameAndPartyNameAndFatherNameAndSize(String itemName, String partyName, String fatherName, String size);
+	
+	public List<ItemReceived> findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndItemName(String startDate,String endDate,String itemName);
+
+	public List<ItemReceived> findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndItemNameAndPartyName(String startDate,String endDate,String itemName,String partyName);
+
+	public List<ItemReceived> findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndItemNameAndPartyNameAndFatherName(String startDate,String endDate,String itemName,String partyName,String fatherName);
+
+	public List<ItemReceived> findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndPartyName(String startDate,String endDate,String partyName);
+
+	public List<ItemReceived> findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndPartyNameAndFatherName(String startDate, String endDate, String partyName, String fatherName);
+	
+	public List<ItemReceived> findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndItemNameAndPartyNameAndFatherNameAndSize(String startDate,String endDate,String itemName,String partyName,String fatherName,String size);
+
+	public List<ItemReceived> findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndItemNameAndPartyNameAndFatherNameAndSizeAndSite(String startDate,String endDate,String itemName,String partyName,String fatherName,String size,String site);
+
+	public List<ItemReceived> findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndSite(String startDate,String endDate,String site);
+
+	public List<ItemReceived> findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndItemNameAndSite(String startDate,String endDate,String itemName,String site);
 }

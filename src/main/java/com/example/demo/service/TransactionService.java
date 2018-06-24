@@ -7,7 +7,7 @@ import com.example.demo.dto.TransactionDto;
 
 public interface TransactionService {
 
-	List<TransactionDto> getTransactions(String startDate, String endDate, String itemName, String partyName, String fatherName);
+	List<TransactionDto> getTransactions(String startDate, String endDate, String itemName, String partyName, String fatherName, String size, String site);
 
 
 }

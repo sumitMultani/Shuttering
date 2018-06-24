@@ -48,13 +48,16 @@ public class ItemIssued implements Serializable {
 	private Integer excessQuantity;
 
 	@Column(name = "square_feet")
-	private String squareFeet;
+	private Integer squareFeet;
 	
 	@Column(name = "site")
 	private String site;
 	
 	@Column(name = "mobile")
 	private String mobile;
+	
+	@Column(name = "remarks")
+	private String remarks;
 
 	public ItemIssued() {
 		// 0 - param constructor.
@@ -64,7 +67,7 @@ public class ItemIssued implements Serializable {
 			String challanNo, String partyName, String fatherName,
 			String itemName, String size, Integer quantity,
 			Integer excessQuantity, 
-			String squareFeet, String site, String mobile) {
+			Integer squareFeet, String site, String mobile, String remarks) {
 		this.issueId = issueId;
 		this.issuedDate = issuedDate;
 		this.transactionType = transactionType;
@@ -78,6 +81,7 @@ public class ItemIssued implements Serializable {
 		this.squareFeet = squareFeet;
 		this.site = site;
 		this.mobile = mobile;
+		this.remarks = remarks;
 	}
 
 	public Long getIssueId() {
@@ -162,11 +166,11 @@ public class ItemIssued implements Serializable {
 
 	 
 
-	public String getSquareFeet() {
+	public Integer getSquareFeet() {
 		return squareFeet;
 	}
 
-	public void setSquareFeet(String squareFeet) {
+	public void setSquareFeet(Integer squareFeet) {
 		this.squareFeet = squareFeet;
 	}
 
@@ -186,6 +190,14 @@ public class ItemIssued implements Serializable {
 		this.mobile = mobile;
 	}
 
+	public String getRemarks() {
+		return remarks;
+	}
+
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
 	@Override
 	public String toString() {
 		return "ItemIssued [issueId=" + issueId + ", issuedDate=" + issuedDate
@@ -194,7 +206,7 @@ public class ItemIssued implements Serializable {
 				+ fatherName + ", itemName=" + itemName + ", size=" + size
 				+ ", quantity=" + quantity + ", excessQuantity="
 				+ excessQuantity + ", squareFeet=" + squareFeet + ", site="
-				+ site + ", mobile=" + mobile + "]";
+				+ site + ", mobile=" + mobile + ", remarks=" + remarks + "]";
 	}
-	 
+
 }

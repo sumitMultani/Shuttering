@@ -15,23 +15,24 @@ public class TransactionDto implements Serializable{
 	 */
 	private static final long serialVersionUID = -3875959887512291858L;
 	
-	private String Date;
-	private String transactionType;
+	private String date;
+	private String voucher;
 	private String partyName;
 	private String fatherName;
 	private String itemName;
 	private String size;
 	private Integer quantity;
+	private String transactionType;
 	private Integer breakage;
 	private Integer shortage;
 	private String site;
-	private String mobile;
+	private String remarks;
 	 
 	public String getDate() {
-		return Date;
+		return date;
 	}
 	public void setDate(String date) {
-		Date = date;
+		this.date = date;
 	}
 	public String getTransactionType() {
 		return transactionType;
@@ -90,24 +91,28 @@ public class TransactionDto implements Serializable{
 	public void setSite(String site) {
 		this.site = site;
 	}
-	public String getMobile() {
-		return mobile;
-	}
-	public void setMobile(String mobile) {
-		this.mobile = mobile;
-	}
 	
+	public String getVoucher() {
+		return voucher;
+	}
+	public void setVoucher(String voucher) {
+		this.voucher = voucher;
+	}
+	public String getRemarks() {
+		return remarks;
+	}
+	public void setRemarks(String remarks) {
+		this.remarks = remarks;
+	}
+
 	@Override
 	public String toString() {
-		return "TransactionDto [Date=" + Date + ", transactionType="
-				+ transactionType + ", partyName=" + partyName
-				+ ", fatherName=" + fatherName + ", itemName=" + itemName
-				+ ", size=" + size + ", quantity=" + quantity + ", breakage="
-				+ breakage + ", shortage=" + shortage + ", site=" + site
-				+ ", mobile=" + mobile + "]";
+		return "TransactionDto [date=" + date + ", voucher=" + voucher
+				+ ", partyName=" + partyName + ", fatherName=" + fatherName
+				+ ", itemName=" + itemName + ", size=" + size + ", quantity="
+				+ quantity + ", transactionType=" + transactionType
+				+ ", breakage=" + breakage + ", shortage=" + shortage
+				+ ", site=" + site + ", remarks=" + remarks + "]";
 	}
-	
-	
- 
-
+	 
 }

@@ -37,58 +37,108 @@ public class TransactionServiceImpl implements TransactionService{
 	private Util util;
 	
 	@Override
-	public List<TransactionDto> getTransactions(String startDate, String endDate, String itemName, String partyName, String fatherName) {
+	public List<TransactionDto> getTransactions(String startDate, String endDate, String itemName, String partyName, String fatherName, String size, String site) {
 		 
-		startDate = util.dateConverter(startDate);
-		endDate = util.dateConverter(endDate);
+	
+		if(itemName != null && (itemName.equalsIgnoreCase("null") || itemName.trim().equalsIgnoreCase("")))
+			itemName = null;
+		if(partyName != null && (partyName.equalsIgnoreCase("null") || partyName.trim().equalsIgnoreCase("")))
+			partyName = null;
+		if(fatherName != null && (fatherName.equalsIgnoreCase("null") || fatherName.trim().equalsIgnoreCase("")))
+			fatherName = null;
+		if(size != null && (size.equalsIgnoreCase("null") || size.trim().equalsIgnoreCase("")))
+			size = null;
+		if(site != null && (site.equalsIgnoreCase("null") || site.trim().equalsIgnoreCase("")))
+			site = null;
+		
+		
 		
 		List<TransactionDto> transactions = new ArrayList<TransactionDto>();
-		
-		 if(startDate != null && endDate != null) {
+		if(startDate != null && endDate != null) {
+			 startDate = util.dateConverter(startDate);
+			 endDate = util.dateConverter(endDate);
+				
 			 List<ItemIssued> itemIssueds = null;
-			 if(itemName == null && partyName == null && fatherName == null)
+			 List<ItemReceived> itemReceiveds = null;
+			 
+			 if(itemName == null && partyName == null && fatherName == null && size == null && site == null) {
 				 itemIssueds = issuedRepository.findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqual(startDate, endDate);
-			 else if(itemName != null && partyName == null && fatherName == null)
+				 itemReceiveds = receivedRepository.findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqual(startDate, endDate);
+			 }
+			 else if(itemName != null && partyName == null && fatherName == null && size == null && site == null) {
 				 itemIssueds = issuedRepository.findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqualAndItemName(startDate, endDate, itemName);
-			 else if(itemName != null && partyName != null && fatherName == null)
+				 itemReceiveds = receivedRepository.findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndItemName(startDate, endDate, itemName);
+			 }
+			 else if(itemName != null && partyName != null && fatherName == null && size == null && site == null) {
 				 itemIssueds = issuedRepository.findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqualAndItemNameAndPartyName(startDate, endDate, itemName, partyName);
-			 else if(itemName != null && partyName != null && fatherName != null)
+				 itemReceiveds = receivedRepository.findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndItemNameAndPartyName(startDate, endDate, itemName, partyName);
+			 }
+			 else if(itemName != null && partyName != null && fatherName != null && size == null && site == null) {
 				 itemIssueds = issuedRepository.findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqualAndItemNameAndPartyNameAndFatherName(startDate, endDate, itemName, partyName, fatherName);
-			 else if(itemName == null && partyName != null && fatherName == null)
+				 itemReceiveds = receivedRepository.findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndItemNameAndPartyNameAndFatherName(startDate, endDate, itemName, partyName, fatherName);
+			 }
+			 else if(itemName == null && partyName != null && fatherName == null && size == null && site == null) {
 				 itemIssueds = issuedRepository.findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqualAndPartyName(startDate, endDate, partyName);
-			 else if(itemName == null && partyName != null && fatherName != null)
+				 itemReceiveds = receivedRepository.findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndPartyName(startDate, endDate, partyName);
+			 }
+			 else if(itemName == null && partyName != null && fatherName != null && size == null && site == null) {
 				 itemIssueds = issuedRepository.findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqualAndPartyNameAndFatherName(startDate, endDate, partyName, fatherName);
+				 itemReceiveds = receivedRepository.findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndPartyNameAndFatherName(startDate, endDate, partyName, fatherName);
+			 }
+			 
+			 else if(itemName != null && partyName != null && fatherName != null && size != null && site == null) {
+				 itemIssueds = issuedRepository.findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqualAndItemNameAndPartyNameAndFatherNameAndSize(startDate, endDate, itemName, partyName, fatherName, size);
+				 itemReceiveds = receivedRepository.findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndItemNameAndPartyNameAndFatherNameAndSize(startDate, endDate, itemName, partyName, fatherName, size);
+			 }
+			 
+			 else if(itemName != null && partyName != null && fatherName != null && size != null && site != null) {
+				 itemIssueds = issuedRepository.findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqualAndItemNameAndPartyNameAndFatherNameAndSizeAndSite(startDate, endDate, itemName, partyName, fatherName, size, site);
+				 itemReceiveds = receivedRepository.findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndItemNameAndPartyNameAndFatherNameAndSizeAndSite(startDate, endDate, itemName, partyName, fatherName, size, site);
+			 }
+			 else if(itemName == null && partyName == null && fatherName == null && size == null && site != null) {
+				 itemIssueds = issuedRepository.findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqualAndSite(startDate, endDate, site);
+				 itemReceiveds = receivedRepository.findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndSite(startDate, endDate, site);
+			 }
+			 
+			 else if(itemName != null && partyName == null && fatherName == null && size == null && site != null) {
+				 itemIssueds = issuedRepository.findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqualAndItemNameAndSite(startDate, endDate, itemName, site);
+				 itemReceiveds = receivedRepository.findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndItemNameAndSite(startDate, endDate,itemName, site);
+			 }
 			 
 			 itemIssueds.forEach(itemIssued ->{
 				 TransactionDto transactionDto = new TransactionDto();
 				 ItemIssuedDto itemIssuedDto = itemIssuedConverter.entityToDto(itemIssued);
 				 transactionDto.setDate(itemIssuedDto.getIssuedDate());
-				 transactionDto.setTransactionType(itemIssuedDto.getTransactionType());
+				 transactionDto.setVoucher("V_I_123");
 				 transactionDto.setPartyName(itemIssuedDto.getPartyName());
 				 transactionDto.setFatherName(itemIssuedDto.getFatherName());
 				 transactionDto.setItemName(itemIssued.getItemName());
 				 transactionDto.setSize(itemIssued.getSize());
 				 transactionDto.setQuantity(itemIssued.getQuantity());
+				 transactionDto.setTransactionType(itemIssuedDto.getTransactionType());
+				 transactionDto.setBreakage(0);
+				 transactionDto.setShortage(0);
 				 transactionDto.setSite(itemIssued.getSite());
-				 transactionDto.setMobile(itemIssued.getMobile());
+				 transactionDto.setRemarks(itemIssued.getRemarks());
 				 transactions.add(transactionDto);
 			 });
 			 
-			 List<ItemReceived> itemReceiveds = receivedRepository.findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqual(startDate, endDate);
+			  
 			 itemReceiveds.forEach(itemReceived ->{
 			     TransactionDto transactionDto = new TransactionDto();
 				 ItemReceivedDto itemReceivedDto = itemReceivedConverter.entityToDto(itemReceived);
 				 transactionDto.setDate(itemReceivedDto.getReceivedDate());
-			     transactionDto.setTransactionType(itemReceivedDto.getTransactionType());
+				 transactionDto.setVoucher("V_R_123");
 				 transactionDto.setPartyName(itemReceivedDto.getPartyName());
 				 transactionDto.setFatherName(itemReceivedDto.getFatherName());
 				 transactionDto.setItemName(itemReceivedDto.getItemName());
 				 transactionDto.setSize(itemReceivedDto.getSize());
 				 transactionDto.setQuantity(itemReceivedDto.getQuantity());
+			     transactionDto.setTransactionType(itemReceivedDto.getTransactionType());
    				 transactionDto.setBreakage(itemReceivedDto.getBreakage());
 				 transactionDto.setShortage(itemReceivedDto.getShortage());
 				 transactionDto.setSite(itemReceivedDto.getSite());
-				 transactionDto.setMobile(itemReceivedDto.getMobile());
+				 transactionDto.setRemarks("-");
 				 transactions.add(transactionDto);
 			 });
 			 

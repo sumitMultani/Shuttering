@@ -22,7 +22,7 @@ public class TransactionController {
 	@RequestMapping(value = "/{startDate}/{endDate}" ,method = RequestMethod.GET)
 	public List<TransactionDto> getTransactions(@PathVariable String startDate, @PathVariable String endDate,
 			@RequestParam(required = false) String itemName, @RequestParam(required = false) String partyName,
-			@RequestParam(required = false) String fatherName) {
-		return transactionService.getTransactions(startDate, endDate, itemName, partyName, fatherName);
+			@RequestParam(required = false) String fatherName, @RequestParam(required = false) String size, @RequestParam(required = false) String site) {
+		return transactionService.getTransactions(startDate, endDate, itemName, partyName, fatherName, size, site);
 	}
 }

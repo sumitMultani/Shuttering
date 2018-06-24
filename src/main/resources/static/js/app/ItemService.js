@@ -78,6 +78,54 @@ angular.module('demo.services', []).factory('ItemService',
 		        return $http.get(CONSTANTS.getReceivedRegister);
 		    }
 			
+			service.getPendencyReport = function(partyName, fatherName, itemName, size, site) {
+				var url = CONSTANTS.getPendencyReport;
+				if(partyName == undefined ){
+					partyName = null;
+				}if(fatherName == undefined ){ 
+					fatherName = null;
+				}if(itemName == undefined  ){ 
+					itemName = null;
+				}if(size == undefined ){ 
+					size = null;
+				}if(site == undefined ){ 
+					site = null;
+				}
+				url = url.replace('pname', partyName);
+				url = url.replace('fname', fatherName);
+				url = url.replace('iname', itemName);
+				url = url.replace('isize', size);
+				url = url.replace('isite', site);
+				 
+		        return $http.get(url);
+		    }
+			
+			service.getDailyTransactions = function(fromDate, toDate, partyName, fatherName, itemName, size, site) {
+				var url = CONSTANTS.getdailyTransactions;
+				if(partyName == undefined ){
+					partyName = null;
+				}if(fatherName == undefined ){ 
+					fatherName = null;
+				}if(itemName == undefined  ){ 
+					itemName = null;
+				}if(size == undefined ){ 
+					size = null;
+				}if(site == undefined ){ 
+					site = null;
+				}
+				
+				url = url.replace('fdate', fromDate);
+				url = url.replace('tdate', toDate);
+				url = url.replace('pname', partyName);
+				url = url.replace('fname', fatherName);
+				url = url.replace('iname', itemName);
+				url = url.replace('isize', size);
+				url = url.replace('isite', site);
+				 
+		        return $http.get(url);
+		    }
+			
+			
 			return service;
 		} ]);
 

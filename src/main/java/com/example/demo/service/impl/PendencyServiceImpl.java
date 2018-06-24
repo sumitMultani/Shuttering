@@ -44,19 +44,61 @@ public class PendencyServiceImpl implements PendencyService{
 	}
 
 	@Override
-	public List<PendencyReportDto> getPendencyReport(String partyName, String fatherName) {
+	public List<PendencyReportDto> getPendencyReport(String partyName, String fatherName, String itemName, String size, String site) {
+		
+		if(partyName != null && (partyName.equalsIgnoreCase("null") || partyName.equalsIgnoreCase("")))
+			partyName = null;
+		if(fatherName != null && (fatherName.equalsIgnoreCase("null") || fatherName.equalsIgnoreCase("")))
+			fatherName = null;
+		if(itemName != null && (itemName.equalsIgnoreCase("null") || itemName.equalsIgnoreCase("")))
+			itemName = null;
+		if(size != null && (size.equalsIgnoreCase("null") || size.equalsIgnoreCase("")))
+			size = null;
+		if(site != null && (site.equalsIgnoreCase("null") || site.equalsIgnoreCase("")))
+			site = null;
 		
 		List<PendencyReportDto> pendencyReportList = new ArrayList<PendencyReportDto>();
 		List<ItemIssued> itemIssueds = null;
 		
-		if(partyName == null && fatherName == null)
+		if(partyName == null && fatherName == null && itemName == null && size == null && site == null)
 			itemIssueds = issuedRepository.findAll();
-		if(partyName != null && fatherName == null)
+		
+		else if(partyName != null && fatherName == null && itemName == null && size == null && site == null)
 			itemIssueds = issuedRepository.findByPartyName(partyName);
-		if(partyName == null && fatherName != null)
+		
+		else if(partyName == null && fatherName != null && itemName == null && size == null && site == null)
 			itemIssueds = issuedRepository.findByFatherName(fatherName);
-		if(partyName != null && fatherName != null)
+		
+		else if(partyName == null && fatherName == null && itemName != null && size == null && site == null)
+			itemIssueds = issuedRepository.findByItemName(itemName);
+		
+		else if(partyName != null && fatherName != null && itemName == null && size == null && site == null)
 			itemIssueds = issuedRepository.findByPartyNameAndFatherName(partyName, fatherName);
+		
+		else if(partyName != null && fatherName != null && itemName != null && size == null && site == null)
+			itemIssueds = issuedRepository.findByPartyNameAndFatherNameAndItemName(partyName, fatherName, itemName);
+		
+		else if(partyName != null && fatherName != null && itemName != null && size != null && site == null)
+			itemIssueds = issuedRepository.findByPartyNameAndFatherNameAndItemNameAndSize(partyName, fatherName, itemName, size);
+		
+		else if(partyName != null && fatherName == null && itemName != null && size != null && site != null)
+			itemIssueds = issuedRepository.findByPartyNameAndItemNameAndSizeAndSite(partyName, itemName, size, site);
+		
+		else if(partyName != null && fatherName != null && itemName != null && size != null && site != null)
+			itemIssueds = issuedRepository.findByPartyNameAndFatherNameAndItemNameAndSizeAndSite(partyName, fatherName, itemName, size, site);
+		
+		else if(partyName == null && fatherName == null && itemName != null && size != null && site == null)
+			itemIssueds = issuedRepository.findByItemNameAndSize(itemName, size);
+		
+		else if(partyName == null && fatherName == null && itemName != null && size != null && site != null)
+			itemIssueds = issuedRepository.findByItemNameAndSizeAndSite(itemName, size, site);
+		
+		else if(partyName == null && fatherName == null && itemName == null && size == null && site != null)
+			itemIssueds = issuedRepository.findBySite(site);
+		
+		else if(partyName == null && fatherName == null && itemName != null && size == null && site != null)
+			itemIssueds = issuedRepository.findByItemNameAndSite(itemName, site);
+		
 		
 		Set<IssuedDetails> issuedDetails = getIssuedDetails(itemIssueds);
 		

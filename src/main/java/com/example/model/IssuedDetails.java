@@ -107,8 +107,10 @@ public class IssuedDetails implements Serializable {
 				+ ((fatherName == null) ? 0 : fatherName.hashCode());
 		result = prime * result
 				+ ((itemName == null) ? 0 : itemName.hashCode());
+		result = prime * result + ((mobile == null) ? 0 : mobile.hashCode());
 		result = prime * result
 				+ ((partyName == null) ? 0 : partyName.hashCode());
+		result = prime * result + ((site == null) ? 0 : site.hashCode());
 		result = prime * result + ((size == null) ? 0 : size.hashCode());
 		return result;
 	}
@@ -132,10 +134,20 @@ public class IssuedDetails implements Serializable {
 				return false;
 		} else if (!itemName.equals(other.itemName))
 			return false;
+		if (mobile == null) {
+			if (other.mobile != null)
+				return false;
+		} else if (!mobile.equals(other.mobile))
+			return false;
 		if (partyName == null) {
 			if (other.partyName != null)
 				return false;
 		} else if (!partyName.equals(other.partyName))
+			return false;
+		if (site == null) {
+			if (other.site != null)
+				return false;
+		} else if (!site.equals(other.site))
 			return false;
 		if (size == null) {
 			if (other.size != null)

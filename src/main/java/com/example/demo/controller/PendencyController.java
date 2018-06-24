@@ -19,8 +19,9 @@ public class PendencyController {
 	private PendencyService pendencyService;
 	
 	@RequestMapping(value = "/report", method = RequestMethod.GET)
-	public List<PendencyReportDto> getIssuedItems(@RequestParam(required = false) String partyName, @RequestParam(required = false) String fatherName) {
-		return pendencyService.getPendencyReport(partyName, fatherName);
+	public List<PendencyReportDto> getIssuedItems(@RequestParam(required = false) String partyName, @RequestParam(required = false) String fatherName, 
+			@RequestParam(required = false) String itemName, @RequestParam(required = false) String size, @RequestParam(required = false) String site) {
+		return pendencyService.getPendencyReport(partyName, fatherName, itemName, size, site);
 	}
 	
 }

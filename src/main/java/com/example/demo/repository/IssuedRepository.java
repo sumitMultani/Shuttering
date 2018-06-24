@@ -39,4 +39,29 @@ public interface IssuedRepository extends JpaRepository<ItemIssued, Long>{
 	
 	public List<ItemIssued> findByItemNameAndPartyNameAndFatherNameAndSize(String itemName, String partyName, String fatherName, String size);
 	
+	public List<ItemIssued> findByPartyNameAndFatherNameAndItemName(String partyName, String fatherName, String itemName );
+	
+	public List<ItemIssued> findByPartyNameAndFatherNameAndItemNameAndSize(String partyName, String fatherName, String itemName, String size);
+	
+	public List<ItemIssued> findByPartyNameAndFatherNameAndItemNameAndSizeAndSite(String partyName, String fatherName, String itemName, String size, String site);
+	
+	public List<ItemIssued> findByItemNameAndSize(String itemName,String size);
+	
+	public List<ItemIssued> findByItemNameAndSite(String itemName,String site);
+	
+	public List<ItemIssued> findByItemNameAndSizeAndSite(String itemName, String size, String site);
+	
+	public List<ItemIssued> findBySite(String site);
+	
+	public List<ItemIssued>  findByItemName(String itemName);
+	
+	public List<ItemIssued> findByPartyNameAndItemNameAndSizeAndSite(String partyName,String itemName,String size,String site);
+	
+	public List<ItemIssued> findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqualAndItemNameAndPartyNameAndFatherNameAndSize(String startDate, String endDate, String itemName, String partyName, String fatherName, String size);
+
+	public List<ItemIssued> findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqualAndItemNameAndPartyNameAndFatherNameAndSizeAndSite(String startDate, String endDate, String itemName, String partyName, String fatherName, String size, String site);
+	
+	public List<ItemIssued> findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqualAndSite(String startDate, String endDate, String site);
+	
+	public List<ItemIssued> findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqualAndItemNameAndSite(String startDate, String endDate, String itemName, String site);
 }

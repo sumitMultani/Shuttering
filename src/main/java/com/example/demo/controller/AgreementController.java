@@ -17,7 +17,7 @@ public class AgreementController {
 	private AgreementService aggreementService;
 
 	@RequestMapping(method = RequestMethod.POST)
-	public AgreementDto saveAgreement(@RequestBody AgreementDto agreementDtos) {
+	public AgreementDto saveAgreement(@RequestBody AgreementDto[] agreementDtos) {
 		return aggreementService.saveAgreement(agreementDtos);
 	}
 }

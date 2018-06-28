@@ -89,16 +89,16 @@
 			</div>
 			<div class="form-group col-md-4">
 			<label>Quantity</label>
-			<input type="text" id ="stock" ng-model="itemDto.stock" class="form-control" placeholder="Stocks" height="50" width="50" />
+			<input type="text" id ="stock" ng-model="itemDto.stock" class="form-control" placeholder="Stocks" />
 			</div>
 
              <div class="form-group col-md-6">
 			<label>Breakage Charges</label>
-			<input type="text" id ="brokerCharges" ng-model="itemDto.brokerCharges"  class="form-control" placeholder="Enter broker charges" height="50" width="50" /> 
+			<input type="text" id ="breakageCharges" ng-model="itemDto.breakageCharges"  class="form-control" placeholder="Enter broker charges" /> 
 			 </div>
 			 <div class="form-group col-md-6">
 			<label>Rent Per Day</label>
-			<input type="text" id ="rentPerDay" ng-model="itemDto.rentPerDay" class="form-control"  placeholder="Enter rent per day"   ng-click="calculateRentPerDay(itemDto.rate)"/>
+			<input type="text" id ="rentPerDay" ng-model="itemDto.rentPerDay" class="form-control"  placeholder="Enter rent per day"   ng-click="calculateItemRentPerDay(itemDto.rate)"/>
     		  </div>
     		<br>
     		<button style="position: static;" ng-click="Add()" class="btn btn-sm btn-info"> + ADD ITEM</button>
@@ -117,7 +117,7 @@
                     <td>{{m.itemName}}</td>
                     <td>{{m.squareFeet}}</td>
                     <td>{{m.rate}}</td>
-                    <td>{{m.brokerCharges}}</td>
+                    <td>{{m.breakageCharges}}</td>
                     <td>{{m.stock}}</td>
                     <td><input type="button" ng-click="Remove($index)" value="Remove" /></td>
                 </tr>

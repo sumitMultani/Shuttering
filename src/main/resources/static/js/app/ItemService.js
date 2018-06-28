@@ -58,8 +58,15 @@ angular.module('demo.services', []).factory('ItemService',
 			service.getItemSizes = function() {
 		        return $http.get(CONSTANTS.getItemSizes);
 		    }
+			service.getItemSites = function() {
+		        return $http.get(CONSTANTS.getItemSites);
+		    }
 			service.saveIssuedItem = function(issuedItems) {
 				return $http.post(CONSTANTS.saveIssuedItem, issuedItems);
+			}
+			
+			service.saveAgreement = function(agreement) {
+				return $http.post(CONSTANTS.saveAgreement, agreement);
 			}
 			
 			service.saveReceivedItem = function(receivedItems) {

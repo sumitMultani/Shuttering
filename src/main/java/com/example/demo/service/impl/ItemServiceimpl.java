@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.converter.ItemConverter;
 import com.example.demo.dto.ItemDto;
+import com.example.demo.dto.ItemStatusDto;
 import com.example.demo.entity.Item;
 import com.example.demo.entity.ItemStatus;
 import com.example.demo.repository.ItemRepository;
@@ -55,70 +56,70 @@ public class ItemServiceimpl implements ItemService {
 	}
 
 	@Override
-	public List<ItemDto> getStockStatusItems() {
+	public List<ItemStatusDto> getStockStatusItems() {
 		return itemStatusRepository.findAll().stream()
 				.map(ItemConverter::itemStatusEntityToDto)
 				.collect(Collectors.toList());
 	}
 
 	@Override
-	public ItemStatus updateItem(ItemDto itemDto, Long itemId,
+	public ItemStatus updateItem(ItemStatusDto itemStatusDto, Long itemId,
 			Integer receivedQuantity, Integer issuedQuantity) {
-		ItemStatus item = null;
+		ItemStatus itemStatus = null;
 		Transaction tx = null;
 		try {
 			Session session = sessionFactory.openSession();
 			tx = session.beginTransaction();
-			ItemDto entityDto = ItemConverter
+			ItemStatusDto entityDto = ItemConverter
 					.itemStatusEntityToDto(itemStockStatusRepository
 							.getOne(itemId));
 			if (entityDto != null)
-				itemDto.setItemId(entityDto.getItemId());
+				itemStatusDto.setItemId(entityDto.getItemId());
 			if (issuedQuantity != null) {
-				itemDto.setIssued(issuedQuantity);
+				itemStatusDto.setIssued(issuedQuantity);
 				if(entityDto != null && entityDto.getIssued() != null)
-					itemDto.setIssued(entityDto.getIssued() + issuedQuantity);
+					itemStatusDto.setIssued(entityDto.getIssued() + issuedQuantity);
 			}
 			 
 			if(receivedQuantity != null) {
 			if(entityDto.getReceived() != null)
-				itemDto.setReceived(entityDto.getReceived() + receivedQuantity);
+				itemStatusDto.setReceived(entityDto.getReceived() + receivedQuantity);
 			else
-				itemDto.setReceived(0 + receivedQuantity);
+				itemStatusDto.setReceived(0 + receivedQuantity);
 		    }
 			//if(entityDto.getIssued() != null ) {
 			//	itemDto.setIssued(entityDto.getIssued());
 			//	itemDto.setBrokerCharges(entityDto.getBrokerCharges());
 			//}
 			if(entityDto!= null) {
-				if(itemDto.getBreakage() != null)
-					itemDto.setStock(itemDto.getStock() - itemDto.getBreakage());
-				if(itemDto.getShortage() != null)
-					itemDto.setStock(itemDto.getStock() - itemDto.getShortage());
+				if(itemStatusDto.getBreakage() != null)
+					itemStatusDto.setStock(itemStatusDto.getStock() - itemStatusDto.getBreakage());
+				if(itemStatusDto.getShortage() != null)
+					itemStatusDto.setStock(itemStatusDto.getStock() - itemStatusDto.getShortage());
 				
 				Integer breakage = entityDto.getBreakage();
 				Integer shortage = entityDto.getShortage();
 				if(breakage != null  ){
-					itemDto.setBreakage(breakage + itemDto.getBreakage());
+					itemStatusDto.setBreakage(breakage + itemStatusDto.getBreakage());
 				}else
-					itemDto.setBreakage(itemDto.getBreakage());
+					itemStatusDto.setBreakage(itemStatusDto.getBreakage());
 				if(shortage != null){
-					itemDto.setShortage(shortage + itemDto.getShortage());
+					itemStatusDto.setShortage(shortage + itemStatusDto.getShortage());
 				}else
-					itemDto.setShortage(itemDto.getShortage());
+					itemStatusDto.setShortage(itemStatusDto.getShortage());
 				
 				//itemDto.setStock(entityDto.getStock());
 				
 			}
 			
-			item = ItemConverter.dtoToItemStatusEntity(itemDto);
-			session.update(item);
+			itemStatus = ItemConverter.dtoToItemStatusEntity(itemStatusDto);
+			session.update(itemStatus);
 			tx.commit();
 		} catch (Exception e) {
 			e.printStackTrace();
 			tx.rollback();
 		}
-		return item;
+		return itemStatus;
 	}
 
 	@Override
@@ -127,19 +128,34 @@ public class ItemServiceimpl implements ItemService {
 		List<ItemStatus> itemsStatus = new ArrayList<ItemStatus>();
 		if (itemDtos != null && !itemDtos.isEmpty()) {
 			for (ItemDto itemDto : itemDtos) {
+				ItemStatusDto itemStatusDto = setItemStatusDto(itemDto);
 				String size = "";
 				if(itemDto.getLength() != null && itemDto.getWidth() != null)
 					size = itemDto.getLength().toString()+"*"+itemDto.getWidth();
-				if(itemDto.getPer().equalsIgnoreCase("foot") && itemDto.getLength() != null )
+				if(itemDto.getLength() != null && (itemDto.getWidth() == null || itemDto.getWidth() == 0))
 					size = itemDto.getLength()+"ft";
 				itemDto.setSize(size);
+				itemStatusDto.setSize(size);
 				Item item = itemRepository.save(ItemConverter.dtoToItemEntity(itemDto));
 				items.add(item);
-				ItemStatus itemStatus = itemStatusRepository.save(ItemConverter.dtoToItemStatusEntity(itemDto));
+				ItemStatus itemStatus = itemStatusRepository.save(ItemConverter.dtoToItemStatusEntity(itemStatusDto));
 				itemsStatus.add(itemStatus);
 			}
 		}
 		return items;
+	}
+
+	private ItemStatusDto setItemStatusDto(ItemDto itemDto) {
+		ItemStatusDto itemStatusDto = new ItemStatusDto();
+		itemStatusDto.setItemName(itemDto.getItemName());
+		itemStatusDto.setLength(itemDto.getLength());
+		itemStatusDto.setWidth(itemDto.getWidth());
+		itemStatusDto.setSize(itemDto.getSize());
+		itemStatusDto.setRate(itemDto.getRate());
+		itemStatusDto.setPer(itemDto.getPer());
+		itemStatusDto.setStock(itemDto.getStock());
+		itemStatusDto.setRentPerDay(itemDto.getRentPerDay());
+		return itemStatusDto;
 	}
 
 	// SAVE DATA INTO STOCK STATUS
@@ -152,17 +168,17 @@ public class ItemServiceimpl implements ItemService {
 	 */
 
 	@Override
-	public ItemStatus addTempItem(ItemDto itemDto) {
-		ItemStatus item = ItemConverter.dtoToItemStatusEntity(itemDto);
+	public ItemStatus addTempItem(ItemStatusDto itemStatusDto) {
+		ItemStatus item = ItemConverter.dtoToItemStatusEntity(itemStatusDto);
 		return item;
 	}
 
 	@Override
-	public List<String> getNames() {
-		List<String> names = new ArrayList<String>();
-		List<ItemDto> allItems = itemService.getStockStatusItems();
+	public Set<String> getNames() {
+		Set<String> names = new HashSet<String>();
+		List<ItemStatusDto> allItems = itemService.getStockStatusItems();
 		if (allItems != null && !allItems.isEmpty()) {
-			for (ItemDto itemDto : allItems) {
+			for (ItemStatusDto itemDto : allItems) {
 				names.add(itemDto.getItemName());
 			}
 		}
@@ -172,9 +188,9 @@ public class ItemServiceimpl implements ItemService {
 	@Override
 	public List<String> getSizes() {
 		List<String> sizes = new ArrayList<String>();
-		List<ItemDto> allItems = itemService.getStockStatusItems();
+		List<ItemStatusDto> allItems = itemService.getStockStatusItems();
 		if (allItems != null && !allItems.isEmpty()) {
-			for (ItemDto itemDto : allItems) {
+			for (ItemStatusDto itemDto : allItems) {
 				sizes.add(itemDto.getSize());
 			}
 		}

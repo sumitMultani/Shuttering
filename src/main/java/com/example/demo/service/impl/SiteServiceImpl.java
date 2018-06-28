@@ -29,14 +29,14 @@ public class SiteServiceImpl implements SiteService {
 	}
 
 	@Override
-	public List<SiteDto> getSites() {
-		List<Site> sites = siteRepository.findAll();
-		List<SiteDto> siteDtos = new ArrayList<SiteDto>();
-		sites.forEach(site -> {
+	public List<String> getSites() {
+		List<Site> siteList = siteRepository.findAll();
+		List<String> sites = new ArrayList<String>();
+		siteList.forEach(site -> {
 			SiteDto dto = siteConverter.siteEntityToDto(site);
-			siteDtos.add(dto);
+			sites.add(dto.getSiteName());
 		});
-		return siteDtos;
+		return sites;
 	}
 
 }

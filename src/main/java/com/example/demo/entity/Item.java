@@ -35,6 +35,9 @@ public class Item implements Serializable {
 	@Column(name = "square_feet")
 	private String squareFeet;
 
+	@Column(name = "size")
+	private String size;
+	
 	@Column(name = "rate")
 	private Integer rate;
 
@@ -47,26 +50,10 @@ public class Item implements Serializable {
 	@Column(name = "rent_per_day")
 	private Integer rentPerDay;
 
-	@Column(name = "broker_charges")
-	private Integer brokerCharges;
-
-	@Column(name = "received")
-	private Integer received;
-
-	@Column(name = "issued")
-	private Integer issued;
-
-	@Column(name = "purchased")
-	private Integer purchaed;
-
-	@Column(name = "shortage")
-	private Integer shortage;
+	@Column(name = "breakage_charges")
+	private Integer breakageCharges;
 	
-	@Column(name = "size")
-	private String size;
 	
-	@Column(name = "breakage")
-	private Integer breakage;
 
 	public Long getItemId() {
 		return itemId;
@@ -140,44 +127,12 @@ public class Item implements Serializable {
 		this.rentPerDay = rentPerDay;
 	}
 
-	public Integer getBrokerCharges() {
-		return brokerCharges;
+	public Integer getBreakageCharges() {
+		return breakageCharges;
 	}
 
-	public void setBrokerCharges(Integer brokerCharges) {
-		this.brokerCharges = brokerCharges;
-	}
-
-	public Integer getReceived() {
-		return received;
-	}
-
-	public void setReceived(Integer received) {
-		this.received = received;
-	}
-
-	public Integer getIssued() {
-		return issued;
-	}
-
-	public void setIssued(Integer issued) {
-		this.issued = issued;
-	}
-
-	public Integer getPurchaed() {
-		return purchaed;
-	}
-
-	public void setPurchaed(Integer purchaed) {
-		this.purchaed = purchaed;
-	}
-
-	public Integer getShortage() {
-		return shortage;
-	}
-
-	public void setShortage(Integer shortage) {
-		this.shortage = shortage;
+	public void setBreakageCharges(Integer breakageCharges) {
+		this.breakageCharges = breakageCharges;
 	}
 
 	public String getSize() {
@@ -188,51 +143,33 @@ public class Item implements Serializable {
 		this.size = size;
 	}
 
-	public Integer getBreakage() {
-		return breakage;
-	}
-
-	public void setBreakage(Integer breakage) {
-		this.breakage = breakage;
-	}
-
 	public Item() {
 		// 0-param constructor
 	}
 
 	public Item(Long itemId, String itemName, Integer length, Integer width,
-			String squareFeet, Integer rate, String per, Integer stock,
-			Integer rentPerDay, Integer brokerCharges, Integer received,
-			Integer issued, Integer purchaed, Integer shortage, Integer breakage) {
+			String squareFeet, String size, Integer rate, String per,
+			Integer stock, Integer rentPerDay, Integer breakageCharges) {
 		this.itemId = itemId;
 		this.itemName = itemName;
 		this.length = length;
 		this.width = width;
 		this.squareFeet = squareFeet;
+		this.size = size;
 		this.rate = rate;
 		this.per = per;
 		this.stock = stock;
 		this.rentPerDay = rentPerDay;
-		this.brokerCharges = brokerCharges;
-		this.received = received;
-		this.issued = issued;
-		this.purchaed = purchaed;
-		this.shortage = shortage;
-		this.breakage = breakage;
-		 
+		this.breakageCharges = breakageCharges;
 	}
 
 	@Override
 	public String toString() {
 		return "Item [itemId=" + itemId + ", itemName=" + itemName
 				+ ", length=" + length + ", width=" + width + ", squareFeet="
-				+ squareFeet + ", rate=" + rate + ", per=" + per + ", stock="
-				+ stock + ", rentPerDay=" + rentPerDay + ", brokerCharges="
-				+ brokerCharges + ", received=" + received + ", issued="
-				+ issued + ", purchaed=" + purchaed + ", shortage=" + shortage
-				+ ", size=" + size + ", breakage=" + breakage + "]";
+				+ squareFeet + ", size=" + size + ", rate=" + rate + ", per="
+				+ per + ", stock=" + stock + ", rentPerDay=" + rentPerDay
+				+ ", breakageCharges=" + breakageCharges + "]";
 	}
-
-	 
 
 }

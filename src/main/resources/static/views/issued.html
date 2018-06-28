@@ -90,18 +90,20 @@ $(function(){
 			
      </div>
       <div class="form-group col-xs-3">
-      <label>Excess Qty</label> 
-			<input type="text"  class="form-control input-sm" id ="excessQuantity" ng-model="itemIssuedDto.excessQuantity"   ng-click="getItemExcessQuantity(itemIssuedDto.itemName)" placeholder="Enter Item Excess Quantity" height="50" width="50" ng-click="calculateSqFt(itemDto.length, itemDto.width)" /> 
+       <label>Site</label> 
+			<select ng-model="itemIssuedDto.site"  ng-options="site for site in sites" ng-click="getItemSites()"  class="form-control input-sm">
+    			<option value="">Select Site</option>
+    			<option value="itemIssuedDto.site">{{site}}</option>
+		   </select>
+     </div>
+     <div class="form-group col-xs-3">
+     <label>Mobile</label>
+			<input type="text" id ="mobile"  class="form-control input-sm" ng-model="itemIssuedDto.mobile"  placeholder="Enter Breakage " /> 
 			
      </div>
      <div class="form-group col-xs-3">
-     <label>Breakage</label>
-			<input type="text" id ="breakage"  class="form-control input-sm" ng-model="itemIssuedDto.breakage"  placeholder="Enter Breakage " height="50" width="50"/> 
-			
-     </div>
-     <div class="form-group col-xs-3">
-     <label>Shortage</label>
-			<input type="text" id ="shortage" ng-model="itemIssuedDto.shortage"  class="form-control input-sm" placeholder="Enter Shortage" height="50" width="50" />
+     <label>Remarks</label>
+			<input type="text" id ="remarks" ng-model="itemIssuedDto.remarks"  class="form-control input-sm" placeholder="Enter Shortage"  />
     		
      </div>
   </form>
@@ -117,9 +119,9 @@ $(function(){
                 <th width="135">Item Name</th>
                 <th width="135">Size</th>
                 <th width="135">Quantity</th>
-                <th width="135">Excess Quantity</th>
-                <th width="135">Breakage</th>
-                <th width="135">Shortage</th>
+                <th width="135">Site</th>
+                <th width="135">Mobile</th>
+                <th width="135">Remarks</th>
                 <th width="70">Action</th>
             </tr>
             <tbody ng-repeat="itemIssued in IssuedItems">
@@ -129,9 +131,9 @@ $(function(){
                     <td>{{itemIssued.itemName}}</td>
                     <td>{{itemIssued.size}}</td>
                     <td>{{itemIssued.quantity}}</td>
-                    <td>{{itemIssued.excessQuantity}}</td>
-                    <td>{{itemIssued.breakage}}</td>
-                    <td>{{itemIssued.shortage}}</td>
+                    <td>{{itemIssued.site}}</td>
+                    <td>{{itemIssued.mobile}}</td>
+                    <td>{{itemIssued.remarks}}</td>
                     <td><input type="button" ng-click="Remove($index)" value="Remove" /></td>
                 </tr>
             </tbody>

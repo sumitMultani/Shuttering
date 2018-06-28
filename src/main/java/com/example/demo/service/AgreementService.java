@@ -4,6 +4,6 @@ import com.example.demo.dto.AgreementDto;
 
 public interface AgreementService {
 
-	AgreementDto saveAgreement(AgreementDto agreementDtos);
+	AgreementDto saveAgreement(AgreementDto[] agreementDtos);
 
 }

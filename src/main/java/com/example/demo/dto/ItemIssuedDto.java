@@ -15,7 +15,6 @@ public class ItemIssuedDto implements Serializable {
 	private String itemName;
 	private String size;
 	private Integer quantity;
-	private Integer excessQuantity;
 	private Integer squareFeet;
 	private String site;
 	private String mobile;
@@ -28,7 +27,6 @@ public class ItemIssuedDto implements Serializable {
 	public ItemIssuedDto(Long issueId, String issuedDate,
 			String transactionType, String challanNo, String partyName,
 			String fatherName, String itemName, String size, Integer quantity,
-			Integer excessQuantity, 
 			Integer squareFeet, String site, String mobile, String remarks) {
 		this.issueId = issueId;
 		this.issuedDate = issuedDate;
@@ -39,7 +37,6 @@ public class ItemIssuedDto implements Serializable {
 		this.itemName = itemName;
 		this.size = size;
 		this.quantity = quantity;
-		this.excessQuantity = excessQuantity;
 		this.squareFeet = squareFeet;
 		this.site = site;
 		this.mobile = mobile;
@@ -117,14 +114,6 @@ public class ItemIssuedDto implements Serializable {
 	public void setQuantity(Integer quantity) {
 		this.quantity = quantity;
 	}
-
-	public Integer getExcessQuantity() {
-		return excessQuantity;
-	}
-
-	public void setExcessQuantity(Integer excessQuantity) {
-		this.excessQuantity = excessQuantity;
-	}
  
 	public String getSite() {
 		return site;
@@ -165,7 +154,7 @@ public class ItemIssuedDto implements Serializable {
 				+ ", challanNo=" + challanNo + ", partyName=" + partyName
 				+ ", fatherName=" + fatherName + ", itemName=" + itemName
 				+ ", size=" + size + ", quantity=" + quantity
-				+ ", excessQuantity=" + excessQuantity + ", squareFeet="
+				+ ", squareFeet="
 				+ squareFeet + ", site=" + site + ", mobile=" + mobile
 				+ ", remarks=" + remarks + "]";
 	}

@@ -40,7 +40,7 @@ public class Agreement implements Serializable {
 	private String itemName;
 
 	@Column(name = "length")
-	private Integer length;
+	private String length;
 
 	@Column(name = "rate")
 	private Double rate;
@@ -61,7 +61,7 @@ public class Agreement implements Serializable {
 	private Double damageChargesPerPc;
 
 	public Agreement(Long id, String date, Long aggrementNo, String partyName,
-			String siteName, String itemName, Integer length, Double rate,
+			String siteName, String itemName, String length, Double rate,
 			String per, Double rentPerDay, String itemNameBreakage,
 			String itemSizeBreakage, Double damageChargesPerPc) {
 		this.id = id;
@@ -131,11 +131,11 @@ public class Agreement implements Serializable {
 		this.itemName = itemName;
 	}
 
-	public Integer getLength() {
+	public String getLength() {
 		return length;
 	}
 
-	public void setLength(Integer length) {
+	public void setLength(String length) {
 		this.length = length;
 	}
 

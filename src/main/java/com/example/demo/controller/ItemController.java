@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.ItemDto;
+import com.example.demo.dto.ItemStatusDto;
 import com.example.demo.entity.Item;
 import com.example.demo.entity.ItemStatus;
 import com.example.demo.service.ItemService;
@@ -29,7 +30,7 @@ public class ItemController {
 	}
 	
 	@RequestMapping(value = Constants.STOCK_STATUS_ITEM_LIST,  method = RequestMethod.GET)
-	public List<ItemDto> getStockItems() {
+	public List<ItemStatusDto> getStockItems() {
 		return itemService.getStockStatusItems();
 	}
 	
@@ -49,17 +50,17 @@ public class ItemController {
 	}
 	
 	@RequestMapping(value = Constants.ITEM_ID, method = RequestMethod.PUT)
-	public ItemStatus updateItem(@RequestBody ItemDto ItemDto, @PathVariable Long itemId) {
+	public ItemStatus updateItem(@RequestBody ItemStatusDto ItemDto, @PathVariable Long itemId) {
 		return itemService.updateItem(ItemDto, itemId, null, null);
 	}
 	//item_received
 	@RequestMapping(value = Constants.ADD_TEMP_ITEM, method = RequestMethod.POST)
-	public ItemStatus addTempItem(@RequestBody ItemDto ItemDto) {
+	public ItemStatus addTempItem(@RequestBody ItemStatusDto ItemDto) {
 		return itemService.addTempItem(ItemDto);
 	}
 	
 	@RequestMapping(value = Constants.ITEM_NAMES,  method = RequestMethod.GET)
-	public List<String> getItemNames() {
+	public Set<String> getItemNames() {
 		return itemService.getNames();
 	}
 	

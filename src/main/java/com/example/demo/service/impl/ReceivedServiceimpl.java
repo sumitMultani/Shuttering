@@ -14,8 +14,8 @@ import org.springframework.stereotype.Service;
 
 import com.example.demo.converter.ItemConverter;
 import com.example.demo.converter.ItemReceivedConverter;
-import com.example.demo.dto.ItemDto;
 import com.example.demo.dto.ItemReceivedDto;
+import com.example.demo.dto.ItemStatusDto;
 import com.example.demo.entity.ItemIssued;
 import com.example.demo.entity.ItemReceived;
 import com.example.demo.entity.ItemStatus;
@@ -107,7 +107,7 @@ public class ReceivedServiceimpl implements ReceivedService {
 			    	Item.setBreakage(receivedDto.getBreakage());
 			    	Item.setShortage(receivedDto.getShortage());
 			    }
-			    ItemDto itemDto = ItemConverter.itemStatusEntityToDto(Item);
+			    ItemStatusDto itemDto = ItemConverter.itemStatusEntityToDto(Item);
 				itemService.updateItem(itemDto, Item.getItemId(), entry.getValue(), null);
 			}
 			 

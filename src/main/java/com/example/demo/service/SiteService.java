@@ -8,6 +8,6 @@ public interface SiteService {
 
 	public SiteDto saveSite(SiteDto siteDto);
 
-	public List<SiteDto> getSites();
+	public List<String> getSites();
 
 }

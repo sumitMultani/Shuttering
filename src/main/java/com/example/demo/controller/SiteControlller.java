@@ -25,7 +25,7 @@ public class SiteControlller {
 	}
 
 	@RequestMapping(method = RequestMethod.GET)
-	public List<SiteDto> getSites() {
+	public List<String> getSites() {
 		System.out.println("ENter site GET-----------------------");
 		return siteService.getSites();
 	}

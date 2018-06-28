@@ -3,8 +3,228 @@
 <head>
 <meta charset="ISO-8859-1">
 <title>AGREEMENT</title>
+ 
 </head>
-<body>
+<script src="//code.jquery.com/jquery-1.10.2.js"></script>
+<script>
+$(function(){
+  $("#header").load("header"); 
+ // $("#footer").load("footer.html"); 
+});
+</script>
 
+<body ng-app="demo">
+<div id="header"></div>
+<!--Remaining section-->
+	<hr />
+<div ng-app="MyApp" ng-controller="ItemController">
+
+      
+<div id="main">
+	<div class="container" ng-controller="ItemController">
+	<div align="right" style="width: 76%; height: auto ">
+	<button ng-click="saveAgreement()" class="btn btn-sm btn-info" >Save</button>
+	<a href="itemList" class="btn btn-sm btn-info" ng-click="print()">Print</a>
+	</div>
+	<br><br>
+<div class="row">
+<h1 style=" display: block;
+    font-size: 3em;
+    margin-top: 0em;
+    margin-bottom: 0em;
+    margin-left: 0.7em;
+    margin-right: 0em;
+    font-weight: bold;
+    background-color:orange;
+    color:green;">** PARTY WISE AGREEMENT **</h1>
+    
+    
+    	<!-- <div ng-app="MyApp" ng-controller="ItemController"> -->
+<div class="container">
+  <form class="form-group">
+    <div class="form-group col-xs-3" >
+      <label for="usr">Date:</label>
+      <input type="date" id ="date" ng-model="agreementDto.date"  class="form-control input-sm"  placeholder="Select Date" height="50" width="50"/>
+    </div>
+    <div class="form-group col-xs-3">
+      <label>Agreement No</label> 
+	  <input type="text" id ="agreemnetNo" ng-model="agreementDto.aggrementNo" class="form-control input-sm" placeholder="Enter Challan No" height="50" width="50"/>
+    </div>
+    
+     <div class="form-group col-xs-3">
+     <label >Party Name</label>
+    		<select ng-model="agreementDto.partyName"  ng-options="account for account in accountNames" class="form-control input-sm" ng-click="getAccountNames()" >
+    		<option value="">Select Account</option>
+    		<option value="agreementDto.partyName">{{account}}</option>
+			</select>
+     </div>
+     <div class="form-group col-xs-3">
+     <label >Father Name</label>
+    		<select ng-model="agreementDto.fatherName"  ng-options="accountFatherName for accountFatherName in accountFatherNames"  class="form-control input-sm" ng-click="getAccountFatherNames()" >
+    		<option value="">Select Account</option>
+    		<option value="agreementDto.fatherName">{{accountFatherName}}</option>
+			</select>
+     </div>
+     <div class="form-group col-xs-3">
+     <label>Site</label> 
+			<select ng-model="agreementDto.siteName"  ng-options="item for item in itemNames" ng-click="getItemNames()"  class="form-control input-sm">
+    		<option value="">Select Item</option>
+    		<option value="agreementDto.siteName">{{item}}</option>
+			</select>
+     </div>
+       
+       
+  </form>
+</div>
+ 			<button style="position: static;" ng-click="toggleItemScreen()" class="btn btn-sm btn-info">Item Rate Settings</button>
+       		<button style="position: static;" ng-click="toogleBreakageScreen()" class="btn btn-sm btn-info">Damage/Breakage Charges Setting</button>
+    		<br><br>
+    		<!-- <button style="position: static;" ng-click="AddIssuedItem()" class="btn btn-sm btn-info"> + ADD ITEM</button> -->
+    		<!-- <button style="position: static;" ng-click="addIssuedItem(itemIssuedDto)" class="btn btn-sm btn-info">Add Item</button> -->
+    		<br><br>
+   <!-- div for Item Rate Setting START --> 		
+   <div ng-show="itemScreen">
+    		<h3 style="  
+    font-size: 1.5em;
+    margin-top: 0em;
+    margin-bottom: 0em;
+    margin-left: 0.7em;
+    margin-right: 0em;
+    font-weight: bold;
+    background-color:yellow;
+    color:green;">** Item Rate Setting **</h3>
+    		 <div class="form-group col-xs-3">
+			     <label>Item Name</label> 
+						<select ng-model="agreementDto.itemName"  ng-options="item for item in itemNames" ng-click="getItemNames()"  class="form-control input-sm">
+			    		<option value="">Select Item</option>
+			    		<option value="agreementDto.itemName">{{item}}</option>
+						</select>
+			  </div>
+			  
+			<div class="form-group col-xs-3">
+      <label>Size</label> 
+			<select ng-model="agreementDto.length"  ng-options="item for item in itemSizes" ng-click="getItemSizes()"  class="form-control input-sm">
+    		<option value="">Select Size</option>
+    		<option value="agreementDto.length">{{item}}</option>
+			</select> 
+     </div>
+    
+    <div class="form-group col-xs-3">
+     <label>Rate</label>
+			<input type="text" id ="rate" ng-model="agreementDto.rate" class="form-control" placeholder="Enter Item rate" height="50" width="50"/> 
+	</div>
+    
+    <div class="form-group col-xs-3">
+		<label>Per</label> 
+			<select id ="per" ng-model="agreementDto.per" class="form-control" >
+  				<option value="piece" >Piece</option>
+ 				<option value="foot" >Foot</option>
+			</select>
+    </div>
+    
+    <div class="form-group col-xs-3">
+			<label>Rent Per Day</label>
+			<input type="text" id ="rentPerDay" ng-model="agreementDto.rentPerDay" class="form-control"  placeholder="Enter rent per day"   ng-click="calculateRentPerDay(agreementDto.rate)"/>
+    </div>
+    
+    <button style="position: static;" ng-click="AddItemRateSetting()" class="btn btn-sm btn-info"> + ADD ITEM</button>
+        	<table class="table">
+            <tr>
+                <th width="135">Party Name</th>
+                <th width="135">Father Name</th>
+                <th width="135">Item Name</th>
+                <th width="135">Size</th>
+                <th width="135">Rate</th>
+                <th width="135">Per</th>
+                <th width="135">Rent Per Day</th>
+                <th width="70">Action</th>
+            </tr>
+            <tbody ng-repeat="itemRateSetting in itemRateSettings">
+                <tr>
+                    <td>{{itemRateSetting.partyName}}</td>
+                    <td>{{itemRateSetting.fatherName}}</td>
+                    <td>{{itemRateSetting.itemName}}</td>
+                    <td>{{itemRateSetting.length}}</td>
+                    <td>{{itemRateSetting.rate}}</td>
+                    <td>{{itemRateSetting.per}}</td>
+                    <td>{{itemRateSetting.rentPerDay}}</td>
+                    <td><input type="button" ng-click="Remove($index)" value="Remove" /></td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <!-- div for Item Rate Setting END -->
+        
+        
+         <!-- div for Brekage Charges Setting START --> 		
+   <div ng-show="breakageScreen">
+    						<h3 style="  
+    font-size: 1.5em;
+    margin-top: 0em;
+    margin-bottom: 0em;
+    margin-left: 0.7em;
+    margin-right: 0em;
+    font-weight: bold;
+    background-color:yellow;
+    color:green;">** Breakage Item Rate Setting **</h3>
+    		 <div class="form-group col-xs-3">
+			     <label>Item Name</label> 
+						<select ng-model="agreementDto.itemNameBreakage"  ng-options="item for item in itemNames" ng-click="getItemNames()"  class="form-control input-sm">
+			    		<option value="">Select Item</option>
+			    		<option value="agreementDto.itemNameBreakage">{{item}}</option>
+						</select>
+			  </div>
+			  
+			<div class="form-group col-xs-3">
+      <label>Size</label> 
+			<select ng-model="agreementDto.itemSizeBreakage"  ng-options="item for item in itemSizes" ng-click="getItemSizes()"  class="form-control input-sm">
+    		<option value="">Select Size</option>
+    		<option value="agreementDto.itemSizeBreakage">{{item}}</option>
+			</select> 
+     </div>
+    
+    <div class="form-group col-xs-3">
+     <label>Damage Rate per Pc</label>
+			<input type="text" id ="rate" ng-model="agreementDto.damageChargesPerPc" class="form-control" placeholder="Enter Item rate" /> 
+	</div>
+    
+    <button style="position: static;" ng-click="breakageItemRateSetting()" class="btn btn-sm btn-info"> + ADD ITEM</button>
+        	<table class="table">
+            <tr>
+                <th width="135">Party Name</th>
+                <th width="135">Father Name</th>
+                <th width="135">Item Name</th>
+                <th width="135">Size</th>
+                <th width="135">Damage Charges Pr pc</th>
+                <th width="135">Action</th>
+            </tr>
+            <tbody ng-repeat="itemRateSetting in itemRateSettings">
+                <tr>
+                    <td>{{itemRateSetting.partyName}}</td>
+                    <td>{{itemRateSetting.fatherName}}</td>
+                    <td>{{itemRateSetting.itemNameBreakage}}</td>
+                    <td>{{itemRateSetting.itemSizeBreakage}}</td>
+                    <td>{{itemRateSetting.damageChargesPerPc}}</td>
+                    <td><input type="button" ng-click="Remove($index)" value="Remove" /></td>
+                </tr>
+            </tbody>
+        </table>
+        </div>
+        <!-- div for Breakage Charges Setting END -->
+    </div>
+			 
+		</div>
+	</div>
+</div>
+<div id="footer"></div>
 </body>
+<script src="js/lib/angular.min.js"></script>
+<script src="js/lib/ui-bootstrap-tpls-2.5.0.min.js"></script>
+<script src="js/app/app.js"></script>
+<script src="js/app/UserController.js"></script>
+<script src="js/app/UserService.js"></script>
+<script src="js/app/ItemController.js"></script>
+<script src="js/app/ItemService.js"></script>
+<link rel="stylesheet" href="css/lib/bootstrap.min.css" />
+<link rel="stylesheet" href="css/app/app.css" />
 </html>

@@ -18,7 +18,8 @@ public class AgreementServiceImpl implements AgreementService {
 	private AgreementConverter agreementConverter;
 
 	@Override
-	public AgreementDto saveAgreement(AgreementDto agreementDto) {
+	public AgreementDto saveAgreement(AgreementDto[] agreementDtos) {
+		AgreementDto agreementDto = agreementDtos[0];
 		return agreementConverter.agreementEntityToDto(agreementRepository
 				.save(agreementConverter.dtoToAgreementEntity(agreementDto)));
 	}

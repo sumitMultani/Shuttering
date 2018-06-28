@@ -10,8 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.example.demo.converter.ItemIssuedConverter;
-import com.example.demo.dto.ItemDto;
 import com.example.demo.dto.ItemIssuedDto;
+import com.example.demo.dto.ItemStatusDto;
 import com.example.demo.dto.PendencyReportDto;
 import com.example.demo.entity.ItemIssued;
 import com.example.demo.entity.ItemStatus;
@@ -55,7 +55,8 @@ public class IssuedServiceimpl implements IssuedService {
 		List<ItemIssued> items = new ArrayList<ItemIssued>();
 		if (itemIssuedDtos != null && !itemIssuedDtos.isEmpty()) {
 			itemIssuedDtos.forEach(itemIssuedDto -> {
-				List<ItemDto> stockItems = itemService.getStockStatusItems();
+				itemIssuedDto.setIssuedDate(util.dateConverter(itemIssuedDto.getIssuedDate()));
+				List<ItemStatusDto> stockItems = itemService.getStockStatusItems();
 				if (stockItems != null && !stockItems.isEmpty()) {
 					stockItems.forEach(itemDto -> {
 						if (itemDto.getItemName().equalsIgnoreCase(

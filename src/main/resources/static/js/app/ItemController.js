@@ -8,6 +8,22 @@ module.controller("ItemController", [ "$scope", "ItemService",
 			$scope.IssuedItems = [];
 			$scope.ReceivedItems = [];
 			$scope.quantity = "";
+			$scope.itemRateSettings = [];
+			 
+			
+			$scope.itemScreen = false;
+		    $scope.toggleItemScreen = function() {
+		        $scope.itemScreen = !$scope.itemScreen;
+		        $scope.breakageScreen = false;
+		        $scope.itemRateSettings = [];
+		    };
+		    
+		    $scope.breakageScreen = false;
+		    $scope.toogleBreakageScreen = function() {
+		    	$scope.itemScreen = false;
+		        $scope.breakageScreen = !$scope.breakageScreen;
+		        $scope.itemRateSettings = [];
+		    };
 			//$scope.issuedRegisterItems = [];
 			$scope.Add = function() {
 				// Add the new item to the Array.
@@ -18,7 +34,7 @@ module.controller("ItemController", [ "$scope", "ItemService",
 				item.squareFeet = $scope.itemDto.squareFeet;
 				item.rate = $scope.itemDto.rate;
 				item.per = $scope.itemDto.per;
-				item.brokerCharges = $scope.itemDto.brokerCharges;
+				item.breakageCharges = $scope.itemDto.breakageCharges;
 				item.stock = $scope.itemDto.stock;
 				item.rentPerDay = $scope.itemDto.rentPerDay;
 				$scope.Items.push(item);
@@ -31,13 +47,12 @@ module.controller("ItemController", [ "$scope", "ItemService",
 				$scope.itemDto.rate = "";
 				$scope.itemDto.per = "";
 				$scope.itemDto.stock = "";
-				$scope.itemDto.brokerCharges = "";
+				$scope.itemDto.breakageCharges = "";
 				$scope.itemDto.rentPerDay = "";
 			};
 
 			// perform action on double click.
 			$scope.doubleClick = function(itemName) {
-				alert(itemName);
 				ItemService.getSpecificData(itemName).then(function(value) {
 					$scope.items = value.data;
 				});
@@ -47,7 +62,8 @@ module.controller("ItemController", [ "$scope", "ItemService",
 			$scope.AddIssuedItem = function() {
 				// Add the new item to the Array.
 				var itemIssued = {};
-				itemIssued.issuedDate = $scope.itemIssuedDto.issuedDate;
+				//itemIssued.issuedDate = $scope.itemIssuedDto.issuedDate;
+				itemIssued.issuedDate = convertDate($scope.itemIssuedDto.issuedDate);
 				itemIssued.transactionType = $scope.itemIssuedDto.transactionType;
 				itemIssued.challanNo = $scope.itemIssuedDto.challanNo;
 				itemIssued.partyName = $scope.itemIssuedDto.partyName;
@@ -55,20 +71,84 @@ module.controller("ItemController", [ "$scope", "ItemService",
 				itemIssued.itemName = $scope.itemIssuedDto.itemName;
 				itemIssued.size = $scope.itemIssuedDto.size;
 				itemIssued.quantity = $scope.itemIssuedDto.quantity;
-				itemIssued.excessQuantity = $scope.itemIssuedDto.excessQuantity;
-				itemIssued.breakage = $scope.itemIssuedDto.breakage;
-				itemIssued.shortage = $scope.itemIssuedDto.shortage;
+				itemIssued.site = $scope.itemIssuedDto.site;
+				itemIssued.mobile = $scope.itemIssuedDto.mobile;
+				itemIssued.remarks = $scope.itemIssuedDto.remarks;
 				$scope.IssuedItems.push(itemIssued);
 				// Clear the TextBoxes.
 				$scope.itemIssuedDto.transactionType = "";
 				$scope.itemIssuedDto.itemName = "";
 				$scope.itemIssuedDto.size = "";
 				$scope.itemIssuedDto.quantity = "";
-				$scope.itemIssuedDto.excessQuantity = "";
-				$scope.itemIssuedDto.breakage = "";
-				$scope.itemIssuedDto.shortage = "";
+				$scope.itemIssuedDto.mobile = "";
+				$scope.itemIssuedDto.remarks = "";
+				$scope.itemIssuedDto.site.siteName = "";
 			};
-
+			
+			// item rate Setting
+			$scope.AddItemRateSetting = function() {
+				// Add the new item to the Array.
+				var itemRateSetting = {};
+				itemRateSetting.date = $scope.agreementDto.date;
+				itemRateSetting.aggrementNo = $scope.agreementDto.aggrementNo;
+				itemRateSetting.partyName = $scope.agreementDto.partyName;
+				itemRateSetting.fatherName = $scope.agreementDto.fatherName;
+				itemRateSetting.siteName = $scope.agreementDto.siteName;
+				itemRateSetting.itemName = $scope.agreementDto.itemName;
+				itemRateSetting.length = $scope.agreementDto.length;
+				itemRateSetting.rate = $scope.agreementDto.rate;
+				itemRateSetting.per = $scope.agreementDto.per;
+				itemRateSetting.rentPerDay = $scope.agreementDto.rentPerDay;
+				
+//				itemRateSetting.itemNameBreakage = $scope.agreementDto.itemNameBreakage;
+//				itemRateSetting.itemSizeBreakage = $scope.agreementDto.itemSizeBreakage;
+//				itemRateSetting.damageChargesPerPc = $scope.agreementDto.damageChargesPerPc;
+				$scope.itemRateSettings.push(itemRateSetting);
+				// Clear the TextBoxes.
+			     $scope.agreementDto.agreementNo = "";
+			     $scope.agreementDto.partyName= "";
+			     $scope.agreementDto.fatherName= "";
+			     $scope.agreementDto.site= "";
+				 $scope.agreementDto.itemName= "";
+				 $scope.agreementDto.size= "";
+				 $scope.agreementDto.rate= "";
+				 $scope.agreementDto.per= "";
+				 $scope.agreementDto.rentPerDay = "";
+				 $scope.agreementDto.damageRate= "";
+			};
+			
+			$scope.breakageItemRateSetting = function() {
+				// Add the new item to the Array.
+				var itemRateSetting = {};
+				itemRateSetting.date = $scope.agreementDto.date;
+				itemRateSetting.aggrementNo = $scope.agreementDto.aggrementNo;
+				itemRateSetting.partyName = $scope.agreementDto.partyName;
+				itemRateSetting.fatherName = $scope.agreementDto.fatherName;
+				itemRateSetting.siteName = $scope.agreementDto.siteName;
+//				itemRateSetting.itemName = $scope.agreementDto.itemName;
+//				itemRateSetting.length = $scope.agreementDto.length;
+//				itemRateSetting.rate = $scope.agreementDto.rate;
+//				itemRateSetting.per = $scope.agreementDto.per;
+//				itemRateSetting.rentPerDay = $scope.agreementDto.rentPerDay;
+				
+				itemRateSetting.itemNameBreakage = $scope.agreementDto.itemNameBreakage;
+				itemRateSetting.itemSizeBreakage = $scope.agreementDto.itemSizeBreakage;
+				itemRateSetting.damageChargesPerPc = $scope.agreementDto.damageChargesPerPc;
+				$scope.itemRateSettings.push(itemRateSetting);
+				// Clear the TextBoxes.
+			     $scope.agreementDto.agreementNo = "";
+			     $scope.agreementDto.partyName= "";
+			     $scope.agreementDto.fatherName= "";
+			     $scope.agreementDto.site= "";
+				 $scope.agreementDto.itemName= "";
+				 $scope.agreementDto.length= "";
+				 $scope.agreementDto.rate= "";
+				 $scope.agreementDto.per= "";
+				 $scope.agreementDto.rentPerDay = "";
+				 $scope.agreementDto.damageRate= "";
+			};
+			
+			 
 			// Received Items
 			// Add issued Item
 			$scope.AddReceivedItem = function() {
@@ -138,6 +218,11 @@ module.controller("ItemController", [ "$scope", "ItemService",
 			};
 
 			$scope.calculateRentPerDay = function(rate) {
+				$scope.agreementDto.rentPerDay = rate;
+				$scope.itemDto.rentPerDay = rate;
+			};
+			
+			$scope.calculateItemRentPerDay = function(rate) {
 				$scope.itemDto.rentPerDay = rate;
 			};
 
@@ -303,6 +388,17 @@ module.controller("ItemController", [ "$scope", "ItemService",
 				});
 			};
 
+			// get Item Sites
+			$scope.getItemSites = function() {
+				ItemService.getItemSites().then(function(value) {
+					$scope.sites = value.data;
+				}, function(reason) {
+					console.log("error occured");
+				}, function(value) {
+					console.log("no callback");
+				});
+			};
+
 			// save Account
 			$scope.createAccount = function(account) {
 				ItemService.createAccount(account).then(function() {
@@ -332,6 +428,18 @@ module.controller("ItemController", [ "$scope", "ItemService",
 				ItemService.addIssuedItem(issuedItem).then(function() {
 					console.log("Saved Issued Items.");
 					$scope.IssuedItems = [];
+				}, function(reason) {
+					console.log("error occured");
+				}, function(value) {
+					console.log("no callback");
+				});
+			};
+			
+			// save Agreement
+			$scope.saveAgreement = function() {
+				ItemService.saveAgreement($scope.itemRateSettings).then(function() {
+					console.log("Saved Agreement.");
+					$scope.itemRateSettings = [];
 				}, function(reason) {
 					console.log("error occured");
 				}, function(value) {

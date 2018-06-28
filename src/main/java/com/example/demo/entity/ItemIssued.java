@@ -44,8 +44,6 @@ public class ItemIssued implements Serializable {
 	@Column(name = "quantity")
 	private Integer quantity;
 
-	@Column(name = "excess_quantity")
-	private Integer excessQuantity;
 
 	@Column(name = "square_feet")
 	private Integer squareFeet;
@@ -66,7 +64,6 @@ public class ItemIssued implements Serializable {
 	public ItemIssued(Long issueId, String issuedDate, String transactionType,
 			String challanNo, String partyName, String fatherName,
 			String itemName, String size, Integer quantity,
-			Integer excessQuantity, 
 			Integer squareFeet, String site, String mobile, String remarks) {
 		this.issueId = issueId;
 		this.issuedDate = issuedDate;
@@ -77,7 +74,6 @@ public class ItemIssued implements Serializable {
 		this.itemName = itemName;
 		this.size = size;
 		this.quantity = quantity;
-		this.excessQuantity = excessQuantity;
 		this.squareFeet = squareFeet;
 		this.site = site;
 		this.mobile = mobile;
@@ -156,15 +152,6 @@ public class ItemIssued implements Serializable {
 		this.quantity = quantity;
 	}
 
-	public Integer getExcessQuantity() {
-		return excessQuantity;
-	}
-
-	public void setExcessQuantity(Integer excessQuantity) {
-		this.excessQuantity = excessQuantity;
-	}
-
-	 
 
 	public Integer getSquareFeet() {
 		return squareFeet;
@@ -204,8 +191,7 @@ public class ItemIssued implements Serializable {
 				+ ", transactionType=" + transactionType + ", challanNo="
 				+ challanNo + ", partyName=" + partyName + ", fatherName="
 				+ fatherName + ", itemName=" + itemName + ", size=" + size
-				+ ", quantity=" + quantity + ", excessQuantity="
-				+ excessQuantity + ", squareFeet=" + squareFeet + ", site="
+				+ ", quantity=" + quantity + ", squareFeet=" + squareFeet + ", site="
 				+ site + ", mobile=" + mobile + ", remarks=" + remarks + "]";
 	}
 

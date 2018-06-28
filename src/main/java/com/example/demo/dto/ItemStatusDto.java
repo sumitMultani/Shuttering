@@ -1,67 +1,35 @@
-package com.example.demo.entity;
+package com.example.demo.dto;
 
-import java.io.Serializable;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+public class ItemStatusDto {
 
-/**
- * Created by sumit
- */
-@Entity
-@Table(name = "stock_status")
-public class ItemStatus implements Serializable {
-
-	private static final long serialVersionUID = 0x62A6DA99AABDA8A8L;
-
-	@Column(name = "items_id")
-	@GeneratedValue(strategy = GenerationType.AUTO)
-	@Id
 	private Long itemId;
 
-	@Column(name = "items_name")
 	private String itemName;
 
-	@Column(name = "length")
 	private Integer length;
 
-	@Column(name = "width")
 	private Integer width;
 
-	@Column(name = "size")
 	private String size;
 
-	@Column(name = "rate")
 	private Integer rate;
 
-	@Column(name = "pc")
 	private String per;
 
-	@Column(name = "stock")
 	private Integer stock;
 
-	@Column(name = "rent_per_day")
 	private Integer rentPerDay;
 	
-	@Column(name = "received")
 	private Integer received;
 
-	@Column(name = "issued")
 	private Integer issued;
 	
-	@Column(name = "purchased")
 	private Integer purchased;
 
-	@Column(name = "shortage")
 	private Integer shortage;
 	
-	@Column(name = "breakage")
 	private Integer breakage;
-	 
 
 	public Long getItemId() {
 		return itemId;
@@ -77,14 +45,6 @@ public class ItemStatus implements Serializable {
 
 	public void setItemName(String itemName) {
 		this.itemName = itemName;
-	}
-
-	public Integer getStock() {
-		return stock;
-	}
-
-	public void setStock(Integer stock) {
-		this.stock = stock;
 	}
 
 	public Integer getLength() {
@@ -127,6 +87,14 @@ public class ItemStatus implements Serializable {
 		this.per = per;
 	}
 
+	public Integer getStock() {
+		return stock;
+	}
+
+	public void setStock(Integer stock) {
+		this.stock = stock;
+	}
+
 	public Integer getRentPerDay() {
 		return rentPerDay;
 	}
@@ -134,7 +102,7 @@ public class ItemStatus implements Serializable {
 	public void setRentPerDay(Integer rentPerDay) {
 		this.rentPerDay = rentPerDay;
 	}
-	
+
 	public Integer getReceived() {
 		return received;
 	}
@@ -166,7 +134,7 @@ public class ItemStatus implements Serializable {
 	public void setShortage(Integer shortage) {
 		this.shortage = shortage;
 	}
- 
+
 	public Integer getBreakage() {
 		return breakage;
 	}
@@ -174,12 +142,11 @@ public class ItemStatus implements Serializable {
 	public void setBreakage(Integer breakage) {
 		this.breakage = breakage;
 	}
-	
-	public ItemStatus() {
-		// 0-param constructor
+
+	public ItemStatusDto() {
 	}
 
-	public ItemStatus(Long itemId, String itemName, Integer length,
+	public ItemStatusDto(Long itemId, String itemName, Integer length,
 			Integer width, String size, Integer rate, String per,
 			Integer stock, Integer rentPerDay, Integer received,
 			Integer issued, Integer purchased, Integer shortage,
@@ -202,7 +169,7 @@ public class ItemStatus implements Serializable {
 
 	@Override
 	public String toString() {
-		return "ItemStatus [itemId=" + itemId + ", itemName=" + itemName
+		return "ItemStatusDto [itemId=" + itemId + ", itemName=" + itemName
 				+ ", length=" + length + ", width=" + width + ", size=" + size
 				+ ", rate=" + rate + ", per=" + per + ", stock=" + stock
 				+ ", rentPerDay=" + rentPerDay + ", received=" + received
@@ -210,8 +177,4 @@ public class ItemStatus implements Serializable {
 				+ ", shortage=" + shortage + ", breakage=" + breakage + "]";
 	}
 
-	
-
-	 
-	 
 }

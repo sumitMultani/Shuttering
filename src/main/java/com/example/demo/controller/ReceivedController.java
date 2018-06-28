@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.example.demo.dto.ItemReceivedDto;
@@ -26,8 +27,9 @@ public class ReceivedController {
 	}
 	
 	@RequestMapping(value = "/register", method = RequestMethod.GET)
-	public List<ItemReceived> getReceivedItem() {
-		return receivedService.getReceivedRegister();
+	public List<ItemReceived> getReceivedItem(@RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate, 
+			@RequestParam(required = false) String partyName, @RequestParam(required = false) String fatherName, @RequestParam(required = false) String itemName ) {
+		return receivedService.getReceivedRegister(startDate, endDate, partyName,  fatherName,  itemName);
 	}
  
 	@RequestMapping(value = "/filter/{startDate}/{endDate}", method = RequestMethod.GET )

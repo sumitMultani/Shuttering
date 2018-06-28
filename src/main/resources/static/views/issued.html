@@ -48,7 +48,6 @@ $(function(){
    			<label>Transaction type</label> 
 			<select id ="transactionType" ng-model="itemIssuedDto.transactionType" class="form-control input-sm">
   				<option value="issued" >Issued</option>
- 				<option value="received" >Received</option>
 			</select>
     </div>
     <div class="form-group col-xs-3">
@@ -65,7 +64,7 @@ $(function(){
      </div>
      <div class="form-group col-xs-3">
      <label >Father Name</label>
-    		<select ng-model="itemIssuedDto.fatherName"  ng-options="accountFatherName for accountFatherName in accountFatherNames"  class="form-control input-sm" ng-click="getAccountFatherNames()" >
+    		<select ng-model="itemIssuedDto.fatherName"  ng-options="accountFatherName for accountFatherName in accountFatherNames"  class="form-control input-sm" ng-click="getAccountFatherNames(itemIssuedDto.partyName)" >
     		<option value="">Select Account</option>
     		<option value="itemIssuedDto.fatherName">{{accountFatherName}}</option>
 			</select>
@@ -79,7 +78,7 @@ $(function(){
      </div>
       <div class="form-group col-xs-3">
       <label>Size</label> 
-			<select ng-model="itemIssuedDto.size"  ng-options="item for item in itemSizes" ng-click="getItemSizes()"  class="form-control input-sm">
+			<select ng-model="itemIssuedDto.size"  ng-options="item for item in itemSizes" ng-click="getItemSizes(itemIssuedDto.itemName)"  class="form-control input-sm">
     		<option value="">Select Size</option>
     		<option value="itemIssuedDto.size">{{item}}</option>
 			</select> 

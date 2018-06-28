@@ -3,6 +3,7 @@ package com.example.demo.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -34,9 +35,9 @@ public class AccountController {
 		return accountService.getAccountNames();
 	}
 	
-	@RequestMapping(value = "/fathernames",method = RequestMethod.GET)
-	public List<String> getAccountFatherNames() {
-		return accountService.getAccountFatherNames();
+	@RequestMapping(value = "/fathernames/{partyName}",method = RequestMethod.GET)
+	public List<String> getAccountFatherNames(@PathVariable String partyName) {
+		return accountService.getAccountFatherNames(partyName);
 	}
 	
 	 

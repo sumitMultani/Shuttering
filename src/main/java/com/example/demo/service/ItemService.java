@@ -19,7 +19,7 @@ public interface ItemService {
 	ItemStatus updateItem(ItemStatusDto itemDto, Long itemId, Integer receivedQuantity, Integer issuedQuantity);
 	ItemStatus addTempItem(ItemStatusDto itemDto);
 	Set<String> getNames();
-	List<String> getSizes();
+	List<String> getSizes(String itemName);
 	Integer getQuantity(String itemName);
 	Set<ItemDto> getTotalStockItems();
 	List<ItemDto> getItemsByName(String itemName);

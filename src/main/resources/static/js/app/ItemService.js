@@ -47,20 +47,43 @@ angular.module('demo.services', []).factory('ItemService',
 		        return $http.get(CONSTANTS.getAccountNames);
 		    }
 			
-			service.getAccountFatherNames = function() {
-		        return $http.get(CONSTANTS.getAccountFatherNames);
+			service.getIssuedAccountNames = function() {
+		        return $http.get(CONSTANTS.getIssuedAccountNames);
+		    }
+			
+			service.getAccountFatherNames = function(partyName) {
+		        return $http.get(CONSTANTS.getAccountFatherNames+partyName);
+		    }
+			
+			service.getIssuedAccountFatherNames = function(partyName) {
+		        return $http.get(CONSTANTS.getIssuedAccountFatherNames+partyName);
 		    }
 			
 			service.getItemNames = function() {
 		        return $http.get(CONSTANTS.getItemNames);
 		    }
 			
-			service.getItemSizes = function() {
-		        return $http.get(CONSTANTS.getItemSizes);
+			service.getIssuedItemNames = function() {
+		        return $http.get(CONSTANTS.getIssuedItemNames);
 		    }
+			
+			service.getItemSizes = function(itemName) {
+		        return $http.get(CONSTANTS.getItemSizes+itemName);
+		    }
+			
+			service.getIssuedItemSizes = function(itemName) {
+		        return $http.get(CONSTANTS.getIssuedItemSizes+itemName);
+		    }
+			
+			
 			service.getItemSites = function() {
 		        return $http.get(CONSTANTS.getItemSites);
 		    }
+			
+			service.getIssuedItemSites = function(partyname, fathername) {
+		        return $http.get(CONSTANTS.getIssuedItemSites+partyname+"/"+fathername);
+		    }
+			
 			service.saveIssuedItem = function(issuedItems) {
 				return $http.post(CONSTANTS.saveIssuedItem, issuedItems);
 			}
@@ -77,12 +100,48 @@ angular.module('demo.services', []).factory('ItemService',
 		        return $http.get(CONSTANTS.getItemExcessQuantity+itemName);
 		    }
 			
-			service.getIssuedRegister = function(itemName) {
-		        return $http.get(CONSTANTS.getIssuedRegister);
+			service.getIssuedRegister = function(startDate, endDate, partyName, fatherName, itemName) {
+				var url = CONSTANTS.getIssuedRegister;
+				if(startDate == undefined ){
+					startDate = null;
+				}if(endDate == undefined ){
+					endDate = null;
+				}if(partyName == undefined ){
+					partyName = null;
+				}if(fatherName == undefined ){ 
+					fatherName = null;
+				}if(itemName == undefined  ){ 
+					itemName = null;
+				} 
+				url = url.replace('sdate', startDate);
+				url = url.replace('edate', endDate);
+				url = url.replace('pname', partyName);
+				url = url.replace('fname', fatherName);
+				url = url.replace('iname', itemName);
+				 
+		        return $http.get(url);
 		    }
 			
-			service.getReceivedRegister = function(itemName) {
-		        return $http.get(CONSTANTS.getReceivedRegister);
+			service.getReceivedRegister = function(fromDate, toDate, partyName, fatherName, itemName) {
+				var url = CONSTANTS.getReceivedRegister;
+				if(startDate == undefined ){
+					startDate = null;
+				}if(endDate == undefined ){
+					endDate = null;
+				}if(partyName == undefined ){
+					partyName = null;
+				}if(fatherName == undefined ){ 
+					fatherName = null;
+				}if(itemName == undefined  ){ 
+					itemName = null;
+				} 
+				url = url.replace('sdate', startDate);
+				url = url.replace('edate', endDate);
+				url = url.replace('pname', partyName);
+				url = url.replace('fname', fatherName);
+				url = url.replace('iname', itemName);
+				 
+		        return $http.get(url);
 		    }
 			
 			service.getPendencyReport = function(partyName, fatherName, itemName, size, site) {

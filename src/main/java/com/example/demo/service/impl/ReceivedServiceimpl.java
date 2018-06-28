@@ -79,8 +79,8 @@ public class ReceivedServiceimpl implements ReceivedService {
 					// save items to received item
 					Integer totalIssuedQuantity = 0;
 					Integer totalReceivedQuantity = 0;
-					List<ItemIssued> itemIssueds = issuedRepositry.findByItemNameAndPartyNameAndFatherName(itemReceivedDto.getItemName(),itemReceivedDto.getPartyName(), itemReceivedDto.getFatherName());
-					for(ItemIssued itemIssued : itemIssueds)
+					List<ItemIssued> ItemReceived = issuedRepositry.findByItemNameAndPartyNameAndFatherName(itemReceivedDto.getItemName(),itemReceivedDto.getPartyName(), itemReceivedDto.getFatherName());
+					for(ItemIssued itemIssued : ItemReceived)
 						totalIssuedQuantity = totalIssuedQuantity + itemIssued.getQuantity();
 					
 					List<ItemReceived> itemReceiveds = receivedRepositry.findByItemNameAndPartyNameAndFatherName(itemReceivedDto.getItemName(),itemReceivedDto.getPartyName(), itemReceivedDto.getFatherName());
@@ -116,17 +116,53 @@ public class ReceivedServiceimpl implements ReceivedService {
 		// update stock status for Received items.
 		//stock_status	
 			if(receivedItems == null || receivedItems.isEmpty())
-				throw new RuntimeException("Invalid Request Data not Accepted. Please Check PartyName or Item Quantity.");
+				throw new RuntimeException("Invalid Request Data not Accepted. Please Check Item Quantity.");
 		return receivedItems;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<ItemReceived> getReceivedRegister() {
+	public List<ItemReceived> getReceivedRegister(String startDate, String endDate, String partyName,  String fatherName,  String itemName  ) {
 		
-		Session session = sessionFactory.openSession();
-		Criteria issuedCriteria = session.createCriteria(ItemReceived.class);
-		return issuedCriteria.list();
+		if(startDate != null && (!startDate.contains("null") || !startDate.trim().contains("")))
+			startDate = util.dateConverter(startDate);
+		else 
+			startDate = null;
+		if(endDate != null && (!endDate.contains("null") || !endDate.trim().contains("")))
+			endDate = util.dateConverter(endDate);
+		else
+			endDate = null;
+		 if(partyName.contains("null"))
+			 partyName = null;
+		 if(fatherName.contains("null"))
+			 fatherName = null;
+		 if(itemName.contains("null"))
+			 itemName = null;
+		         
+		List<ItemReceived> ItemReceived = new ArrayList<ItemReceived>();
+		if(startDate == null &&  endDate == null &&   partyName == null &&   fatherName ==null   && itemName == null) 
+			ItemReceived = receivedRepositry.findAll();
+		if(startDate != null &&  endDate == null &&   partyName == null &&   fatherName ==null   && itemName == null) 
+			ItemReceived = receivedRepositry.findAllByReceivedDateGreaterThanEqual(startDate);
+		if(startDate != null &&  endDate != null &&   partyName == null &&   fatherName ==null   && itemName == null) 
+			ItemReceived = receivedRepositry.findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqual(startDate, endDate);
+		if(startDate != null &&  endDate != null &&   partyName != null &&   fatherName ==null   && itemName == null) 
+			ItemReceived = receivedRepositry.findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndPartyName(startDate, endDate, partyName); 
+		if(startDate != null &&  endDate != null &&   partyName != null &&   fatherName != null   && itemName == null) 
+			ItemReceived = receivedRepositry.findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndPartyNameAndFatherName(startDate, endDate, partyName, fatherName); 
+		if(startDate != null &&  endDate != null &&   partyName != null &&   fatherName != null   && itemName != null) 
+			ItemReceived = receivedRepositry.findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndPartyNameAndFatherNameAndItemName(startDate, endDate, partyName, fatherName, itemName);
+		if(startDate == null &&  endDate == null &&   partyName == null &&   fatherName ==null   && itemName != null) 
+			ItemReceived = receivedRepositry.findByItemName(itemName);
+		if(startDate == null &&  endDate == null &&   partyName != null &&   fatherName == null   && itemName == null) 
+			ItemReceived = receivedRepositry.findByPartyName(partyName);
+		if(startDate == null &&  endDate == null &&   partyName == null &&   fatherName !=null   && itemName == null) 
+			ItemReceived = receivedRepositry.findByFatherName(fatherName);
+		if(startDate == null &&  endDate == null &&   partyName != null &&   fatherName != null   && itemName == null) 
+			ItemReceived = receivedRepositry.findByPartyNameAndFatherName(partyName, fatherName);
+		if(startDate == null &&  endDate == null &&   partyName != null &&   fatherName != null   && itemName != null) 
+			ItemReceived = receivedRepositry.findByPartyNameAndFatherNameAndItemName(partyName, fatherName, itemName);
+		
+		return ItemReceived;
 		
 	}
 

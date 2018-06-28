@@ -12,7 +12,7 @@ public interface IssuedService {
 
 	List<ItemIssued> saveItem(List<ItemIssuedDto> itemIssuedDtos);
 
-	List<ItemIssued> getIssuedRegister();
+	List<ItemIssued> getIssuedRegister(String startDate, String  endDate, String partyName, String fatherName, String itemName);
 
 	List<ItemIssuedDto> getIssuedFilterByDate(String startDate, String endDate);
 
@@ -23,6 +23,10 @@ public interface IssuedService {
 	List<String> getSites(String partyName, String fatherName);
 
 	List<Integer> getAvailStock(String partyName, String fatherName, String itemname, String size, String site);
+
+	List<String> getItemNames();
+
+	List<String> getItemSize(String itemname);
 
 	 
     

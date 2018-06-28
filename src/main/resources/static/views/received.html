@@ -2,7 +2,8 @@
 <html>
 <head>
 <meta charset="ISO-8859-1">
-<title>Main Page</title>
+<title>Received Item</title>
+ 
 </head>
 <script src="//code.jquery.com/jquery-1.10.2.js"></script>
 <script>
@@ -17,6 +18,8 @@ $(function(){
 <!--Remaining section-->
 	<hr />
 <div ng-app="MyApp" ng-controller="ItemController">
+
+      
 <div id="main">
 	<div class="container" ng-controller="ItemController">
 	<div align="right" style="width: 76%; height: auto ">
@@ -24,72 +27,102 @@ $(function(){
 	<a href="itemList" class="btn btn-sm btn-info" ng-click="print()">Print</a>
 	</div>
 	<br><br>
-		<div class="row">
-		<h1 style=" display: block;
+<div class="row">
+<h1 style=" display: block;
     font-size: 3em;
     margin-top: 0em;
     margin-bottom: 0em;
-    margin-left: 0em;
+    margin-left: 0.7em;
     margin-right: 0em;
     font-weight: bold;
     background-color:orange;
     color:green;">** ITEM RECEIVED **</h1>
-    <!-- <div ng-app="MyApp" ng-controller="ItemController"> -->
-    		 <table class="tableid">
-    		
-    		<tr><td><label>Date</label> 
-			<input type="date" id ="receivedDate" ng-model="itemReceivedDto.receivedDate" class="input-sm spacinglength" placeholder="Select Date" height="50" width="50"/></td>
-			<td><label>Transaction type</label> 
-			<select id ="transactionType" ng-model="itemReceivedDto.transactionType" class="input-sm spacingper" >
-  				<option value="issued" >Issued</option>
+    	<!-- <div ng-app="MyApp" ng-controller="ItemController"> -->
+<div class="container">
+  <form class="form-group">
+    <div class="form-group col-xs-3" >
+      <label for="usr">Date:</label>
+      <input type="date" id ="receivedDate" ng-model="itemReceivedDto.receivedDate"  class="form-control input-sm"  placeholder="Select Date" height="50" width="50"/>
+    </div>
+    <div class="form-group col-xs-3">
+   			<label>Transaction type</label> 
+			<select id ="transactionType" ng-model="itemReceivedDto.transactionType" class="form-control input-sm">
  				<option value="received" >Received</option>
-			</select></td>
-			<td><label>Challan No</label> 
-			<input type="text" id ="challanNo" ng-model="itemReceivedDto.challanNo" class="input-sm spacinglength" placeholder="Enter Challan No" height="50" width="50"/>
-		    </td></tr>
-    		<tr><td><label >Party Name</label>
-    		<select ng-model="itemReceivedDto.partyName"  ng-options="account for account in accountNames" ng-click="getAccountNames()" >
+			</select>
+    </div>
+    <div class="form-group col-xs-3">
+      <label>Challan No</label> 
+	  <input type="text" id ="challanNo" ng-model="itemReceivedDto.challanNo" class="form-control input-sm" placeholder="Enter Challan No" />
+    </div>
+    
+     <div class="form-group col-xs-3">
+     <label >Party Name</label>
+    		<select ng-model="itemReceivedDto.partyName"  ng-options="account for account in accountNames" class="form-control input-sm" ng-click="getIssuedAccountNames()" >
     		<option value="">Select Account</option>
     		<option value="itemReceivedDto.partyName">{{account}}</option>
 			</select>
-			</td> 
-			<input type="text" id ="itemName" ng-model="itemIssuedDto.itemName" class="input-sm spacingsitemname" placeholder="Enter Party Name" height="50" width=""/>
-			
-			 <td><label >Father Name</label>
-    		<select ng-model="itemReceivedDto.fatherName"  ng-options="accountFatherName for accountFatherName in accountFatherNames" ng-click="getAccountFatherNames()" >
+     </div>
+     <div class="form-group col-xs-3">
+     <label >Father Name</label>
+    		<select ng-model="itemReceivedDto.fatherName"  ng-options="accountFatherName for accountFatherName in accountFatherNames"  class="form-control input-sm" ng-click="getIssuedAccountFatherNames(itemReceivedDto.partyName)" >
     		<option value="">Select Account</option>
     		<option value="itemReceivedDto.fatherName">{{accountFatherName}}</option>
 			</select>
-			
-			 
-		    
-			<td><label>Item Name</label> 
-			<select ng-model="itemReceivedDto.itemName"  ng-options="item for item in itemNames" ng-click="getItemNames()" >
+     </div>
+     <div class="form-group col-xs-3">
+     <label>Item Name</label> 
+			<select ng-model="itemReceivedDto.itemName"  ng-options="item for item in itemNames" ng-click="getIssuedItemNames()"  class="form-control input-sm">
     		<option value="">Select Item</option>
     		<option value="itemReceivedDto.itemName">{{item}}</option>
-			</select></td>
-			<td> </tr>
-			<tr><td><label>Size</label> 
-			<select ng-model="itemReceivedDto.size"  ng-options="item for item in itemSizes" ng-click="getItemSizes()" >
+			</select>
+     </div>
+      <div class="form-group col-xs-3">
+      <label>Size</label> 
+			<select ng-model="itemReceivedDto.size"  ng-options="item for item in itemSizes" ng-click="getIssuedItemSizes(itemReceivedDto.itemName)"  class="form-control input-sm">
     		<option value="">Select Size</option>
     		<option value="itemReceivedDto.size">{{item}}</option>
-			</select> </td>
-			<td><label>Quantity</label>
-			<input type="text" id ="quantity" ng-model="itemReceivedDto.quantity" class="input-sm spacingwidth" placeholder="Enter Item Quantity" height="50" width="50"/>
-			</td>
-			<td><label>Excess Qty</label> 
-			<input type="text" id ="excessQuantity" ng-model="itemReceivedDto.excessQuantity" class="input-sm spacingsqft" ng-click="getReceivedItemExcessQuantity(itemReceivedDto.itemName)" placeholder="Enter Item Excess Quantity" height="50" width="50" ng-click="calculateSqFt(itemDto.length, itemDto.width)" /> 
-			</td></tr>
-			<tr><td><label>Breakage</label>
-			<input type="text" id ="breakage" ng-model="itemReceivedDto.breakage" class="input-sm spacingsrate" placeholder="Enter Breakage " height="50" width="50"/> 
-			</td>
-			<td><label>Shortage</label>
-			<input type="text" id ="shortage" ng-model="itemReceivedDto.shortage" class="input-sm spacing" placeholder="Enter Shortage" height="50" width="50" />
-    		</td></tr>
-    		</table>
+			</select> 
+     </div>
+      <div class="form-group col-xs-3">
+      <label>Quantity</label>
+			<input type="text" id ="quantity" ng-model="itemReceivedDto.quantity"   placeholder="Enter Item Quantity"  class="form-control input-sm"/>
+			
+     </div>
+      <div class="form-group col-xs-3">
+       <label>Site</label> 
+			<select ng-model="itemReceivedDto.site"  ng-options="site for site in sites" ng-click="getIssuedItemSites(itemReceivedDto.partyName,itemReceivedDto.fatherName)"  class="form-control input-sm">
+    			<option value="">Select Site</option>
+    			<option value="itemReceivedDto.site">{{site}}</option>
+		   </select>
+     </div>
+     <div class="form-group col-xs-3">
+     <label>Mobile</label>
+			<input type="text" id ="mobile"  class="form-control input-sm" ng-model="itemReceivedDto.mobile"  placeholder="Enter Mobile " /> 
+			
+     </div>
+     <div class="form-group col-xs-3">
+     <label>Remarks</label>
+			<input type="text" id ="remarks" ng-model="itemReceivedDto.remarks"  class="form-control input-sm" placeholder="Enter Remarks"  />
+     </div>
+     
+     <!-- new added -->
+     <div class="form-group col-xs-3">
+     <label>Breakage</label>
+			<input type="text" id ="remarks" ng-model="itemReceivedDto.breakage"  class="form-control input-sm" placeholder="Enter Breakage"  />
+     </div>
+     <div class="form-group col-xs-3">
+     <label>Shortage</label>
+			<input type="text" id ="remarks" ng-model="itemReceivedDto.shortage"  class="form-control input-sm" placeholder="Enter Shortage"  />
+     </div>
+     <div class="form-group col-xs-3">
+     <label>Excess Qty</label>
+			<input type="text" id ="remarks" ng-model="itemReceivedDto.excessQuantity"  class="form-control input-sm" placeholder="Enter ExcessQuantity"  />
+     </div>
+  </form>
+</div>
     		<br>
-    		<button style="position: static;" ng-click="AddReceivedItem()" class="btn btn-sm btn-info">ADD ITEM</button>
-    		<!-- <button style="position: static;" ng-click="addIssuedItem(itemIssuedDto)" class="btn btn-sm btn-info">Add Item</button> -->
+    		<button style="position: static;" ng-click="AddReceivedItem()" class="btn btn-sm btn-info"> + ADD ITEM</button>
+    		<!-- <button style="position: static;" ng-click="addIssuedItem(itemReceivedDto)" class="btn btn-sm btn-info">Add Item</button> -->
     		<br><br>
         	<table class="table">
             <tr>
@@ -98,9 +131,12 @@ $(function(){
                 <th width="135">Item Name</th>
                 <th width="135">Size</th>
                 <th width="135">Quantity</th>
-                <th width="135">Excess Quantity</th>
-                <th width="135">Breakage</th>
+                <th width="135">Site</th>
+                <th width="135">Mobile</th>
                 <th width="135">Shortage</th>
+                <th width="135">Breakage</th>
+                <th width="135">ExcessQuantity</th>
+                <th width="135">Remarks</th>
                 <th width="70">Action</th>
             </tr>
             <tbody ng-repeat="itemReceived in ReceivedItems">
@@ -110,70 +146,22 @@ $(function(){
                     <td>{{itemReceived.itemName}}</td>
                     <td>{{itemReceived.size}}</td>
                     <td>{{itemReceived.quantity}}</td>
-                    <td>{{itemReceived.excessQuantity}}</td>
-                    <td>{{itemReceived.breakage}}</td>
+                    <td>{{itemReceived.site}}</td>
+                    <td>{{itemReceived.mobile}}</td>
                     <td>{{itemReceived.shortage}}</td>
+                    <td>{{itemReceived.breakage}}</td>
+                    <td>{{itemReceived.excessQuantity}}</td>
+                    <td>{{itemReceived.remarks}}</td>
                     <td><input type="button" ng-click="Remove($index)" value="Remove" /></td>
                 </tr>
             </tbody>
             <tfoot>
                 <tr>
-                    <!-- <td><input type="text" ng-model="Name" /></td>
-                    <td><input type="text" ng-model="Country" /></td>
-                    <td><input type="button" ng-click="Add()" value="Add" /></td>  -->
                 </tr>
             </tfoot>
         </table>
     </div>
-			<!-- <label >ITEM NAME</label>
-			<input type="text" id ="itemName" ng-model="itemDto.itemName" class="input-sm spacingsitemname" placeholder="Enter Item Name" height="50" width=""/>
-			<br><br>
-			<label>LENGTH</label> 
-			<input type="text" id ="length" ng-model="itemDto.length" class="input-sm spacinglength" placeholder="Enter Item length" height="50" width="50"/>
-			<label>WIDTH</label>
-			<input type="text" id ="width" ng-model="itemDto.width" class="input-sm spacingwidth" placeholder="Enter Item width" height="50" width="50"/>
-			<label>SQ. FT.</label> 
-			<input type="text" id ="squareFt" ng-model="itemDto.squareFeet" class="input-sm spacingsqft" placeholder="Enter Item Square Feet" height="50" width="50" ng-click="calculateSqFt(itemDto.length, itemDto.width)" /> 
-			<br><br>
-			<label>RATE</label>
-			<input type="text" id ="rate" ng-model="itemDto.rate" class="input-sm spacingsrate" placeholder="Enter Item rate" height="50" width="50"/> 
-			<label>PER</label> 
-			<select id ="per" ng-model="itemDto.per" class="input-sm spacingper" >
-  				<option value="piece" >Piece</option>
- 				<option value="foot" >Foot</option>
-			</select>
-			<input type="text" ng-model="itemDto.piece" class="input-sm spacingper" placeholder="select" height="50" width="50" />
-			<label>STOCK[Pcs]</label>
-			<input type="text" id ="stock" ng-model="itemDto.quantity" class="input-sm spacing" placeholder="Stocks" height="50" width="50" />
-			<br> <br>
-			<label>BROKER CHARGES</label>
-			<input type="text" id ="brokerCharges" ng-model="itemDto.brokerCharges" class="input-sm spacing" placeholder="Enter broker charges" height="50" width="50" /> 
-			<label>RENT PER DAY</label>
-			<input type="text" id ="rentPerDay" ng-model="itemDto.rentPerDay" class="input-sm spacing" placeholder="Enter rent per day" height="50" width="50" ng-click="calculateRentPerDay(itemDto.rate)"/>
-			<hr/>
-			<button style="position: static;" ng-click="addTempItem(itemDto)" class="btn btn-sm btn-info">ADD ITEM</button>
-			<hr>
-			show data in table format
-			<table>
-				<thead>
-					<tr>
-						<th width="175">Item ID</th>
-						<th width="175">Item Name</th>
-						<th width="175">square feet</th>
-						<th width="175">Broker charges</th>
-						<th width="175">Stock[Pcs])</th>
-					</tr>
-				</thead>
-				<tbody>
-					<tr ng-repeat="item in itemDto">
-						<td ng-bind="item.itemId"  width="175"></td>
-						<td ng-bind="item.itemName" width="175"></td>
-						<td ng-bind="item.squareFeet" width="175"></td>
-						<td ng-bind="item.brokerCharges" width="175"></td>
-						<td ng-bind="item.quantity" width="175"></td>
-					</tr>
-				</tbody>
-			</table> -->
+			 
 		</div>
 	</div>
 </div>

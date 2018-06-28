@@ -12,7 +12,7 @@ public interface ReceivedService {
 
 	List<ItemReceived> saveReceivedItem(List<ItemReceivedDto> itemReceivedDtos);
 
-	List<ItemReceived> getReceivedRegister();
+	List<ItemReceived> getReceivedRegister(String startDate, String endDate, String partyName,  String fatherName,  String itemName );
 
 	List<ItemReceivedDto> getReceivedFilterByDate(String startDate, String endDate);
 

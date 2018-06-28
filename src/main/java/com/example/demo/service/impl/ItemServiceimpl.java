@@ -186,12 +186,13 @@ public class ItemServiceimpl implements ItemService {
 	}
 
 	@Override
-	public List<String> getSizes() {
+	public List<String> getSizes(String itemName) {
 		List<String> sizes = new ArrayList<String>();
 		List<ItemStatusDto> allItems = itemService.getStockStatusItems();
 		if (allItems != null && !allItems.isEmpty()) {
 			for (ItemStatusDto itemDto : allItems) {
-				sizes.add(itemDto.getSize());
+				if(itemDto.getItemName().equalsIgnoreCase(itemName))
+					sizes.add(itemDto.getSize());
 			}
 		}
 		return sizes;

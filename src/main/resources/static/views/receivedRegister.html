@@ -32,8 +32,33 @@ $(function(){
 <div id="header"></div>
 <div id="main">
 	<div class="container" ng-controller="ItemController">
+	 <div class="form-group col-xs-3" >
+      <label for="usr">From Date:</label>
+      <input type="date" id ="fromDate" ng-model="itemIssuedRegisterDto.fromDate"  class="form-control input-sm"  placeholder="Select Date" />
+    </div>
+     <div class="form-group col-xs-3" >
+      <label for="usr">TO Date:</label>
+      <input type="date" id ="toDate" ng-model="itemIssuedRegisterDto.toDate"  class="form-control input-sm"  placeholder="Select Date"/>
+    </div>
 	
-<button ng-click="receivedRegister()" class="btn btn-sm btn-info" >SHOW REGISTER DATA</button> 
+	<form class="form-group">
+	  <div class="form-group col-xs-3">
+      <label>Party Name</label> 
+	  <input type="text" id ="partyName" ng-model="itemIssuedRegisterDto.partyName" class="form-control input-sm" placeholder="Enter Party Name" />
+    </div>
+     <div class="form-group col-xs-3">
+      <label>Father Name</label> 
+	  <input type="text" id ="fatherName" ng-model="itemIssuedRegisterDto.fatherName" class="form-control input-sm" placeholder="Enter father Name"/>
+    </div>
+    
+    <div class="form-group col-xs-3">
+      <label>Item Name</label> 
+	  <input type="text" id ="itemName" ng-model="itemIssuedRegisterDto.itemName" class="form-control input-sm" placeholder="Enter Item Name" />
+    </div>
+    
+
+<button ng-click="receivedRegister(itemIssuedRegisterDto.fromDate, itemIssuedRegisterDto.toDate, itemIssuedRegisterDto.partyName, itemIssuedRegisterDto.fatherName, itemIssuedRegisterDto.itemName)" class="btn btn-sm btn-info" >SHOW REGISTER DATA</button> 
+</form>
 <div class="container">
     <div class="row">
         <div class="panel panel-primary filterable">

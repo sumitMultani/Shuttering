@@ -3,8 +3,6 @@ package com.example.demo.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.hibernate.Criteria;
-import org.hibernate.Session;
 import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -91,12 +89,49 @@ public class IssuedServiceimpl implements IssuedService {
 		return items;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
-	public List<ItemIssued> getIssuedRegister() {
-		Session session = sessionFactory.openSession();
-		Criteria issuedCriteria = session.createCriteria(ItemIssued.class);
-		return issuedCriteria.list();
+	public List<ItemIssued> getIssuedRegister(String startDate, String  endDate, String partyName, String fatherName, String itemName) {
+		
+		if(startDate != null && (!startDate.contains("null") || !startDate.trim().contains("")))
+			startDate = util.dateConverter(startDate);
+		else 
+			startDate = null;
+		if(endDate != null && (!endDate.contains("null") || !endDate.trim().contains("")))
+			endDate = util.dateConverter(endDate);
+		else
+			endDate = null;
+		 if(partyName.contains("null"))
+			 partyName = null;
+		 if(fatherName.contains("null"))
+			 fatherName = null;
+		 if(itemName.contains("null"))
+			 itemName = null;
+		         
+		List<ItemIssued> itemIssueds = new ArrayList<ItemIssued>();
+		if(startDate == null &&  endDate == null &&   partyName == null &&   fatherName ==null   && itemName == null) 
+			itemIssueds = itemIssuedRepository.findAll();
+		if(startDate != null &&  endDate == null &&   partyName == null &&   fatherName ==null   && itemName == null) 
+			itemIssueds = itemIssuedRepository.findAllByIssuedDateGreaterThanEqual(startDate);
+		if(startDate != null &&  endDate != null &&   partyName == null &&   fatherName ==null   && itemName == null) 
+			itemIssueds = itemIssuedRepository.findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqual(startDate, endDate);
+		if(startDate != null &&  endDate != null &&   partyName != null &&   fatherName ==null   && itemName == null) 
+			itemIssueds = itemIssuedRepository.findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqualAndPartyName(startDate, endDate, partyName); 
+		if(startDate != null &&  endDate != null &&   partyName != null &&   fatherName != null   && itemName == null) 
+			itemIssueds = itemIssuedRepository.findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqualAndPartyNameAndFatherName(startDate, endDate, partyName, fatherName); 
+		if(startDate != null &&  endDate != null &&   partyName != null &&   fatherName != null   && itemName != null) 
+			itemIssueds = itemIssuedRepository.findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqualAndPartyNameAndFatherNameAndItemName(startDate, endDate, partyName, fatherName, itemName);
+		if(startDate == null &&  endDate == null &&   partyName == null &&   fatherName ==null   && itemName != null) 
+			itemIssueds = itemIssuedRepository.findByItemName(itemName);
+		if(startDate == null &&  endDate == null &&   partyName != null &&   fatherName == null   && itemName == null) 
+			itemIssueds = itemIssuedRepository.findByPartyName(partyName);
+		if(startDate == null &&  endDate == null &&   partyName == null &&   fatherName !=null   && itemName == null) 
+			itemIssueds = itemIssuedRepository.findByFatherName(fatherName);
+		if(startDate == null &&  endDate == null &&   partyName != null &&   fatherName != null   && itemName == null) 
+			itemIssueds = itemIssuedRepository.findByPartyNameAndFatherName(partyName, fatherName);
+		if(startDate == null &&  endDate == null &&   partyName != null &&   fatherName != null   && itemName != null) 
+			itemIssueds = itemIssuedRepository.findByPartyNameAndFatherNameAndItemName(partyName, fatherName, itemName);
+		
+		return itemIssueds;
 	}
 
 	@Override
@@ -186,6 +221,27 @@ public class IssuedServiceimpl implements IssuedService {
 		stockAvail.add(stockBal);
 		stockAvail.add(siteBal);
 		return stockAvail;
+	}
+
+	@Override
+	public List<String> getItemNames() {
+		List<String> names = new ArrayList<String>();
+		List<PendencyReportDto> pendencyReportList = pendencyService.getPendencyReport(null, null,null, null, null);
+		pendencyReportList.forEach(pendencyReport -> {
+			names.add(pendencyReport.getItemName());
+		});
+		return names;
+	}
+
+	@Override
+	public List<String> getItemSize(String itemname) {
+		List<String> names = new ArrayList<String>();
+		List<PendencyReportDto> pendencyReportList = pendencyService.getPendencyReport(null, null,null, null, null);
+		pendencyReportList.forEach(pendencyReport -> {
+			if(pendencyReport.getItemName().equalsIgnoreCase(itemname))
+				names.add(pendencyReport.getSize());
+		});
+		return names;
 	}
 
 	 

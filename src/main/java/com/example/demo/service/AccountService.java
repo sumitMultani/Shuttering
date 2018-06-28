@@ -16,7 +16,7 @@ public interface AccountService {
 
 	List<String> getAccountNames();
 
-	List<String> getAccountFatherNames();
+	List<String> getAccountFatherNames(String partyName);
 
     
 }

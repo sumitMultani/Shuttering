@@ -65,8 +65,8 @@ public class ItemController {
 	}
 	
 	@RequestMapping(value = Constants.ITEM_SIZES,  method = RequestMethod.GET)
-	public List<String> getItemSizes() {
-		return itemService.getSizes();
+	public List<String> getItemSizes(@PathVariable String itemName) {
+		return itemService.getSizes(itemName);
 	}
 	
 	@RequestMapping(value = Constants.EXCESS_QUANTITY,  method = RequestMethod.GET)

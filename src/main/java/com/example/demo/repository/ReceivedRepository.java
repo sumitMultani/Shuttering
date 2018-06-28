@@ -36,4 +36,18 @@ public interface ReceivedRepository extends JpaRepository<ItemReceived, Long>{
 	public List<ItemReceived> findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndSite(String startDate,String endDate,String site);
 
 	public List<ItemReceived> findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndItemNameAndSite(String startDate,String endDate,String itemName,String site);
+
+	public List<ItemReceived> findAllByReceivedDateGreaterThanEqual(String startDate);
+	
+	public List<ItemReceived> findAllByReceivedDateGreaterThanEqualAndReceivedDateLessThanEqualAndPartyNameAndFatherNameAndItemName(String startDate, String endDate, String partyName,String fatherName, String itemName);
+	
+	public List<ItemReceived> findByItemName(String itemName);
+	
+	public List<ItemReceived> findByPartyName(String partyName);
+	
+	public List<ItemReceived> findByFatherName(String fatherName);
+	
+	public List<ItemReceived> findByPartyNameAndFatherName(String partyName, String fatherName);
+	
+	public List<ItemReceived> findByPartyNameAndFatherNameAndItemName(String partyName, String fatherName, String itemName);
 }

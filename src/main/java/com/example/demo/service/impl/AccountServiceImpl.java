@@ -44,13 +44,14 @@ public class AccountServiceImpl implements AccountService {
 	}
 
 	@Override
-	public List<String> getAccountFatherNames() {
+	public List<String> getAccountFatherNames(String partyName) {
 		List<String> names = new ArrayList<String>();
 		List<AccountDto> accounts = accountRepositry.findAll().stream()
 		.map(AccountCoverter::entityToDto).collect(Collectors.toList());
 		if(accounts != null && !accounts.isEmpty()){
 			for(AccountDto accountDto : accounts){
-				names.add(accountDto.getAccountFatherName());
+				if(accountDto.getAccountName().equalsIgnoreCase(partyName))
+					names.add(accountDto.getAccountFatherName());
 			}
 		}
 		return names;

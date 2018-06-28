@@ -14,7 +14,8 @@ import com.example.demo.entity.ItemIssued;
 public interface IssuedRepository extends JpaRepository<ItemIssued, Long>{
 	
 	//public List<ItemIssued> findByIssuedDate(String startDate);
- 
+	public List<ItemIssued> findAllByIssuedDateGreaterThanEqual (String startDate );
+	
 	public List<ItemIssued> findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqual(String startDate, String endDate);
 	
 	public List<ItemIssued> findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqualAndItemName(String startDate, String endDate, String itemName);
@@ -28,6 +29,8 @@ public interface IssuedRepository extends JpaRepository<ItemIssued, Long>{
 	public List<ItemIssued> findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqualAndItemNameAndPartyNameAndFatherName(String startDate, String endDate, String itemName, String partyName, String fatherName);
 	
 	public List<ItemIssued> findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqualAndPartyNameAndFatherName(String startDate, String endDate, String partyName, String fatherName);
+	
+	public List<ItemIssued> findAllByIssuedDateGreaterThanEqualAndIssuedDateLessThanEqualAndPartyNameAndFatherNameAndItemName(String startDate, String endDate, String partyName, String fatherName,String itemName);
 	
 	public List<ItemIssued> findByPartyName(String partyName);
 	
